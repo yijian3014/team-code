@@ -7,13 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
 
-    <style type="text/css">
-        .auto-style1 {
-            width: 80%;
-            float: none;
-        }
-    </style>
-
 </head>
 <body>
     <form id="form1" runat="server" style="width:950px";>
@@ -60,22 +53,29 @@
            </tr>
       <tr>
                <td colspan="3">  
-            <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" />
+            <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" OnClick="Button1_Click" />
             <asp:Button ID="Button2" runat="server" Text="取消" Width="99px" />
 </td> 
       </tr>
  </table>  
         </div>
         
-<div style="text-align:center;margin:0 auto;" class="auto-style1">
+<div style="text-align:center;margin:0 auto;width:80%;float:none;" >
     
         <asp:Label ID="Label2" runat="server" Text="相关考核汇总" Font-Bold="True" Font-Size="Larger"></asp:Label>
 <hr  /> 
 
 </div>
-  
+        <div style="text-align:right;margin:0 auto;float:none;width:80%;">
+            <asp:RadioButtonList ID="rbl_cx" runat="server" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" >
+                <asp:ListItem Selected="True" Value="0">总览</asp:ListItem>
+                <asp:ListItem Value="1">待办理</asp:ListItem>
+                <asp:ListItem Value="2">已办结</asp:ListItem>
+            </asp:RadioButtonList>
+
+        </div>
           <div style="width:80%;text-align:center;float:none;margin:0 auto;overflow:auto">
-         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%">
+         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         </asp:GridView>
        </div>
     </form>
