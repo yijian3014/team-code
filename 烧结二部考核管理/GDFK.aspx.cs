@@ -21,16 +21,31 @@ public partial class GDFK : System.Web.UI.Page
         GridView1.DataBind();
          }
         GDFK_BanLi.Visible = false;
+        if (rbl_cx.SelectedIndex == 1)
+        {
+            BTN_BLLC.Visible = true;
+         }
+        else
+            BTN_BLLC.Visible = false;
     }
 
     protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
     {
         if(rbl_cx.SelectedIndex==0)
+        { 
         sel_string = "select * from SJ2B_KH_KaoHe_info";
+            BTN_BLLC.Visible = false;
+        }
         if (rbl_cx.SelectedIndex == 1)
+        { 
             sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=2";
+            BTN_BLLC.Visible = true;
+}
         if (rbl_cx.SelectedIndex == 2)
+        { 
             sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>2 and cotime<>null";
+            BTN_BLLC.Visible = false;
+        }
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataBind();
     }
@@ -102,28 +117,50 @@ public partial class GDFK : System.Web.UI.Page
         }
         
         GridView1.Rows[GridView1.SelectedIndex].BackColor = System.Drawing.Color.Blue;
+//下面字段与序号一致，数据库表变，该序号应做相应调整
+      //  [ID] 0
+      //,[AppraiseID] 1
+      //,[Flow_State] 2
+      //,[UserID] 3
+      //,[UserName] 4 
+      //,[tc_DateTime] 5
+      //,[AppraiseClass] 6 
+      //,[AppraiseTime] 7
+      //,[AppraiseGroup] 8
+      //,[AppraiseContent] 9
+      //,[DJ_ReturnTime] 10 
+      //,[ClassState] 11
+      //,[ClassObjection] 12
+      //,[COTime] 13
+      //,[ChargehandOpinion] 14
+      //,[ChargehandState] 15
+      //,[Leader_1_Opinion] 16
+      //,[Leader_1_State] 17
+      //,[Leader_2_Opinion] 18
+      //,[Leader_2_State] 19
+      //,[Leader_3_Opinion] 20
+      //,[Leader_3_State] 21
 
-        
-        AppraiseID.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[0].Text;
-        Flow_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text;
-        UserName.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[2].Text;
-        tc_DataTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[3].Text;
-        AppraiseClass.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[4].Text;
-        AppraiseTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[5].Text;
-        AppraiseGroup.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[6].Text;
-        AppraiseContent.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[7].Text;
-        IS_TimeOut.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[8].Text;
-        ClassState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[9].Text;
-        ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[10].Text;
-        COTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[11].Text;
-        ChargehandOpinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
-        ChargehandState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
-        Leader_1_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[14].Text;
-        Leader_1_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[15].Text;
-        Leader_2_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[16].Text;
-        Leader_2_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[17].Text;
-        Leader_3_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[18].Text;
-        Leader_3_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[19].Text;
+    AppraiseID.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text;
+        Flow_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[2].Text;
+        UserName.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[4].Text;
+        tc_DataTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[5].Text;
+        AppraiseClass.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[6].Text;
+        AppraiseTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[7].Text;
+        AppraiseGroup.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[8].Text;
+        AppraiseContent.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[9].Text;
+        DJ_ReturnTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[10].Text;
+        ClassState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[11].Text;
+        ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
+        COTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
+        ChargehandOpinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[14].Text;
+        ChargehandState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[15].Text;
+        Leader_1_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[16].Text;
+        Leader_1_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[17].Text;
+        Leader_2_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[18].Text;
+        Leader_2_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[19].Text;
+        Leader_3_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[20].Text;
+        Leader_3_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[21].Text;
     
 
 
@@ -146,5 +183,10 @@ public partial class GDFK : System.Web.UI.Page
         String evt = Page.ClientScript.GetPostBackClientHyperlink(sender as GridView, "Select$" + e.Row.RowIndex.ToString());
         e.Row.Attributes.Add("onclick", evt);
         
+    }
+
+    protected void BTN_BLLC_Click(object sender, EventArgs e)
+    {
+        GDFK_BanLi.Visible = true;
     }
 }
