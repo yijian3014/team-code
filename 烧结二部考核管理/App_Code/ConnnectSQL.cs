@@ -23,6 +23,14 @@ public class BaseClass
         //
     }
     #region 执行SQL语句
+    public SqlDataReader datareader(string sql)
+    {
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]);
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        return dr;
+    }
     public Boolean ExecSQL(string sQueryString)
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]);
