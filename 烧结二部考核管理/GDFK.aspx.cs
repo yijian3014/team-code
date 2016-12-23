@@ -6,7 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 
-
+/// <summary>
+/// ///小作更新不作数
+/// </summary>
 public partial class GDFK : System.Web.UI.Page
 {
 
