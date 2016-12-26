@@ -26,15 +26,15 @@ public partial class Login : System.Web.UI.Page
         if (count > 0)
         {
             int UserID = Convert.ToInt32(bc.SelectSQLReturnObject("select UserID from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User")); //。
-            Session["UserName"] = UserID;
-            //Session["UserName"] = TextBoxName.Text.Trim();
+            Session["UserID"] = UserID;
+            Session["UserName"] = TextBoxName.Text.Trim();
+            Session["UserRName"] =bc.SelectSQLReturnObject("select [UserRName] from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User");
             switch (UserID/1000)
             {
                 case 1: Response.Redirect("KHLR.aspx"); break;
                 case 2: Response.Redirect("GDFK.aspx"); break; 
             }
-            Response.Write("<script> alert('登录成功！"+UserID+"')</script>");
-            //Response.Redirect("Main.aspx");
+
         }
         else
         {
