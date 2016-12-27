@@ -8,20 +8,6 @@
     <title></title>
 
 
-    <style type="text/css">
-        .auto-style1 {
-            width: 80%;
-            float: none;
-            overflow: auto;
-        }
-        .auto-style2 {
-            width: 233px;
-        }
-        .auto-style3 {
-            font-size: small;
-        }
-    </style>
-
 
 </head>
 <body>
