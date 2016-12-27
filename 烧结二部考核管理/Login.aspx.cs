@@ -29,6 +29,8 @@ public partial class Login : System.Web.UI.Page
             Session["UserID"] = UserID;
             Session["UserName"] = TextBoxName.Text.Trim();
             Session["UserRName"] =bc.SelectSQLReturnObject("select [UserRName] from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User");
+            Session["UserRule"] = bc.SelectSQLReturnObject("select [UserRole] from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User");
+
             switch (UserID/1000)
             {
                 case 1: Response.Redirect("KHLR.aspx"); break;

@@ -47,12 +47,12 @@ public partial class GDFK : System.Web.UI.Page
         }
         if (rbl_cx.SelectedIndex == 1)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=2";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=2 and AppraiseGroup='" + Session["UserRName"].ToString() + "'";
             BTN_BLLC.Visible = true;
 }
         if (rbl_cx.SelectedIndex == 2)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>2 and cotime<>null";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>2 and cotime<>'' and AppraiseGroup='" + Session["UserRName"].ToString()+"'";
             BTN_BLLC.Visible = false;
         }
  ds1=ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -137,21 +137,6 @@ public partial class GDFK : System.Web.UI.Page
 
             // Response.Write("<script>alert(" + GridView1.Rows[GridView1.SelectedIndex].Cells.Count + ")</script>");
 
-            //< columns >
-
-            //< asp:BoundField DataField = "AppraiseID" HeaderText = "考核流程ID" ></ asp:BoundField >
-            //< asp:BoundField DataField = "Flow_State" HeaderText = "流程状态" ></ asp:BoundField >
-            //< asp:BoundField DataField = "UserRName" HeaderText = "提出人" ></ asp:BoundField >
-            //< asp:BoundField DataField = "AppraiseClass" HeaderText = "考核工段" ></ asp:BoundField >
-            //< asp:BoundField DataField = "AppraiseTime" HeaderText = "提出时间" ></ asp:BoundField >
-            //< asp:BoundField DataField = "ClassState" HeaderText = "被考核工段意见" ></ asp:BoundField >
-            //< asp:BoundField DataField = "ChargehandState" HeaderText = "班组意见" ></ asp:BoundField >
-            // < asp:BoundField DataField = "Leader_1_State" HeaderText = "主管意见" ></ asp:BoundField >
-            //  < asp:BoundField DataField = "Leader_2_State" HeaderText = "书记意见" ></ asp:BoundField >
-            //  < asp:BoundField DataField = "Leader_3_State" HeaderText = "主任意见" ></ asp:BoundField >
-            //</ columns >
-
-
             //下面字段与序号一致，数据库表变，该序号应做相应调整
             //  [ID] 0
             //,[AppraiseID] 1
@@ -186,8 +171,9 @@ public partial class GDFK : System.Web.UI.Page
             AppraiseContent.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[9].Text;
             DJ_ReturnTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[10].Text;
             ClassState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[11].Text;
-            ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
-            COTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
+            COTime1.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
+            COTime.Text = COTime1.Text;
+            ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
             ChargehandOpinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[14].Text;
             ChargehandState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[15].Text;
             Leader_1_Opinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[16].Text;
@@ -205,19 +191,32 @@ public partial class GDFK : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         string sqlstr_update = "";
+        string next_step = "";
+        
+        if (ddl1_gdfk_zt.SelectedIndex == 0)
+            if(AppraiseClass.Text=="设备"|| AppraiseClass.Text == "生产")
+            next_step = "3";
+        else
+                next_step = "5";
+        else next_step = "1";
         if (GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text== "&nbsp;")
          //判断是否是第一次办理，只记录第一次办里时间。
         {
-      sqlstr_update= "update SJ2B_KH_KaoHe_info set [ClassObjection] = '"+ tb1_gdfk_yj.Text +"', [COTime]=getdate() "
-            + " where flow_state=2 and userid="+ GridView1.Rows[GridView1.SelectedIndex].Cells[3].Text
+
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text + "', [COTime]=getdate(),ClassState='"
+                      + ddl1_gdfk_zt.Text +"',flow_state = " + next_step  
+            + " where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
             + " and AppraiseID="+ GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text
-                 + "' where flow_state=2 and userid=" + GridView1.Rows[GridView1.SelectedIndex].Cells[3].Text
+                 + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= " +next_step
+                 + " where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
+
+
         ds.ExecSQL(sqlstr_update);
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataBind();
@@ -245,10 +244,11 @@ public partial class GDFK : System.Web.UI.Page
             tb1_gdfk_yj.Text = ClassObjection.Text;
         else
             tb1_gdfk_yj.Text = "";
-        if (ClassState.Text == "0")
-            ddl1_gdfkzt.SelectedIndex = 0;
+
+        if (ClassState.Text == "0"|| ClassState.Text == "&nbsp;")
+            ddl1_gdfk_zt.SelectedIndex = 0;
         else
-            ddl1_gdfkzt.SelectedIndex = 1;
+            ddl1_gdfk_zt.SelectedIndex = 1;
         if (COTime.Text == "&nbsp;")
             COTime.Text = DateTime.Now.ToString();
 
@@ -269,12 +269,13 @@ public partial class GDFK : System.Web.UI.Page
         {
             e.Row.Cells[0].Visible = false;
             e.Row.Cells[3].Visible = false;
-              e.Row.Cells[9].Visible = false;
-            e.Row.Cells[12].Visible = false;
+            e.Row.Cells[9].Visible = false;
+              e.Row.Cells[13].Visible = false;
             e.Row.Cells[14].Visible = false;
             e.Row.Cells[16].Visible = false;
             e.Row.Cells[18].Visible = false;
             e.Row.Cells[20].Visible = false;
+            
 
         }
     }
