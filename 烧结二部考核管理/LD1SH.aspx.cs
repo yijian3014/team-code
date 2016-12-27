@@ -4,11 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.Sql;
-using System.Data.SqlClient;
 using System.Data;
-using System.IO;
-public partial class ZZSH : System.Web.UI.Page
+using System.Data.SqlClient;
+
+public partial class LD1SH : System.Web.UI.Page
 {
     public static string sel_string = "select * from SJ2B_KH_KaoHe_info";
     BaseClass ds = new BaseClass();
@@ -25,14 +24,14 @@ public partial class ZZSH : System.Web.UI.Page
             GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
-          
+
             switch (Convert.ToInt16(Session["UserID"].ToString()))
             {
-                case 3001:
-                    lb="生产";
+                case 4001:
+                    lb = "生产";
                     break;
-                case 3002:
-                    lb="设备";
+                case 4002:
+                    lb = "设备";
                     break;
             }
         }
@@ -53,19 +52,19 @@ public partial class ZZSH : System.Web.UI.Page
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=3 and AppraiseClass='"+lb+ "'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=4 and AppraiseClass='" + lb + "'";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>3 and flow_state<>0 and AppraiseClass='" + lb+ "' and ChargehandState<>''";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>4 and flow_state<>0 and AppraiseClass='" + lb + "' and Leader_1_State<>''";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataSource = ds1;
 
         GridView1.DataBind();
-   }
+    }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -117,7 +116,7 @@ public partial class ZZSH : System.Web.UI.Page
             DJ_ReturnTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[10].Text;
             ClassState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[11].Text;
             COTime1.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
-            
+
             ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
             ChargehandOpinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[14].Text;
             ChargehandState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[15].Text;
@@ -138,24 +137,24 @@ public partial class ZZSH : System.Web.UI.Page
         string sqlstr_update = "";
         string next_step = "";
 
-        if (ddl1_zzsp_zt.SelectedIndex == 0)
-           
-                next_step = "4";
-           
+        if (ddl1_ld1sp_zt.SelectedIndex == 0)
+
+            next_step = "5";
+
         else next_step = "0";
         if (GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text == "&nbsp;")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text + "',[ChargehandState]='"
-                      + ddl1_zzsp_zt.Text + "',flow_state = " + next_step
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_1_Opinion] = '" + tb1_ld1sp_yj.Text + "',[Leader_1_State]='"
+                      + ddl1_ld1sp_zt.Text + "',flow_state = " + next_step
             + " where AppraiseClass='" + lb + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text
-                 + "',[ChargehandState]='" + ddl1_zzsp_zt.Text + "',flow_state= " + next_step
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_1_Opinion] = '" + tb1_ld1sp_yj.Text
+                 + "',[Leader_1_State]='" + ddl1_ld1sp_zt.Text + "',flow_state= " + next_step
                  + " where AppraiseClass='" + lb + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
@@ -185,16 +184,16 @@ public partial class ZZSH : System.Web.UI.Page
     {
         //办理流程：用于初始化待办流程窗体
         GDFK_BanLi.Visible = true;
-        if (ChargehandOpinion.Text != "&nbsp;")
-            tb1_zzsp_yj.Text = ChargehandOpinion.Text;
+        if (Leader_1_Opinion.Text != "&nbsp;")
+            tb1_ld1sp_yj.Text = Leader_1_Opinion.Text;
         else
-            tb1_zzsp_yj.Text = "";
+            tb1_ld1sp_yj.Text = "";
 
-        if (ChargehandState.Text == "同意" || ChargehandState.Text == "&nbsp;")
-            ddl1_zzsp_zt.SelectedIndex = 0;
+        if (Leader_1_State.Text == "同意" || Leader_1_State.Text == "&nbsp;")
+            ddl1_ld1sp_zt.SelectedIndex = 0;
         else
-            ddl1_zzsp_zt.SelectedIndex = 1;
-       
+            ddl1_ld1sp_zt.SelectedIndex = 1;
+
 
 
 
@@ -221,5 +220,4 @@ public partial class ZZSH : System.Web.UI.Page
     {
         GDFK_BanLi.Visible = false;
     }
-
 }

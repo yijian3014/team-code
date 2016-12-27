@@ -245,7 +245,7 @@ public partial class GDFK : System.Web.UI.Page
         else
             tb1_gdfk_yj.Text = "";
 
-        if (ClassState.Text == "0"|| ClassState.Text == "&nbsp;")
+        if (ClassState.Text == "同意"|| ClassState.Text == "&nbsp;")
             ddl1_gdfk_zt.SelectedIndex = 0;
         else
             ddl1_gdfk_zt.SelectedIndex = 1;

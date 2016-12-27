@@ -36,7 +36,9 @@ public partial class Login : System.Web.UI.Page
                 case 1: Response.Redirect("KHLR.aspx"); break;
                 case 2: Response.Redirect("GDFK.aspx"); break;
                 case 3: Response.Redirect("ZZSH.aspx"); break;
-
+                case 4: Response.Redirect("LD1SH.aspx"); break;
+                case 5: Response.Redirect("LD2SH.aspx"); break;
+                case 6: Response.Redirect("LD3SH.aspx"); break;
             }
 
         }
