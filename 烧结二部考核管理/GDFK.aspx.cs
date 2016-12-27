@@ -13,7 +13,7 @@ using System.Data;
 public partial class GDFK : System.Web.UI.Page
 {
 
-    public string sel_string = "select * from SJ2B_KH_KaoHe_info";  
+    public static  string sel_string = "select * from SJ2B_KH_KaoHe_info";  
  BaseClass ds = new BaseClass();
    public  DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
