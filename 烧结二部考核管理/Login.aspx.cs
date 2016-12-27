@@ -34,7 +34,9 @@ public partial class Login : System.Web.UI.Page
             switch (UserID/1000)
             {
                 case 1: Response.Redirect("KHLR.aspx"); break;
-                case 2: Response.Redirect("GDFK.aspx"); break; 
+                case 2: Response.Redirect("GDFK.aspx"); break;
+                case 3: Response.Redirect("ZZSH.aspx"); break;
+
             }
 
         }
