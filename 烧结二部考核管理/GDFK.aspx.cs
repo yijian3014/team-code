@@ -17,7 +17,7 @@ public partial class GDFK : System.Web.UI.Page
  BaseClass ds = new BaseClass();
    public  DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
-    SqlDataReader dr;
+    
     protected void Page_Load(object sender, EventArgs e)
     {
        if(!IsPostBack )

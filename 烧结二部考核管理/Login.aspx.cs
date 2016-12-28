@@ -39,6 +39,7 @@ public partial class Login : System.Web.UI.Page
                 case 4: Response.Redirect("LD1SH.aspx"); break;
                 case 5: Response.Redirect("LD2SH.aspx"); break;
                 case 6: Response.Redirect("LD3SH.aspx"); break;
+
             }
 
         }
@@ -52,5 +53,10 @@ public partial class Login : System.Web.UI.Page
     {
         TextBoxName.Text=null;
         TextBoxPassWord.Text = null;
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("report.aspx");
     }
 }
