@@ -6,32 +6,31 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     	<style type="text/css">
-		body{background:#f6fafe;text-align:center;}
+		body{background:#dae6ff;text-align:center;}
 		div{width:900px;margin:0 auto;background:#fff;text-align:left;
-                height: 1px;
+                height: 0px;
             }
 	</style>
     <title></title>
 </head>
 <body style="height: 1550px">
     <form id="form1" runat="server">
-    <div  style="height: 1283px; width: 900px;">
+    <div  style="height: 1476px; width: 900px;">
     
-        <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/无标题.png" />
+        <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Head.jpg" />
         <br />
-        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Image/1.png" OnClick="ImageButton1_Click" />
-        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Image/2.png" OnClick="ImageButton2_Click" />
-        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/2.png" OnClick="ImageButton3_Click" />
+        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Image/考核录入.jpg" OnClick="ImageButton1_Click" />
+        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Image/工段反馈.jpg" OnClick="ImageButton2_Click" />
+        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/考核总览.jpg" OnClick="ImageButton3_Click" />
         <br />
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
-            <asp:View ID="View1" runat="server">
+            <asp:View ID="View1" runat="server" OnLoad="View1_Load">
                 <asp:Label ID="Label1" runat="server" Text="考核提出人："></asp:Label>
                 <asp:TextBox ID="TBUserName" runat="server" MaxLength="10"></asp:TextBox>
                 <br />
                 <br />
                 <asp:Label ID="Label2" runat="server" Text="考核发生时间："></asp:Label>
-                <br />
-                <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px" SelectedDate="2016-12-21">
+                <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="333px" EnableTheming="True" FirstDayOfWeek="Monday" OnSelectionChanged="Calendar1_SelectionChanged">
                     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
                     <NextPrevStyle VerticalAlign="Bottom" />
                     <OtherMonthDayStyle ForeColor="#808080" />
@@ -41,6 +40,7 @@
                     <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
                     <WeekendDayStyle BackColor="#FFFFCC" />
                 </asp:Calendar>
+                <br />
                 <br />
                 <asp:Label ID="Label3" runat="server" Text="考核类别："></asp:Label>
                 <asp:DropDownList ID="DropDownList1" runat="server">
@@ -62,17 +62,17 @@
                 <br />
                 <asp:Label ID="Label5" runat="server" Text="考核内容："></asp:Label>
                 <br />
-                <asp:TextBox ID="TBContent" runat="server" Height="153px" TextMode="MultiLine" Width="244px"></asp:TextBox>
+                <asp:TextBox ID="TBContent" runat="server" Height="153px" TextMode="MultiLine" Width="326px" Font-Size="Medium"></asp:TextBox>
                 <br />
                 <asp:Button ID="BtAdd" runat="server" BorderStyle="Double" OnClick="BtAdd_Click" Text="提交考核" />
             </asp:View>
             <asp:View ID="View2" runat="server">
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" EnableModelValidation="True" OnRowDeleting="GridView1_RowDeleting">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" EnableModelValidation="True" OnRowDeleting="GridView1_RowDeleting" Width="900px">
                     <Columns>
                         <asp:BoundField DataField="AppraiseID" HeaderText="考核编号" />
-                        <asp:BoundField DataField="UserName" HeaderText="考核提出人" />
                         <asp:BoundField DataField="AppraiseClass" HeaderText="考核类别" />
                         <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
+                        <asp:BoundField DataField="UserName" HeaderText="考核提出人" />
                         <asp:BoundField DataField="AppraiseTime" HeaderText="考核事件发生日期" />
                         <asp:BoundField DataField="tc_DateTime" HeaderText="考核提出时间" />
                         <asp:CommandField DeleteText="详情" ShowDeleteButton="True" />
@@ -81,18 +81,30 @@
                 <asp:Label ID="Label15" runat="server" Text="Label" Visible="False"></asp:Label>
                 <br />
                 <br />
+                <asp:Label ID="Label16" runat="server" Text="月落乌啼霜满天" ForeColor="White"></asp:Label>
+                <asp:Label ID="Label21" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label12" runat="server" Text="工段反馈："></asp:Label>
                 <br />
+                <asp:Label ID="Label17" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label22" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label26" runat="server" ForeColor="White" Text="工段"></asp:Label>
                 <asp:TextBox ID="TextBox3" runat="server" Height="106px" ReadOnly="True" TextMode="MultiLine" Width="344px"></asp:TextBox>
                 <br />
                 <br />
                 <br />
+                <asp:Label ID="Label18" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label24" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label14" runat="server" Text="考核内容："></asp:Label>
                 <br />
+                <asp:Label ID="Label19" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label23" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label27" runat="server" ForeColor="White" Text="工段"></asp:Label>
                 <asp:TextBox ID="TextBox4" runat="server" Height="106px" TextMode="MultiLine" Width="344px"></asp:TextBox>
                 <br />
                 <br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="Label20" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label28" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label29" runat="server" ForeColor="White" Text="工段"></asp:Label>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="修改考核" Width="100px" />
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="放弃考核" Width="100px" />
@@ -105,13 +117,13 @@
                 <br />
             </asp:View>
             <asp:View ID="View3" runat="server">
-                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" EnableModelValidation="True" OnRowDeleting="GridView2_RowDeleting" Width="891px">
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" EnableModelValidation="True" OnRowDeleting="GridView2_RowDeleting" Width="900px">
                     <Columns>
                                                 <asp:BoundField DataField="AppraiseID" HeaderText="考核编号" />
+                                                <asp:BoundField DataField="AppraiseClass" HeaderText="考核类别" />
+                                                <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
                         <asp:BoundField DataField="UserName" HeaderText="考核提出人" />
                         <asp:BoundField DataField="tc_DateTime" HeaderText="考核提出时间" />
-                        <asp:BoundField DataField="AppraiseClass" HeaderText="考核类别" />
-                        <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
                         <asp:BoundField DataField="ClassState" HeaderText="工段意见" />
                         <asp:BoundField DataField="ChargehandState" HeaderText="组长意见" />
                         <asp:BoundField DataField="Leader_1_State" HeaderText="主管领导意见" />
