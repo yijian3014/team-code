@@ -2,6 +2,8 @@
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
+<%@ Register assembly="System.Web.Entity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" namespace="System.Web.UI.WebControls" tagprefix="asp" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,7 +34,7 @@
             <tr>
                 <td >
  <asp:Panel ID="pnl_bg_date" runat="server" Visible="False"  style="Z-INDEX: 140;width:269px;text-align:center;margin:0; POSITION: absolute; TOP:35px" HorizontalAlign="Center">
-<asp:Calendar ID="cld_bg_date" runat="server" BackColor="White"></asp:Calendar>
+<asp:Calendar ID="cld_bg_date" runat="server" BackColor="White"  OnSelectionChanged="Button4_Click"></asp:Calendar>
              <asp:Button ID="Button4" runat="server" Text="确定" OnClick="Button4_Click" />
        </asp:Panel>  
                 </td>
@@ -40,7 +42,7 @@
                   <tr>
                 <td   >
    <asp:Panel ID="pnl_ed_date" runat="server" Visible="False" style="Z-INDEX: 141;width:269px;text-align:center;margin:0; POSITION: absolute; TOP: 35px" HorizontalAlign="Center">
-  <asp:Calendar ID="cld_ed_date" runat="server" Visible="True" BackColor="White"></asp:Calendar>
+  <asp:Calendar ID="cld_ed_date" runat="server" Visible="True" BackColor="White" OnSelectionChanged="Button3_Click"></asp:Calendar>
                 <asp:Button ID="Button3" runat="server" Text="确定" OnClick="Button3_Click" />
             </asp:Panel>
                   
@@ -54,37 +56,20 @@
     <div style="text-align:center;margin:0 auto;width:95%;float:none; height:50%;">
     
         <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="800px" ShowBackButton="False" ShowFindControls="False">
-            <LocalReport ReportPath="Report1.rdlc">
+           <%-- <LocalReport ReportPath="Report1.rdlc">
                 <DataSources>
-                    <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
+                   <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                 </DataSources>
-            </LocalReport>
+            </LocalReport>--%>
            
         </rsweb:ReportViewer>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}">
-<%--            <InsertParameters>
-                <asp:Parameter Name="AppraiseID" Type="Int32" />
-                <asp:Parameter Name="Flow_State" Type="Int32" />
-                <asp:Parameter Name="UserName" Type="String" />
-                <asp:Parameter Name="tc_DateTime" Type="DateTime" />
-                <asp:Parameter Name="AppraiseClass" Type="String" />
-                <asp:Parameter Name="AppraiseTime" Type="DateTime" />
-                <asp:Parameter Name="AppraiseGroup" Type="String" />
-                <asp:Parameter Name="AppraiseContent" Type="String" />
-                <asp:Parameter Name="DJ_ReturnTime" Type="DateTime" />
-                <asp:Parameter Name="ClassState" Type="String" />
-                <asp:Parameter Name="ClassObjection" Type="String" />
-                <asp:Parameter Name="COTime" Type="DateTime" />
-                <asp:Parameter Name="ChargehandOpinion" Type="String" />
-                <asp:Parameter Name="ChargehandState" Type="String" />
-                <asp:Parameter Name="Leader_1_Opinion" Type="String" />
-                <asp:Parameter Name="Leader_1_State" Type="String" />
-                <asp:Parameter Name="Leader_2_Opinion" Type="String" />
-                <asp:Parameter Name="Leader_2_State" Type="String" />
-                <asp:Parameter Name="Leader_3_Opinion" Type="String" />
-                <asp:Parameter Name="Leader_3_State" Type="String" />
-            </InsertParameters>--%>
-        </asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter"></asp:ObjectDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dzswConnectionString %>" SelectCommand="SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN @bg_date AND @ed_date)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="tbx_bg_date" Name="bg_date" PropertyName="Text" />
+                <asp:ControlParameter ControlID="tbx_ed_date" Name="ed_date" PropertyName="Text" />
+            </SelectParameters>
+        </asp:SqlDataSource>
     
     </div>
         <asp:ScriptManager ID="ScriptManager1" runat="server">
