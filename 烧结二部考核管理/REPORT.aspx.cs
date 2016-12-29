@@ -68,15 +68,13 @@ public partial class REPORT : System.Web.UI.Page
         res.DataSourceId = "ds1";
         
         ReportViewer1.LocalReport.DataSources.Clear();
-        //ReportViewer1.LocalReport.DataSources.Add(res);
-        //ReportViewer1.LocalReport.Refresh();
+      
 
 
         string path = Path.Combine(Server.MapPath(@"\"), "Report1.rdlc");
         ReportViewer1.ProcessingMode = ProcessingMode.Local;
         ReportViewer1.LocalReport.ReportPath = path;
-        //MyProductBusiness business = new MyProductBusiness();
-        //List<Product> records = business.Search().Take(100).ToList();
+    
         ReportDataSource rptDataSource = new ReportDataSource("ds1", SqlDataSource1);
         ReportViewer1.LocalReport.DataSources.Add(rptDataSource);
         ReportViewer1.LocalReport.Refresh();
