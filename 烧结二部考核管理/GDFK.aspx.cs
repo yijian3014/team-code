@@ -13,7 +13,7 @@ using System.Data;
 public partial class GDFK : System.Web.UI.Page
 {
 
-    public static  string sel_string = "select * from SJ2B_KH_KaoHe_info";  
+    public static  string sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";  
  BaseClass ds = new BaseClass();
    public  DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -42,7 +42,7 @@ public partial class GDFK : System.Web.UI.Page
     {
         if(rbl_cx.SelectedIndex==0)
         { 
-        sel_string = "select * from SJ2B_KH_KaoHe_info";
+        sel_string = "select * from SJ2B_KH_KaoHe_info order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
@@ -184,8 +184,6 @@ public partial class GDFK : System.Web.UI.Page
             Leader_3_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[21].Text;
 
         }
-
-
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -215,9 +213,7 @@ public partial class GDFK : System.Web.UI.Page
                  + " where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
-
-
-        ds.ExecSQL(sqlstr_update);
+       ds.ExecSQL(sqlstr_update);
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataBind();
 
@@ -239,21 +235,22 @@ public partial class GDFK : System.Web.UI.Page
     protected void BTN_BLLC_Click(object sender, EventArgs e)
     {
         //办理流程：用于初始化待办流程窗体
-        GDFK_BanLi.Visible = true;
-        if (ClassObjection.Text != "&nbsp;")
-            tb1_gdfk_yj.Text = ClassObjection.Text;
+        if (GridView1.Rows.Count > 0)
+        {
+            GDFK_BanLi.Visible = true;
+            if (ClassObjection.Text != "&nbsp;")
+                tb1_gdfk_yj.Text = ClassObjection.Text;
+            else
+                tb1_gdfk_yj.Text = "";
+
+            if (ClassState.Text == "同意" || ClassState.Text == "&nbsp;")
+                ddl1_gdfk_zt.SelectedIndex = 0;
+            else
+                ddl1_gdfk_zt.SelectedIndex = 1;
+            if (COTime.Text == "&nbsp;")
+                COTime.Text = DateTime.Now.ToString(); }
         else
-            tb1_gdfk_yj.Text = "";
-
-        if (ClassState.Text == "同意"|| ClassState.Text == "&nbsp;")
-            ddl1_gdfk_zt.SelectedIndex = 0;
-        else
-            ddl1_gdfk_zt.SelectedIndex = 1;
-        if (COTime.Text == "&nbsp;")
-            COTime.Text = DateTime.Now.ToString();
-
-        
-
+            Response.Write("<script>alert('无待办项')</script>");
 
     }
 

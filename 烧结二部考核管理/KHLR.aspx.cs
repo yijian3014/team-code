@@ -172,9 +172,11 @@ public partial class KHLR : System.Web.UI.Page
     {
         string SQLstr = "update SJ2B_KH_KaoHe_info set AppraiseContent='" + TextBox4.Text + "' where ID=" + Label15.Text;
 
+
         if (bc.ExecSQL(SQLstr))
         {
-
+            SQLstr = "update SJ2B_KH_KaoHe_info set DJ_ReturnTime='" + DateTime.Now.ToString() + "' where ID=" + Label15.Text;
+            bc.ExecSQL(SQLstr);
             string AppClass = (bc.SelectSQLReturnObject("select AppraiseClass from SJ2B_KH_KaoHe_info where ID=" + Label15.Text, "SJ2B_KH_KaoHe_info")).ToString();
             if (AppClass == "其它")
             {

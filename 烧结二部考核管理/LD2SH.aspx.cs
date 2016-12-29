@@ -8,7 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 public partial class LD2SH : System.Web.UI.Page
 {
-    public static string sel_string = "select * from SJ2B_KH_KaoHe_info";
+    public static string sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -46,7 +46,7 @@ public partial class LD2SH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0  order by AppraiseClass desc ,UserName";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
@@ -179,19 +179,22 @@ public partial class LD2SH : System.Web.UI.Page
 
     protected void BTN_BLLC_Click(object sender, EventArgs e)
     {
-        //办理流程：用于初始化待办流程窗体
-        GDFK_BanLi.Visible = true;
-        if (Leader_2_Opinion.Text != "&nbsp;")
-            tb1_ld2sp_yj.Text = Leader_2_Opinion.Text;
+        if (GridView1.Rows.Count > 0)
+        {
+            //办理流程：用于初始化待办流程窗体
+            GDFK_BanLi.Visible = true;
+            if (Leader_2_Opinion.Text != "&nbsp;")
+                tb1_ld2sp_yj.Text = Leader_2_Opinion.Text;
+            else
+                tb1_ld2sp_yj.Text = "";
+
+            if (Leader_2_State.Text == "同意" || Leader_2_State.Text == "&nbsp;")
+                ddl1_ld2sp_zt.SelectedIndex = 0;
+            else
+                ddl1_ld2sp_zt.SelectedIndex = 1;
+        }
         else
-            tb1_ld2sp_yj.Text = "";
-
-        if (Leader_2_State.Text  == "同意" || Leader_2_State.Text == "&nbsp;")
-            ddl1_ld2sp_zt.SelectedIndex = 0;
-        else
-            ddl1_ld2sp_zt.SelectedIndex = 1;
-
-
+            Response.Write("<script>alert('无待办项')</script>");
 
 
 

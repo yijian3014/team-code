@@ -183,8 +183,11 @@ public partial class ZZSH : System.Web.UI.Page
 
     protected void BTN_BLLC_Click(object sender, EventArgs e)
     {
-        //办理流程：用于初始化待办流程窗体
-        GDFK_BanLi.Visible = true;
+        if (GridView1.Rows.Count > 0)
+        {
+            //办理流程：用于初始化待办流程窗体
+
+            GDFK_BanLi.Visible = true;
         if (ChargehandOpinion.Text != "&nbsp;")
             tb1_zzsp_yj.Text = ChargehandOpinion.Text;
         else
@@ -193,9 +196,10 @@ public partial class ZZSH : System.Web.UI.Page
         if (ChargehandState.Text == "同意" || ChargehandState.Text == "&nbsp;")
             ddl1_zzsp_zt.SelectedIndex = 0;
         else
-            ddl1_zzsp_zt.SelectedIndex = 1;
+            ddl1_zzsp_zt.SelectedIndex = 1; }
        
-
+  else
+            Response.Write("<script>alert('无待办项')</script>");
 
 
 
