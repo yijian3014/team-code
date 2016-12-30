@@ -22,11 +22,10 @@
               
            <asp:TextBox ID="tbx_ed_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
             <asp:Button ID="btn_ed_time" runat="server" Text="结束时间" OnClick="btn_ed_time_Click" />
-            <asp:Label ID="Label3" runat="server" Text="排序关键字："></asp:Label>
-            <asp:DropDownList ID="DropDownList1" runat="server">
-            </asp:DropDownList>
+            <asp:Label ID="Label3" runat="server" Text="查找关键字：" Visible="False"></asp:Label>
+            <asp:TextBox ID="tbx_gjz" runat="server" Visible="False"></asp:TextBox>
        
-            <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" />
+            <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" Visible="False" />
        
             </div> 
         <div style="text-align:left;margin:0 auto;width:95%;float:none; height:50%;">
@@ -35,7 +34,7 @@
                 <td >
  <asp:Panel ID="pnl_bg_date" runat="server" Visible="False"  style="Z-INDEX: 140;width:269px;text-align:center;margin:0; POSITION: absolute; TOP:35px" HorizontalAlign="Center">
 <asp:Calendar ID="cld_bg_date" runat="server" BackColor="White"  OnSelectionChanged="Button4_Click"></asp:Calendar>
-             <asp:Button ID="Button4" runat="server" Text="确定" OnClick="Button4_Click" />
+             <asp:Button ID="Button4" runat="server" Text="确定" OnClick="Button4_Click" Visible="False" />
        </asp:Panel>  
                 </td>
             </tr>
@@ -43,7 +42,7 @@
                 <td   >
    <asp:Panel ID="pnl_ed_date" runat="server" Visible="False" style="Z-INDEX: 141;width:269px;text-align:center;margin:0; POSITION: absolute; TOP: 35px" HorizontalAlign="Center">
   <asp:Calendar ID="cld_ed_date" runat="server" Visible="True" BackColor="White" OnSelectionChanged="Button3_Click"></asp:Calendar>
-                <asp:Button ID="Button3" runat="server" Text="确定" OnClick="Button3_Click" />
+                <asp:Button ID="Button3" runat="server" Text="确定" OnClick="Button3_Click" Visible="False" />
             </asp:Panel>
                   
                 </td>

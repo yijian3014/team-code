@@ -26,8 +26,8 @@ public partial class REPORT : System.Web.UI.Page
         { 
 
         tbx_bg_date.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString();
-        tbx_ed_date.Text = DateTime.Now.Date.ToShortDateString();
-           
+            tbx_ed_date.Text = DateTime.Now.Date.ToShortDateString();
+            btn_cx_Click(sender,e);
 
 }
 
@@ -50,6 +50,7 @@ public partial class REPORT : System.Web.UI.Page
         //设置开始时间
         pnl_bg_date.Visible = false;
         tbx_bg_date.Text = cld_bg_date.SelectedDate.Date.ToShortDateString();
+        btn_cx_Click(sender, e);
     }
 
     protected void Button3_Click(object sender, EventArgs e)
@@ -57,31 +58,26 @@ public partial class REPORT : System.Web.UI.Page
         //设置结束时间
         pnl_ed_date.Visible = false;
         tbx_ed_date.Text = cld_ed_date.SelectedDate.Date.ToShortDateString();
+        btn_cx_Click(sender, e);
     }
 
 
 
     protected void btn_cx_Click(object sender, EventArgs e)
     {
+        if (tbx_gjz.Text == "")
+            tbx_gjz.Text = "";
         sel_string = "SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM [dzsw].[dbo].SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN '" + tbx_bg_date.Text.Trim() + "' AND '" + tbx_ed_date.Text.Trim() + "') order by AppraiseTime desc,UserName";
         ds1 = ds.GetDataSet(sel_string , "SJ2B_KH_KaoHe_info");
-        res.DataSourceId = "ds1";
-        
+        res.DataSourceId = "ds1";        
         ReportViewer1.LocalReport.DataSources.Clear();
-      
-
-
         string path = Path.Combine(Server.MapPath(@"\"), "Report1.rdlc");
         ReportViewer1.ProcessingMode = ProcessingMode.Local;
-        ReportViewer1.LocalReport.ReportPath = path;
-    
+        ReportViewer1.LocalReport.ReportPath = path;  
         ReportDataSource rptDataSource = new ReportDataSource("ds1", SqlDataSource1);
         ReportViewer1.LocalReport.DataSources.Add(rptDataSource);
         ReportViewer1.LocalReport.Refresh();
     }
 
-    protected void cld_ed_date_SelectionChanged(object sender, EventArgs e)
-    {
-
-    }
+    
 }
