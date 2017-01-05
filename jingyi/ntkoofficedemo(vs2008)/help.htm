@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NTKO OFFICE文档控件示例程序帮助文档</title>
+    <style type="text/css">
+        .style1
+        {
+            color: #FF0000;
+        }
+        body
+        {
+            background-color: #e3dfdf;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+      MSSQL 数据库表</p>
+    <h3>
+        use dzsw
+        go
+        if exists(select *
+        from sysobjects
+        where name='user_info')drop table user_info
+        create table user_info
+        (
+        id int not null IDENTITY,
+        oa_id nvarchar(20),
+        oa_id_alias nvarchar(50),
+        oa_name nvarchar(50),
+        oa_password nvarchar(50),
+        department nvarchar(50),
+        last_login_time nvarchar(50)
+        )
+        if exists(select * from sysobjects where name='cache_files')
+        drop table cache_files
+        create table cache_files
+        (
+        fl_id nvarchar(50),
+        name nvarchar(200),
+        [type] nvarchar(50),
+        last_access_time nvarchar(30),
+        is_hotfile char(1),
+        access_count decimal(20)
+        )
+        --if exists(select * from sysobjects where name='cache')
+        --drop table cache
+        --create table cache
+        --(
+        --id int not null identity,
+        --minsize decimal(20,0),
+        --maxsize decimal(20,0),
+        --size_now decimal(20,0),
+        --last_cleantime nvarchar(40)
+        --)
+        if exists(select * from sysobjects where name='user_active')
+        drop table user_active
+        create table user_active
+        (
+        id int not null identity,
+        [time] nvarchar(40),
+        [event] nvarchar(100),
+        [user_id] int ,
+        active nvarchar(200)
+        )
+    </h3>
+  
+</body>
+</html>
