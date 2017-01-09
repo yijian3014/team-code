@@ -16,6 +16,12 @@
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
 
      
+               <asp:Button ID="btn_acc_mgr" runat="server" Text="帐户管理" OnClick="btn_acc_mgr_Click" />
+
+     
+               <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />
+
+     
             </div>
         <div style="text-align:center;margin:0 auto;width:100%;float:none;" >
     

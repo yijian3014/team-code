@@ -42,8 +42,8 @@
         <asp:Button ID="Button2" runat="server" Height="22px" OnClick="Button2_Click" Text="重置" Width="59px" />
      &nbsp;
         <asp:Button ID="Button3" runat="server" Height="22px" OnClick="Button3_Click" Text="报表导出" Width="59px" />
-    
-    </div>
+     &nbsp;
+        </div>
     </form>
 </body>
 </html>

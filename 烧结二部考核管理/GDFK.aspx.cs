@@ -300,4 +300,19 @@ public partial class GDFK : System.Web.UI.Page
 
         }
     }
+
+    protected void btn_acc_mgr_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("user_mgr.aspx");
+    }
+
+    protected void btn_exit_Click(object sender, EventArgs e)
+    {
+        Session["UserID"] = "";
+        Session["UserName"] = "";
+        Session["UserRName"] = "";
+        Session["UserRule"] = "";
+
+        Response.Redirect("login.aspx");
+    }
 }
