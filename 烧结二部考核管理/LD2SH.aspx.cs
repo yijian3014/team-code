@@ -269,14 +269,15 @@ public partial class LD2SH : System.Web.UI.Page
 
         if (e.Row.Cells.Count == 22)
         {
-            e.Row.Cells[0].Visible = false;
-            e.Row.Cells[3].Visible = false;
-            e.Row.Cells[9].Visible = false;
-            e.Row.Cells[13].Visible = false;
-            e.Row.Cells[14].Visible = false;
-            e.Row.Cells[16].Visible = false;
-            e.Row.Cells[18].Visible = false;
-            e.Row.Cells[20].Visible = false;
+            ////由于数据源改为从数据库单独读取记录，所以可以方开GRIDVIEW列的显示。
+            //e.Row.Cells[0].Visible = false;
+            //e.Row.Cells[3].Visible = false;
+            //e.Row.Cells[9].Visible = false;
+            //e.Row.Cells[13].Visible = false;
+            //e.Row.Cells[14].Visible = false;
+            //e.Row.Cells[16].Visible = false;
+            //e.Row.Cells[18].Visible = false;
+            //e.Row.Cells[20].Visible = false;
 
 
         }

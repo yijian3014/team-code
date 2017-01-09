@@ -19,7 +19,7 @@
             </div>
         <div style="text-align:center;margin:0 auto;width:100%;float:none;" >
     
-        <asp:Label ID="Label2" runat="server" Text="相关考核汇总" Font-Bold="False" Font-Size="Larger"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="相关考核概览" Font-Bold="False" Font-Size="Larger"></asp:Label>
 <hr  /> 
 </div>
 
@@ -42,7 +42,7 @@
 
         </div>
           <div style="text-align:center;margin:0 auto;width:100%;">
-         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" CssClass="auto-style3" Font-Size="Small">
+         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
                  <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
                  <asp:BoundField DataField="AppraiseID" HeaderText="考核ID" />
@@ -57,7 +57,7 @@
                  <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" Visible="False" />
                  <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" />
                  <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" Visible="False" />
-                 <asp:BoundField DataField="ClassObjection" HeaderText="工段意见" SortExpression="ClassObjection" />
+                 <asp:BoundField DataField="ClassObjection" HeaderText="工段意见" SortExpression="ClassObjection" Visible="False" />
                  <asp:BoundField DataField="ChargehandOpinion" HeaderText="组长审批意见" Visible="False" />
                  <asp:BoundField DataField="ChargehandState" HeaderText="组长审批状态" />
                  <asp:BoundField DataField="Leader_1_Opinion" HeaderText="主管领导审批意见" Visible="False" />
@@ -70,25 +70,13 @@
          </asp:GridView>
        </div>
         <div style="width:100%;text-align:center;float:none;margin:0 auto;overflow:auto;">
-             <asp:Label ID="Label3" runat="server" Text="考核表单" Font-Bold="False" Font-Size="Larger"></asp:Label>
+             <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
 
         </div>
-        <%--  <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_shenhe_info() %>
+       
 
-        </div>
-
-             <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_banli_info() %>
-
-        </div>
-             <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_huizhong_info() %>
-
-        </div>--%>
-
-<div style="width:950px;height:auto;text-align:center;float:none;margin:0 auto;">
+<div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
     <table style="width:100%;text-align:left;">
         <tr >
             <td style="text-align:left; width:15%">

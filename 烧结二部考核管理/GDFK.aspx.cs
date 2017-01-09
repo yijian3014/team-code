@@ -288,14 +288,14 @@ public partial class GDFK : System.Web.UI.Page
        
             if(e.Row.Cells.Count==22)
         {
-            e.Row.Cells[0].Visible = false;
-            e.Row.Cells[3].Visible = false;
-            e.Row.Cells[9].Visible = false;
-              e.Row.Cells[13].Visible = false;
-            e.Row.Cells[14].Visible = false;
-            e.Row.Cells[16].Visible = false;
-            e.Row.Cells[18].Visible = false;
-            e.Row.Cells[20].Visible = false;
+            //e.Row.Cells[0].Visible = false;
+            //e.Row.Cells[3].Visible = false;
+            //e.Row.Cells[9].Visible = false;
+            //  e.Row.Cells[13].Visible = false;
+            //e.Row.Cells[14].Visible = false;
+            //e.Row.Cells[16].Visible = false;
+            //e.Row.Cells[18].Visible = false;
+            //e.Row.Cells[20].Visible = false;
             
 
         }
