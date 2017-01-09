@@ -122,7 +122,7 @@ public partial class LD2SH : System.Web.UI.Page
         catch (Exception er)
         {
 
-            Response.Redirect(er.Message.ToString());
+            Response.Write (er.Message.ToString());
 
         }
     }

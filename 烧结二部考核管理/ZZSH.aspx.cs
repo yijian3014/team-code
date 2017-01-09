@@ -124,7 +124,7 @@ public partial class ZZSH : System.Web.UI.Page
         catch (Exception er)
         {
 
-            Response.Redirect(er.Message.ToString());
+            Response.Write (er.Message.ToString());
 
         }
     }

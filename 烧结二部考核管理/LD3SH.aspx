@@ -14,7 +14,8 @@
                <hr  />
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
-
+ <asp:Button ID="btn_acc_mgr" runat="server" Text="帐户管理" OnClick="btn_acc_mgr_Click" />
+                  <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />
      
             </div>
         <div style="text-align:center;margin:0 auto;width:100%;float:none;" >
@@ -26,7 +27,7 @@
         <div style="text-align:right;margin:0 auto;float:none;width:100%;">
             <table style="width:100%">
                 <tr>
-                    <td style="width:50%">
+                    <td style="width:50%;text-align:left;">
    <asp:RadioButtonList ID="rbl_cx" runat="server" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" >
                 <asp:ListItem Selected="True" Value="0">总览</asp:ListItem>
                 <asp:ListItem Value="1">待办理</asp:ListItem>

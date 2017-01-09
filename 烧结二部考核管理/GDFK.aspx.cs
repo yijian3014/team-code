@@ -135,7 +135,7 @@ public partial class GDFK : System.Web.UI.Page
         catch (Exception er)
         {
 
-            Response.Redirect(er.Message.ToString());
+            Response.Write (er.Message.ToString());
 
         }
     }
@@ -303,6 +303,7 @@ public partial class GDFK : System.Web.UI.Page
 
     protected void btn_acc_mgr_Click(object sender, EventArgs e)
     {
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
         Response.Redirect("user_mgr.aspx");
     }
 

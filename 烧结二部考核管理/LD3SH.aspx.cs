@@ -122,7 +122,7 @@ public partial class LD3SH : System.Web.UI.Page
         catch (Exception er)
         {
 
-            Response.Redirect(er.Message.ToString());
+            Response.Write(er.Message.ToString());
 
         }
     }
@@ -285,4 +285,20 @@ public partial class LD3SH : System.Web.UI.Page
     {
         GDFK_BanLi.Visible = false;
     }
+    protected void btn_acc_mgr_Click(object sender, EventArgs e)
+    {
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("user_mgr.aspx");
+    }
+
+    protected void btn_exit_Click(object sender, EventArgs e)
+    {
+        Session["UserID"] = "";
+        Session["UserName"] = "";
+        Session["UserRName"] = "";
+        Session["UserRule"] = "";
+
+        Response.Redirect("login.aspx");
+    }
+
 }

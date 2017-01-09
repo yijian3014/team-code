@@ -1,10 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="USER_MGR.aspx.cs" Inherits="USER_MGR" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="USER_MGR.aspx.cs" Inherits="USER_MGR"  EnableEventValidation="false"  %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
     <title></title>
 </head>
 <body>
@@ -13,8 +14,9 @@
         <div style="text-align:right;">            
                <hr  />
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
+             
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
-
+  <asp:Button ID="btn_back" runat="server" Text="返回审核页" OnClick="btn_back_Click" />
      
             </div>
         <div style="text-align:center;margin:0 auto;width:100%;float:none;" >
@@ -40,7 +42,7 @@
 
         </div>
           <div style="text-align:center;margin:0 auto;">
-         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
+         <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" Font-Size="Small">
              <Columns>
     <asp:BoundField DataField="Id" HeaderText="ID" Visible="false"/>
                  <asp:BoundField DataField="UserId" HeaderText="用户ID" />
@@ -80,6 +82,7 @@
                      <td>
                          <asp:DropDownList ID="ddl_usr_rule" runat="server" Height="16px" Width="145px">
                              <asp:ListItem Value="1">点检</asp:ListItem>
+                             <asp:ListItem>2</asp:ListItem>
                          </asp:DropDownList>
                     </td>
                      <td>
