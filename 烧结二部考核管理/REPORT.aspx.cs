@@ -68,6 +68,7 @@ public partial class REPORT : System.Web.UI.Page
         if (tbx_gjz.Text == "")
             tbx_gjz.Text = "";
         sel_string = "SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM [dzsw].[dbo].SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN '" + tbx_bg_date.Text.Trim() + "' AND '" + tbx_ed_date.Text.Trim() + "') order by AppraiseTime desc,UserName";
+       
         ds1 = ds.GetDataSet(sel_string , "SJ2B_KH_KaoHe_info");
         res.DataSourceId = "ds1";        
         ReportViewer1.LocalReport.DataSources.Clear();

@@ -13,7 +13,7 @@
  </head>
 <body >
    
-    <form id="form1" runat="server"  style="text-align:center;width:auto 95%;margin:0 auto;height:auto 65%;" >
+    <form id="form1" runat="server"  style="text-align:center;width:auto 90%;margin:0 auto;height:auto 65%;" >
         <div style="text-align:center;margin:0 auto;"  >
            
             <asp:TextBox ID="tbx_bg_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
@@ -28,7 +28,7 @@
             <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" Visible="False" />
        
             </div> 
-        <div style="text-align:left;margin:0 auto;width:95%;float:none; height:50%;">
+        <div style="text-align:left;margin:0 auto;width:90%;float:none; height:50%;">
         <table style="text-align:left;margin:0 auto;float:none;width:30%">
             <tr>
                 <td >
@@ -52,14 +52,9 @@
   </div>
          
 
-    <div style="text-align:center;margin:0 auto;width:95%;float:none; height:50%;">
+    <div style="text-align:center;margin:0 auto;width:90%;float:none; height:50%;">
     
-        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="800px" ShowBackButton="False" ShowFindControls="False">
-           <%-- <LocalReport ReportPath="Report1.rdlc">
-                <DataSources>
-                   <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
-                </DataSources>
-            </LocalReport>--%>
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="800px" ShowBackButton="False" ShowFindControls="False" >
            
         </rsweb:ReportViewer>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter"></asp:ObjectDataSource>

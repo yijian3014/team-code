@@ -44,7 +44,7 @@
           <div style="text-align:center;margin:0 auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="80%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" CssClass="auto-style3">
              <Columns>
-                 <asp:BoundField DataField="ID" HeaderText="ID" />
+                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
                  <asp:BoundField DataField="AppraiseID" HeaderText="考核ID" />
                  <asp:BoundField DataField="Flow_State" HeaderText="流程状态" />
                  <asp:BoundField DataField="UserId" HeaderText="用户ID" Visible="False" />
@@ -54,18 +54,19 @@
                  <asp:BoundField DataField="AppraiseTime" HeaderText="考核发生时间" />
                  <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
                  <asp:BoundField DataField="AppraiseContent" HeaderText="考核内容" />
-                 <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" />
+                 <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" Visible="False" />
                  <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" />
-                 <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" />
+                 <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" Visible="False" />
                  <asp:BoundField DataField="ClassObjection" HeaderText="工段意见" SortExpression="ClassObjection" />
-                 <asp:BoundField DataField="ChargehandOpinion" HeaderText="组长审批意见" />
+                 <asp:BoundField DataField="ChargehandOpinion" HeaderText="组长审批意见" Visible="False" />
                  <asp:BoundField DataField="ChargehandState" HeaderText="组长审批状态" />
-                 <asp:BoundField DataField="Leader_1_Opinion" HeaderText="主管领导审批意见" />
+                 <asp:BoundField DataField="Leader_1_Opinion" HeaderText="主管领导审批意见" Visible="False" />
                  <asp:BoundField DataField="Leader_1_State" HeaderText="主管领导审批状态" />
-                 <asp:BoundField DataField="Leader_2_Opinion" HeaderText="书记审批意见" />
+                 <asp:BoundField DataField="Leader_2_Opinion" HeaderText="书记审批意见" Visible="False" />
                  <asp:BoundField DataField="Leader_2_State" HeaderText="书记审批状态" />
-                 <asp:BoundField DataField="Leader_3_Opinion" HeaderText="主任审批意见" />
+                 <asp:BoundField DataField="Leader_3_Opinion" HeaderText="主任审批意见" Visible="False" />
                  <asp:BoundField DataField="Leader_3_State" HeaderText="主任审批状态" />
+             
              </Columns>
          </asp:GridView>
        </div>
