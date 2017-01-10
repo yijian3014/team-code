@@ -46,17 +46,17 @@ public partial class LD3SH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0  order by AppraiseClass desc ,UserName";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'废除'  order by AppraiseClass desc ,UserName";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=6";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='文任'";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>6 and flow_state<>0 and Leader_3_State<>''";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'主任' and flow_state<>'废除' and Leader_3_State<>''";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -202,22 +202,22 @@ public partial class LD3SH : System.Web.UI.Page
 
         if (ddl1_ld3sp_zt.SelectedIndex == 0)
 
-            next_step = "7";
+            next_step = "完成";
 
-        else next_step = "0";
+        else next_step = "废除";
         if (Leader_3_Opinion.Text == "&nbsp;")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_3_Opinion] = '" + tb1_ld3sp_yj.Text + "',[Leader_3_State]='"
-                      + ddl1_ld3sp_zt.Text + "',flow_state = " + next_step
-            + " where AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+                      + ddl1_ld3sp_zt.Text + "',flow_state = '" + next_step
+            + "' where AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_3_Opinion] = '" + tb1_ld3sp_yj.Text
-                 + "',[Leader_3_State]='" + ddl1_ld3sp_zt.Text + "',flow_state= " + next_step
-                 + " where  AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+                 + "',[Leader_3_State]='" + ddl1_ld3sp_zt.Text + "',flow_state= '" + next_step
+                 + "' where  AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
 
 

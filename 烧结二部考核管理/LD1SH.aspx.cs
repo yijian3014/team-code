@@ -204,9 +204,9 @@ public partial class LD1SH : System.Web.UI.Page
 
         if (ddl1_ld1sp_zt.SelectedIndex == 0)
 
-            next_step = "5";
+            next_step = "书记";
 
-        else next_step = "0";
+        else next_step = "废除";
         if (Leader_1_Opinion.Text == "&nbsp;")
         //判断是否是第一次办理，只记录第一次办里时间。
         {

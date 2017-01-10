@@ -42,23 +42,23 @@ public partial class GDFK : System.Web.UI.Page
     {
         if(rbl_cx.SelectedIndex==0)
         { 
-        sel_string = "select * from SJ2B_KH_KaoHe_info where AppraiseGroupID='" + Session["UserID"].ToString()+ "or UserId='" + Session["UserID"].ToString() + "' order by AppraiseClass desc ,UserName ";
+        sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='被考核人' and AppraiseGroupID='" + Session["UserID"].ToString() + "'";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where flow_state='被考核人' and AppraiseGroupID='" + Session["UserID"].ToString() + "'";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'被考核人' and cotime<>'' and  AppraiseGroupID='" + Session["UserID"].ToString()+"'";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (AppraiseGroupID='" 
+                + Session["UserID"].ToString() +"' or UserId='" + Session["UserID"].ToString()
+                + "') and flow_state<>'被考核人' and cotime<>''";
             BTN_BLLC.Visible = false;
         }
-        if (rbl_cx.SelectedIndex == 3)
-       
-        ds1 =ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
-        GridView1.DataSource = ds1;             
+       ds1 =ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+        GridView1.DataSource = ds1;
         GridView1.DataBind();
         //Response.Write("<script> alert(" +ds1.Tables[0].Columns[0].ColumnName.ToString() + ")</script>");             
     }
@@ -113,7 +113,7 @@ public partial class GDFK : System.Web.UI.Page
                 AppraiseID.Text = AppraiseID_;
                 Flow_State.Text = Flow_State_;
                 UserName.Text = UserName_;
-
+                lb_tcr_usrid.Text = UserID_;
                 tc_DataTime.Text = tc_DateTime_;
                 AppraiseClass.Text = AppraiseClass_;
                 AppraiseTime.Text = AppraiseTime_;
@@ -216,34 +216,18 @@ public partial class GDFK : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         //办理流程
+        //0、废除
+        //1、考核人
+        //2、被考核人
+        //3、组长
+        //4、主管领导
+        //5、书记
+        //6、主任
+        //7、完成
+        //说明：任何人都可以发起考核。
+        //但所遵守的原则是审核得要它的上级来进行。同意则由更上级审核，不同意则打回考核提出人。
         string sqlstr_update = "";
         string next_step = "";
-        switch (Convert.ToInt16(Session["UserID"].ToString()) / 1000)
-        {
-            case 1:
-                next_step = "组长";
-                break;
-            case 2:
-                ;
-                break;
-            case 3:
-                ;
-                break;
-            case 4:
-                ;
-                break;
-            case 5:
-                ;
-                break;
-            case 6:
-                ;
-                break;
-            case 7:
-                ;
-                break;
-          
-
-        }
         if (ddl1_gdfk_zt.SelectedIndex == 0)
             if(AppraiseClass.Text=="设备"|| AppraiseClass.Text == "生产")
             next_step = "组长";//提交第三步
@@ -256,15 +240,17 @@ public partial class GDFK : System.Web.UI.Page
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text + 
                 "',kh_jiner= '"+Convert.ToDecimal(tbx_kh_jiner.Text)+
-                "[COTime]=getdate(),ClassState='"+ ddl1_gdfk_zt.Text +"',flow_state ='" + next_step  
+                "[COTime]=getdate(),ClassState='"+ ddl1_gdfk_zt.Text +"',flow_state ='" + next_step
+                  + " nextstep_usr_id='" + ddl_next_step.SelectedValue
             + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
             + " and AppraiseID="+ GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text+
-                "',kh_jiner= '" + Convert.ToDecimal(tbx_kh_jiner.Text) 
-                 + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= '" +next_step
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text
+               + "',kh_jiner= '" + Convert.ToDecimal(tbx_kh_jiner.Text)
+                 + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= '" + next_step
+                 + " nextstep_usr_id='" + ddl_next_step.SelectedValue
                  + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
@@ -307,7 +293,12 @@ public partial class GDFK : System.Web.UI.Page
             }
         else
             Response.Write("<script>alert('无待办项')</script>");
-
+        string sel_usr_inf = "select *  FROM [dzsw].[dbo].[SJ2B_KH_User] where userid='"+lb_tcr_usrid.Text
+            +"' or userid/1000= '"+(Convert.ToInt16( Session["userid"].ToString())/1000+1)+"' or userid/1000=5";
+        ddl_next_step.DataSource= ds.GetDataSet(sel_usr_inf, "SJ2B_KH_User");
+        ddl_next_step.DataValueField = "UserId";
+        ddl_next_step.DataTextField = "UserRName";
+        ddl_next_step.DataBind();
     }
 
     protected void Button2_Click(object sender, EventArgs e)
@@ -351,6 +342,7 @@ public partial class GDFK : System.Web.UI.Page
 
     protected void btn_tckh_Click(object sender, EventArgs e)
     {
-
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("KHLR.aspx");
     }
 }

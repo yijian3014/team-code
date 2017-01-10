@@ -6,27 +6,14 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 95%;
-        }
-        .auto-style2 {
-            width: 100%;
-        }
-        .auto-style3 {
-            height: 20px;
-        }
-        .auto-style4 {
-            float: none;
-            width: 100%;
-        }
-    </style>
+  
 </head>
 <body>
-    <form id="form1" runat="server" style="text-align:center;margin:0 auto;" class="auto-style1" >
+    <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
         <asp:Label ID="Label26" runat="server" Text="烧结二部考核管理" Font-Bold="True" Font-Size="Larger"></asp:Label> 
         <div style="text-align:right;">            
                <hr  />
+            <asp:Label ID="lb_tcr_usrid" runat="server" Visible="False"></asp:Label>
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
              <asp:Button ID="btn_tckh" runat="server" Text="提出考核" OnClick="btn_tckh_Click" />
@@ -39,7 +26,7 @@
 <hr  /> 
 </div>
 
-        <div style="text-align:right;margin:0 auto;" class="auto-style4">
+        <div style="text-align:right;margin:0 auto;" >
             <table style="width:100%">
                 <tr>
                     <td style="width:50%;text-align:left;">
@@ -151,7 +138,7 @@
         </table>
 
 
-    <table style="text-align:left;" class="auto-style2">
+    <table style="text-align:left;width:100%;">
         <tr >
              <td  style="width:15%;text-align:left;">
  <asp:Label ID="Label14" runat="server" Text="考核内容:"></asp:Label> 
@@ -166,7 +153,7 @@
         </table>
 
 
-    <table style="text-align:left;" class="auto-style2">
+    <table style="text-align:left;">
         <tr>
             <td style="width:15%">
  <asp:Label ID="Label19" runat="server" Text="考核金额:"></asp:Label>
@@ -197,11 +184,11 @@
         </table>
     <table style="width:100%;text-align:left;">
         <tr>
-             <td style="text-align:left;column-span:all;" class="auto-style3" >
+             <td style="text-align:left;column-span:all;"" >
  <asp:Label ID="Label17" runat="server" Text="工段意见:"></asp:Label>
             </td>
         
-             <td style="text-align:left;column-span:all;" class="auto-style3">
+             <td style="text-align:left;column-span:all;">
   <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
             </td>
             </tr>
@@ -281,10 +268,10 @@
         </tr>
     </table>
  </div>       
-        <div id="GDFK_BanLi" runat="server" style="width:950px;text-align:center;float:none;margin:0 auto;">
+        <div id="GDFK_BanLi" runat="server" style="width:100%;text-align:center;float:none;margin:0 auto;">
     <asp:Label ID="Label1" runat="server" Text="工段反馈" Font-Bold="False" Font-Size="Larger"></asp:Label>
 <hr />
-            <table style="width:100%">
+            <table style="width:100%;text-align:left;">
                 <tr>
                     <td>
  <asp:Label ID="Label10" runat="server" Text="工段反馈状态:"></asp:Label>
@@ -324,8 +311,15 @@
            </tr>
       <tr>
                <td colspan="3">  
+
+                   <asp:Label ID="Label33" runat="server" Text="下一步移交至:"></asp:Label>
+                   <asp:DropDownList ID="ddl_next_step" runat="server"></asp:DropDownList>
+
             <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" OnClick="Button1_Click" />
+
+                   
             <asp:Button ID="Button2" runat="server" Text="取消" Width="99px" OnClick="Button2_Click" />
+
 </td> 
       </tr>
  </table>  

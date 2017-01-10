@@ -48,17 +48,17 @@ public partial class ZZSH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'废除'";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=3 and AppraiseClass='"+lb+ "'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='组长' and AppraiseClass='"+lb+ "'";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>3 and flow_state<>0 and AppraiseClass='" + lb+ "' and ChargehandState<>''";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'组长' and flow_state<>0 and AppraiseClass='" + lb+ "' and ChargehandState<>''";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -205,23 +205,23 @@ public partial class ZZSH : System.Web.UI.Page
 
         if (ddl1_zzsp_zt.SelectedIndex == 0)
            
-                next_step = "4";
+                next_step = "主管领导";
            
-        else next_step = "0";
+        else next_step = "废除";
         if (ChargehandOpinion.Text == "&nbsp;")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text + "',[ChargehandState]='"
-                      + ddl1_zzsp_zt.Text + "',flow_state = " + next_step
-            + " where AppraiseClass='" + lb + "'"
+                      + ddl1_zzsp_zt.Text + "',flow_state = '" + next_step
+            + "' where AppraiseClass='" + lb + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text
-                 + "',[ChargehandState]='" + ddl1_zzsp_zt.Text + "',flow_state= " + next_step
-                 + " where AppraiseClass='" + lb + "'"
+                 + "',[ChargehandState]='" + ddl1_zzsp_zt.Text + "',flow_state= '" + next_step
+                 + "' where AppraiseClass='" + lb + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
 

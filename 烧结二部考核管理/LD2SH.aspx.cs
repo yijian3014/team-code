@@ -24,15 +24,7 @@ public partial class LD2SH : System.Web.UI.Page
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
 
-            //switch (Convert.ToInt16(Session["UserID"].ToString()))
-            //{
-            //    case 5001:
-            //        lb = "生产";
-            //        break;
-            //    case 4002:
-            //        lb = "设备";
-            //        break;
-            //}
+       
         }
         GDFK_BanLi.Visible = false;
         if (rbl_cx.SelectedIndex == 1)
@@ -46,17 +38,17 @@ public partial class LD2SH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0  order by AppraiseClass desc ,UserName";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>废除  order by AppraiseClass desc ,UserName";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=5 ";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='主管领导' ";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>5 and flow_state<>0  and Leader_2_State<>''";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'主管领导' and flow_state<>'废除'  and Leader_2_State<>''";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -203,22 +195,22 @@ public partial class LD2SH : System.Web.UI.Page
 
         if (ddl1_ld2sp_zt.SelectedIndex == 0)
 
-            next_step = "6";
+            next_step = "主任";
 
-        else next_step = "0";
+        else next_step = "废除";
         if (Leader_2_Opinion.Text == "&nbsp;")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_2_Opinion] = '" + tb1_ld2sp_yj.Text + "',[Leader_2_State]='"
-                      + ddl1_ld2sp_zt.Text + "',flow_state = " + next_step
-            + " where  AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+                      + ddl1_ld2sp_zt.Text + "',flow_state = '" + next_step
+            + "' where  AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_2_Opinion] = '" + tb1_ld2sp_yj.Text
-                 + "',[Leader_2_State]='" + ddl1_ld2sp_zt.Text + "',flow_state= " + next_step
-                 + " where AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+                 + "',[Leader_2_State]='" + ddl1_ld2sp_zt.Text + "',flow_state= '" + next_step
+                 + "' where AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
 
 
