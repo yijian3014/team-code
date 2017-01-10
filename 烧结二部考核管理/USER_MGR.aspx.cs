@@ -23,20 +23,19 @@ public partial class USER_MGR : System.Web.UI.Page
             {
                 btn_usr_add.Visible = true;
                 btn_usr_del.Visible = true; 
-                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";
-                GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
-                GridView1.DataBind();
+                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";              
               }
             else
             {
                 btn_usr_add.Visible = false;
                 btn_usr_del.Visible = false;
                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) +" order by UserID";
-                GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
-                GridView1.DataBind();
+                
              }
            login_user.Text = Session["UserRName"].ToString();
         }
+        GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
+        GridView1.DataBind();
         btn_usr_edt.Visible = true;
         if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
         {
@@ -50,8 +49,7 @@ public partial class USER_MGR : System.Web.UI.Page
             btn_usr_del.Visible = false;
         }
         GDFK_BanLi.Visible = false;
-
-
+        
     }
 
     protected void get_sing_rec(string sel_rec)
@@ -73,12 +71,12 @@ public partial class USER_MGR : System.Web.UI.Page
                 string usr_name_ = dr["UserRName"].ToString();
                 string usr_pas_ = dr["UserPassWord"].ToString();
                 string usr_rul_ = "1";
-
+               
                 tbx_usr_acc.Text = usr_acc_;
                 tbx_usr_name.Text = usr_name_;
                 ddl_usr_rule.SelectedValue =usr_rul_;
                 tbx_usr_pas.Text = usr_pas_;
-
+                lb_usr_id.Text = usr_id_;
             }
         }
         catch (Exception er)
@@ -113,52 +111,60 @@ public partial class USER_MGR : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         //确定修改
-  
+        try
+        {
             string sqlString;
-        string sql;
-        sqlString = "server=DBCLUSERVER;uid=ssc;pwd=scadmin;database=dzsw";
-        sql = "SJ2B_KH_UserInfoChange";
-        SqlConnection sqlCon = new SqlConnection(sqlString);
-        SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
-        sqlCmd.CommandType = CommandType.StoredProcedure;
-        //@UsId int, @UsNa Nvarchar(20),@UsPas Nvarchar(50), @UsRNa Nvarchar(20), @UsRo int, @n nvarchar(10)
+            string sql;
+            sqlString = "server=DBCLUSERVER;uid=ssc;pwd=scadmin;database=dzsw";
+            sql = "SJ2B_KH_UserInfoChange";
+            SqlConnection sqlCon = new SqlConnection(sqlString);
+            SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            //@UsId int, @UsNa Nvarchar(20),@UsPas Nvarchar(50), @UsRNa Nvarchar(20), @UsRo int, @n nvarchar(10)
 
-        sqlCmd.Parameters.Add("@UsId", SqlDbType.Int, 20).Value =1;
-        sqlCmd.Parameters.Add("@UsNa", SqlDbType.NVarChar,  20).Value = tbx_usr_acc.Text;
-        sqlCmd.Parameters.Add("@UsPas ", SqlDbType.NVarChar, 20).Value = tbx_usr_pas.Text;
-        sqlCmd.Parameters.Add("@UsRNa", SqlDbType.NVarChar, 20).Value = tbx_usr_name.Text;
-        sqlCmd.Parameters.Add("@UsRo", SqlDbType.Int, 20).Value = "1";
-        sqlCmd.Parameters.Add("@Method", SqlDbType.NVarChar, 20).Value = mtd;
+            sqlCmd.Parameters.Add("@UsId", SqlDbType.Int, 20).Value = lb_usr_id.Text;
+            sqlCmd.Parameters.Add("@UsNa", SqlDbType.NVarChar, 20).Value = tbx_usr_acc.Text;
+            sqlCmd.Parameters.Add("@UsPas ", SqlDbType.NVarChar, 20).Value = tbx_usr_pas.Text;
+            sqlCmd.Parameters.Add("@UsRNa", SqlDbType.NVarChar, 20).Value = tbx_usr_name.Text;
+            sqlCmd.Parameters.Add("@UsRo", SqlDbType.Int, 20).Value = "1";
+            sqlCmd.Parameters.Add("@Method", SqlDbType.NVarChar, 20).Value = mtd;
 
-        sqlCon.Open();
-      if( sqlCmd.ExecuteNonQuery()==0)
-        {
-           
-            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('信息更新成功。');</script>");       //提交成功后提示。
-        }
-        else
-        {
-            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('信息更新失败。');</script>");       //提交成功后提示。
-        }
-        sqlCon.Close();
+            sqlCon.Open();
+            if (sqlCmd.ExecuteNonQuery() != 0)
+            {
 
-        if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
-        {
-            btn_usr_add.Visible = true;
-            btn_usr_del.Visible = true;
-            sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";
-            GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
-            GridView1.DataBind();
-        }
-        else
-        {
-            btn_usr_add.Visible = false;
-            btn_usr_del.Visible = false;
-            sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + " order by UserID";
-            GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
-            GridView1.DataBind();
-        }
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('信息更新成功。');</script>");       //提交成功后提示。
+                sqlCon.Close();
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('信息更新失败。');</script>");       //提交成功后提示。
+                sqlCon.Close();
+            }
 
+
+            if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
+            {
+                btn_usr_add.Visible = true;
+                btn_usr_del.Visible = true;
+                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";
+                GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
+                GridView1.DataBind();
+            }
+            else
+            {
+                btn_usr_add.Visible = false;
+                btn_usr_del.Visible = false;
+                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + " order by UserID";
+                GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
+                GridView1.DataBind();
+            }
+        }
+        catch (Exception er)
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('信息更新失败。"+er.Message.ToString()+"');</script>");       //提交成功后提示。
+
+        }
     }
 
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -205,6 +211,7 @@ public partial class USER_MGR : System.Web.UI.Page
             tbx_usr_name.Text ="";
         ddl_usr_rule.SelectedIndex = 0;
         tbx_usr_pas.Text = "";
+        lb_usr_id.Text = "0";
 
     }
 

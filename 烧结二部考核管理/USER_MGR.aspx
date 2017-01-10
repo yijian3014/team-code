@@ -98,6 +98,7 @@
             <tr>
                <td colspan="3">  
             <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" OnClick="Button1_Click" />
+                   <asp:Label ID="lb_usr_id" runat="server" Text="0" Visible="False"></asp:Label>
             <asp:Button ID="Button2" runat="server" Text="取消" Width="99px" OnClick="Button2_Click" />
 </td> 
       </tr>
