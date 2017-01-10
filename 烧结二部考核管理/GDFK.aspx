@@ -6,14 +6,30 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 95%;
+        }
+        .auto-style2 {
+            width: 100%;
+        }
+        .auto-style3 {
+            height: 20px;
+        }
+        .auto-style4 {
+            float: none;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server" style="text-align:center;width:95%;margin:0 auto;" >
+    <form id="form1" runat="server" style="text-align:center;margin:0 auto;" class="auto-style1" >
         <asp:Label ID="Label26" runat="server" Text="烧结二部考核管理" Font-Bold="True" Font-Size="Larger"></asp:Label> 
         <div style="text-align:right;">            
                <hr  />
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
+             <asp:Button ID="btn_tckh" runat="server" Text="提出考核" OnClick="btn_tckh_Click" />
  <asp:Button ID="btn_acc_mgr" runat="server" Text="帐户管理" OnClick="btn_acc_mgr_Click" />
                   <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />
  </div>
@@ -23,15 +39,15 @@
 <hr  /> 
 </div>
 
-        <div style="text-align:right;margin:0 auto;float:none;width:100%;">
+        <div style="text-align:right;margin:0 auto;" class="auto-style4">
             <table style="width:100%">
                 <tr>
-                    <td style="width:50%">
+                    <td style="width:50%;text-align:left;">
    <asp:RadioButtonList ID="rbl_cx" runat="server" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" >
                 <asp:ListItem Selected="True" Value="0">总览</asp:ListItem>
                 <asp:ListItem Value="1">待办理</asp:ListItem>
                 <asp:ListItem Value="2">已办结</asp:ListItem>
-            </asp:RadioButtonList>
+                </asp:RadioButtonList>
                     </td>
                     <td style="width:50%;text-align:right;">
                         <asp:Button ID="BTN_BLLC" runat="server" Text="办理流程" OnClick="BTN_BLLC_Click" />
@@ -53,7 +69,9 @@
                  <asp:BoundField DataField="AppraiseClass" HeaderText="考核种类" />
                  <asp:BoundField DataField="AppraiseTime" HeaderText="考核发生时间" />
                  <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
+                 <asp:BoundField DataField="AppraiseGroupID" HeaderText="被考核工段ID" />
                  <asp:BoundField DataField="AppraiseContent" HeaderText="考核内容" />
+                 <asp:BoundField DataField="kh_jiner" HeaderText="考核金额" />
                  <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" Visible="False" />
                  <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" />
                  <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" Visible="False" />
@@ -117,6 +135,12 @@
             <td>
    <asp:Label ID="AppraiseTime" runat="server" Text="空"></asp:Label>
             </td>
+                         <td>
+ <asp:Label ID="Label29" runat="server" Text="被考核工段ID:"></asp:Label>
+            </td>
+             <td>
+  <asp:Label ID="lb_AppraiseGroupID" runat="server" Text="空"></asp:Label>
+            </td>
              <td>
  <asp:Label ID="Label12" runat="server" Text="被考核工段:"></asp:Label>
             </td>
@@ -127,13 +151,13 @@
         </table>
 
 
-    <table style="width:950px;text-align:left;">
-        <tr>
-             <td  style="width:15%;text-align:left;column-span:all;">
+    <table style="text-align:left;" class="auto-style2">
+        <tr >
+             <td  style="width:15%;text-align:left;">
  <asp:Label ID="Label14" runat="server" Text="考核内容:"></asp:Label> 
             </td>
 
-             <td style="width:85%;column-span:all;">
+             <td style="width:85%;text-align:left;">
   <asp:Label ID="AppraiseContent" runat="server" Text="空"></asp:Label>
             </td>
              
@@ -142,8 +166,14 @@
         </table>
 
 
-    <table style="width:100%;text-align:left;">
+    <table style="text-align:left;" class="auto-style2">
         <tr>
+            <td style="width:15%">
+ <asp:Label ID="Label19" runat="server" Text="考核金额:"></asp:Label>
+            </td>
+             <td>
+  <asp:Label ID="lb_kh_jiner" runat="server" Text="空"></asp:Label>
+            </td>
 <td style="width:15%">
  <asp:Label ID="Label15" runat="server" Text="点检操作是否超时:"></asp:Label>
             </td>
@@ -167,11 +197,11 @@
         </table>
     <table style="width:100%;text-align:left;">
         <tr>
-             <td style="text-align:left;column-span:all;" >
+             <td style="text-align:left;column-span:all;" class="auto-style3" >
  <asp:Label ID="Label17" runat="server" Text="工段意见:"></asp:Label>
             </td>
         
-             <td style="text-align:left;column-span:all;">
+             <td style="text-align:left;column-span:all;" class="auto-style3">
   <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
             </td>
             </tr>
@@ -266,14 +296,18 @@
                 <asp:ListItem>不同意</asp:ListItem>
             </asp:DropDownList>
                     </td>
-                    <td style="width:30%" >
-
-                    </td>
-                     <td>
+                    
+                     <td style="width:15%">
     <asp:Label ID="Label11" runat="server" Text="工段意见提出时间:"></asp:Label>
-                    </td>
-                     <td>
+                    </td >
+                     <td style="width:15%">
   <asp:Label ID="COTime" runat="server" Text="工段意见提出时间"></asp:Label> 
+                    </td>
+                    <td style="width:15%" >
+                     <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
+                    </td>
+                     <td style="width:15%" >
+                           <asp:TextBox ID="tbx_kh_jiner" runat="server" Height="16px" Width="100%" ></asp:TextBox>
                     </td>
                 </tr>
             </table>

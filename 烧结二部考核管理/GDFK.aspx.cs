@@ -42,25 +42,25 @@ public partial class GDFK : System.Web.UI.Page
     {
         if(rbl_cx.SelectedIndex==0)
         { 
-        sel_string = "select * from SJ2B_KH_KaoHe_info order by AppraiseClass desc ,UserName ";
+        sel_string = "select * from SJ2B_KH_KaoHe_info where AppraiseGroupID='" + Session["UserID"].ToString()+ "or UserId='" + Session["UserID"].ToString() + "' order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=2 and AppraiseGroup='" + Session["UserRName"].ToString() + "'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='被考核人' and AppraiseGroupID='" + Session["UserID"].ToString() + "'";
             BTN_BLLC.Visible = true;
-}
+        }
         if (rbl_cx.SelectedIndex == 2)
         { 
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>2 and cotime<>'' and AppraiseGroup='" + Session["UserRName"].ToString()+"'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'被考核人' and cotime<>'' and  AppraiseGroupID='" + Session["UserID"].ToString()+"'";
             BTN_BLLC.Visible = false;
         }
- ds1=ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
-        GridView1.DataSource = ds1;
-             
+        if (rbl_cx.SelectedIndex == 3)
+       
+        ds1 =ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+        GridView1.DataSource = ds1;             
         GridView1.DataBind();
-        //Response.Write("<script> alert(" +ds1.Tables[0].Columns[0].ColumnName.ToString() + ")</script>");
-             
+        //Response.Write("<script> alert(" +ds1.Tables[0].Columns[0].ColumnName.ToString() + ")</script>");             
     }
 
     protected string get_shenhe_info()
@@ -94,7 +94,9 @@ public partial class GDFK : System.Web.UI.Page
                 string AppraiseClass_ = dr["AppraiseClass"].ToString();
                 string AppraiseTime_ = dr["AppraiseTime"].ToString();
                 string AppraiseGroup_ = dr["AppraiseGroup"].ToString();
+                string AppraiseGroupID_ = dr["AppraiseGroupID"].ToString();
                 string AppraiseContent_ = dr["AppraiseContent"].ToString();
+                string kh_jiner_ = dr["kh_jiner"].ToString();
                 string DJ_ReturnTime_ = dr["DJ_ReturnTime"].ToString();
                 string ClassState_ = dr["ClassState"].ToString();
                 string ClassObjection_ = dr["ClassObjection"].ToString();
@@ -116,7 +118,9 @@ public partial class GDFK : System.Web.UI.Page
                 AppraiseClass.Text = AppraiseClass_;
                 AppraiseTime.Text = AppraiseTime_;
                 AppraiseGroup.Text = AppraiseGroup_;
+                lb_AppraiseGroupID.Text = AppraiseGroupID_;
                 AppraiseContent.Text = AppraiseContent_;
+                tbx_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
                 ClassState.Text = ClassState_;
                 COTime1.Text = COTime_;
@@ -214,27 +218,54 @@ public partial class GDFK : System.Web.UI.Page
         //办理流程
         string sqlstr_update = "";
         string next_step = "";
-        
+        switch (Convert.ToInt16(Session["UserID"].ToString()) / 1000)
+        {
+            case 1:
+                next_step = "组长";
+                break;
+            case 2:
+                ;
+                break;
+            case 3:
+                ;
+                break;
+            case 4:
+                ;
+                break;
+            case 5:
+                ;
+                break;
+            case 6:
+                ;
+                break;
+            case 7:
+                ;
+                break;
+          
+
+        }
         if (ddl1_gdfk_zt.SelectedIndex == 0)
             if(AppraiseClass.Text=="设备"|| AppraiseClass.Text == "生产")
-            next_step = "3";
+            next_step = "组长";//提交第三步
         else
-                next_step = "5";
-        else next_step = "1";
+                next_step = "书记";//其它选项转到第五步书记
+        else next_step = "考核人";//选择不同意，转到第一步考核人
         if (ClassObjection.Text == "&nbsp;")
          //判断是否是第一次办理，只记录第一次办里时间。
         {
 
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text + "', [COTime]=getdate(),ClassState='"
-                      + ddl1_gdfk_zt.Text +"',flow_state = " + next_step  
-            + " where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text + 
+                "',kh_jiner= '"+Convert.ToDecimal(tbx_kh_jiner.Text)+
+                "[COTime]=getdate(),ClassState='"+ ddl1_gdfk_zt.Text +"',flow_state ='" + next_step  
+            + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
             + " and AppraiseID="+ GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text
-                 + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= " +next_step
-                 + " where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text+
+                "',kh_jiner= '" + Convert.ToDecimal(tbx_kh_jiner.Text) 
+                 + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= '" +next_step
+                 + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
        ds.ExecSQL(sqlstr_update);
@@ -272,7 +303,8 @@ public partial class GDFK : System.Web.UI.Page
             else
                 ddl1_gdfk_zt.SelectedIndex = 1;
             if (COTime.Text == "&nbsp;")
-                COTime.Text = DateTime.Now.ToString(); }
+                COTime.Text = DateTime.Now.ToString();
+            }
         else
             Response.Write("<script>alert('无待办项')</script>");
 
@@ -315,5 +347,10 @@ public partial class GDFK : System.Web.UI.Page
         Session["UserRule"] = "";
 
         Response.Redirect("login.aspx");
+    }
+
+    protected void btn_tckh_Click(object sender, EventArgs e)
+    {
+
     }
 }
