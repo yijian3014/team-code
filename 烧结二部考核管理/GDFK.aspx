@@ -312,8 +312,8 @@
       <tr>
                <td colspan="3">  
 
-                   <asp:Label ID="Label33" runat="server" Text="下一步移交至:"></asp:Label>
-                   <asp:DropDownList ID="ddl_next_step" runat="server"></asp:DropDownList>
+                   <asp:Label ID="Label33" runat="server" Text="下一步移交至:" Visible="False"></asp:Label>
+                   <asp:DropDownList ID="ddl_next_step" runat="server" Visible="False"></asp:DropDownList>
 
             <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" OnClick="Button1_Click" />
 

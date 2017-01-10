@@ -229,11 +229,33 @@ public partial class GDFK : System.Web.UI.Page
         string sqlstr_update = "";
         string next_step = "";
         if (ddl1_gdfk_zt.SelectedIndex == 0)
-            if(AppraiseClass.Text=="设备"|| AppraiseClass.Text == "生产")
-            next_step = "组长";//提交第三步
-        else
+        {
+            if (AppraiseClass.Text == "设备" || AppraiseClass.Text == "生产")
+                next_step = "组长";//默认提出人IDConvert.ToInt16(lb_tcr_usrid.Text) / 1000 = 1是点检时，则提交第三步
+
+            else
                 next_step = "书记";//其它选项转到第五步书记
-        else next_step = "考核人";//选择不同意，转到第一步考核人
+            if (Convert.ToInt16(lb_tcr_usrid.Text) / 1000 > 1)
+                switch (Convert.ToInt16(lb_tcr_usrid.Text) / 1000)
+                {
+                    case 3:
+                        next_step = "主管领导";
+                        break;
+                    case 4:
+                        next_step = "主任";
+                        break;
+                    case 5:
+                        next_step = "主任";
+                        break;
+                    case 6:
+                        next_step = "完成";
+                        break;
+                }
+        }
+        else
+            next_step = "考核人";//选择不同意，转到第一步考核人
+
+
         if (ClassObjection.Text == "&nbsp;")
          //判断是否是第一次办理，只记录第一次办里时间。
         {
@@ -293,12 +315,12 @@ public partial class GDFK : System.Web.UI.Page
             }
         else
             Response.Write("<script>alert('无待办项')</script>");
-        string sel_usr_inf = "select *  FROM [dzsw].[dbo].[SJ2B_KH_User] where userid='"+lb_tcr_usrid.Text
-            +"' or userid/1000= '"+(Convert.ToInt16( Session["userid"].ToString())/1000+1)+"' or userid/1000=5";
-        ddl_next_step.DataSource= ds.GetDataSet(sel_usr_inf, "SJ2B_KH_User");
-        ddl_next_step.DataValueField = "UserId";
-        ddl_next_step.DataTextField = "UserRName";
-        ddl_next_step.DataBind();
+        //string sel_usr_inf = "select *  FROM [dzsw].[dbo].[SJ2B_KH_User] where userid='"+lb_tcr_usrid.Text
+        //    +"' or userid/1000= '"+(Convert.ToInt16( Session["userid"].ToString())/1000+1)+"' or userid/1000=5";
+        //ddl_next_step.DataSource= ds.GetDataSet(sel_usr_inf, "SJ2B_KH_User");
+        //ddl_next_step.DataValueField = "UserId";
+        //ddl_next_step.DataTextField = "UserRName";
+        //ddl_next_step.DataBind();
     }
 
     protected void Button2_Click(object sender, EventArgs e)

@@ -48,17 +48,19 @@ public partial class ZZSH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'废除'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state='组长' and AppraiseClass='"+lb+ "'";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where (flow_state='组长' and AppraiseClass='"+lb
+                + "'  or AppraiseGroupID='" + Session["UserID"].ToString() + "'')and ChargehandState=='" ;
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'组长' and flow_state<>0 and AppraiseClass='" + lb+ "' and ChargehandState<>''";
+            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>'组长' and AppraiseClass='" + lb
+                + "' and ChargehandState<>'' or AppraiseGroupID='" + Session["UserID"].ToString()+ "'";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
