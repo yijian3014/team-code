@@ -10,7 +10,7 @@ using System.Data;
 using System.IO;
 public partial class ZZSH : System.Web.UI.Page
 {
-    public static string sel_string = "select * from SJ2B_KH_KaoHe_info";
+    public static string sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -54,7 +54,7 @@ public partial class ZZSH : System.Web.UI.Page
         if (rbl_cx.SelectedIndex == 1)
         {
             sel_string = "select * from SJ2B_KH_KaoHe_info where (flow_state='组长' and AppraiseClass='"+lb
-                + "'  or AppraiseGroupID='" + Session["UserID"].ToString() + "'')and ChargehandState=='" ;
+                + "'  or AppraiseGroupID='" + Session["UserID"].ToString() + "')and ChargehandState is null " ;
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
@@ -76,8 +76,7 @@ public partial class ZZSH : System.Web.UI.Page
             while (dr.Read())
             {
 
-
-                string ID_ = dr["ID"].ToString();
+ string ID_ = dr["ID"].ToString();
                 string AppraiseID_ = dr["AppraiseID"].ToString();
                 string Flow_State_ = dr["Flow_State"].ToString();
                 string UserID_ = dr["UserID"].ToString();
@@ -86,7 +85,9 @@ public partial class ZZSH : System.Web.UI.Page
                 string AppraiseClass_ = dr["AppraiseClass"].ToString();
                 string AppraiseTime_ = dr["AppraiseTime"].ToString();
                 string AppraiseGroup_ = dr["AppraiseGroup"].ToString();
+                string AppraiseGroupID_ = dr["AppraiseGroupID"].ToString();
                 string AppraiseContent_ = dr["AppraiseContent"].ToString();
+                string kh_jiner_ = dr["kh_jiner"].ToString();
                 string DJ_ReturnTime_ = dr["DJ_ReturnTime"].ToString();
                 string ClassState_ = dr["ClassState"].ToString();
                 string ClassObjection_ = dr["ClassObjection"].ToString();
@@ -103,15 +104,17 @@ public partial class ZZSH : System.Web.UI.Page
                 AppraiseID.Text = AppraiseID_;
                 Flow_State.Text = Flow_State_;
                 UserName.Text = UserName_;
-
+                lb_tcr_usrid.Text = UserID_;
                 tc_DataTime.Text = tc_DateTime_;
                 AppraiseClass.Text = AppraiseClass_;
                 AppraiseTime.Text = AppraiseTime_;
                 AppraiseGroup.Text = AppraiseGroup_;
+                lb_AppraiseGroupID.Text = AppraiseGroupID_;
                 AppraiseContent.Text = AppraiseContent_;
+                tbx_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
                 ClassState.Text = ClassState_;
-                COTime1.Text = COTime_;
+                COTime1.Text = COTime_;               
                 ClassObjection.Text = ClassObjection_;
                 ChargehandOpinion.Text = ChargehandOpinion_;
                 ChargehandState.Text = ChargehandState_;
@@ -206,11 +209,29 @@ public partial class ZZSH : System.Web.UI.Page
         string next_step = "";
 
         if (ddl1_zzsp_zt.SelectedIndex == 0)
-           
+        {
                 next_step = "主管领导";
-           
+
+            if (Convert.ToInt16(lb_tcr_usrid.Text) / 1000 > 1)
+                switch (Convert.ToInt16(lb_tcr_usrid.Text) / 1000)
+                {
+                    case 3:
+                        next_step = "主管领导";
+                        break;
+                    case 4:
+                        next_step = "主任";
+                        break;
+                    case 5:
+                        next_step = "主任";
+                        break;
+                    case 6:
+                        next_step = "完成";
+                        break;
+                }
+
+        } 
         else next_step = "废除";
-        if (ChargehandOpinion.Text == "&nbsp;")
+        if (ChargehandOpinion.Text == "&nbsp;"|| ChargehandOpinion.Text=="")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
@@ -306,5 +327,11 @@ public partial class ZZSH : System.Web.UI.Page
         Session["UserRule"] = "";
 
         Response.Redirect("login.aspx");
+    }
+
+    protected void btn_tckh_Click(object sender, EventArgs e)
+    {
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("KHLR.aspx");
     }
 }

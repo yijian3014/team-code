@@ -273,7 +273,7 @@
 <hr />
             <table style="width:100%;text-align:left;">
                 <tr>
-                    <td>
+                    <td style="width:15%">
  <asp:Label ID="Label10" runat="server" Text="工段反馈状态:"></asp:Label>
           
                     </td>
@@ -290,7 +290,7 @@
                      <td style="width:15%">
   <asp:Label ID="COTime" runat="server" Text="工段意见提出时间"></asp:Label> 
                     </td>
-                    <td style="width:15%" >
+                    <td style="width:10%" >
                      <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
                     </td>
                      <td style="width:15%" >
@@ -311,9 +311,6 @@
            </tr>
       <tr>
                <td colspan="3">  
-
-                   <asp:Label ID="Label33" runat="server" Text="下一步移交至:" Visible="False"></asp:Label>
-                   <asp:DropDownList ID="ddl_next_step" runat="server" Visible="False"></asp:DropDownList>
 
             <asp:Button ID="Button1" runat="server" Text="确认" Width="99px" OnClick="Button1_Click" />
 

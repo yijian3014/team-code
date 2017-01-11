@@ -256,14 +256,14 @@ public partial class GDFK : System.Web.UI.Page
             next_step = "考核人";//选择不同意，转到第一步考核人
 
 
-        if (ClassObjection.Text == "&nbsp;")
-         //判断是否是第一次办理，只记录第一次办里时间。
+        if (ClassObjection.Text == "&nbsp;" || ClassObjection.Text == "")
+        //判断是否是第一次办理，只记录第一次办里时间。
         {
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text + 
                 "',kh_jiner= '"+Convert.ToDecimal(tbx_kh_jiner.Text)+
-                "[COTime]=getdate(),ClassState='"+ ddl1_gdfk_zt.Text +"',flow_state ='" + next_step
-                  + " nextstep_usr_id='" + ddl_next_step.SelectedValue
+                "',[COTime]=getdate(),ClassState='"+ ddl1_gdfk_zt.Text +"',flow_state ='" + next_step
+            //      + " nextstep_usr_id='" + ddl_next_step.SelectedValue
             + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
             + " and AppraiseID="+ GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
@@ -272,7 +272,7 @@ public partial class GDFK : System.Web.UI.Page
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tb1_gdfk_yj.Text
                + "',kh_jiner= '" + Convert.ToDecimal(tbx_kh_jiner.Text)
                  + "',ClassState='" + ddl1_gdfk_zt.Text + "',flow_state= '" + next_step
-                 + " nextstep_usr_id='" + ddl_next_step.SelectedValue
+                // + " nextstep_usr_id='" + ddl_next_step.SelectedValue
                  + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
