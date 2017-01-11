@@ -21,12 +21,12 @@
         <br />
         <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Image/考核录入.jpg" OnClick="ImageButton1_Click" />
         <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Image/工段反馈.jpg" OnClick="ImageButton2_Click" />
-        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/考核总览.jpg" OnClick="ImageButton3_Click" />
+        <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/返回.jpg" OnClick="ImageButton3_Click" />
         <br />
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
             <asp:View ID="View1" runat="server" OnLoad="View1_Load">
-                <asp:Label ID="Label1" runat="server" Text="考核提出人："></asp:Label>
-                <asp:TextBox ID="TBUserName" runat="server" MaxLength="10"></asp:TextBox>
+                <asp:Label ID="Label1" runat="server" Text="考核金额："></asp:Label>
+                <asp:TextBox ID="TBJinE" runat="server" MaxLength="10"></asp:TextBox>
                 <br />
                 <br />
                 <asp:Label ID="Label2" runat="server" Text="考核发生时间："></asp:Label>
@@ -72,7 +72,7 @@
                     <Columns>
                         <asp:BoundField DataField="AppraiseID" HeaderText="考核编号" />
                         <asp:BoundField DataField="AppraiseClass" HeaderText="考核类别" />
-                        <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
+                        <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核人" />
                         <asp:BoundField DataField="UserName" HeaderText="考核提出人" />
                         <asp:BoundField DataField="AppraiseTime" HeaderText="考核事件发生日期" />
                         <asp:BoundField DataField="tc_DateTime" HeaderText="考核提出时间" />
@@ -90,13 +90,23 @@
                 <br />
                 <asp:Label ID="Label16" runat="server" Text="月落乌啼霜满天" ForeColor="White"></asp:Label>
                 <asp:Label ID="Label21" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
-                <asp:Label ID="Label12" runat="server" Text="工段反馈："></asp:Label>
+                <asp:Label ID="Label12" runat="server" Text="反馈内容："></asp:Label>
                 <br />
                 <asp:Label ID="Label17" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label22" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label26" runat="server" ForeColor="White" Text="工段"></asp:Label>
                 <asp:TextBox ID="TextBox3" runat="server" Height="106px" ReadOnly="True" TextMode="MultiLine" Width="344px"></asp:TextBox>
                 <br />
+                <br />
+                <asp:Label ID="Label30" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label31" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label32" runat="server" Text="考核金额："></asp:Label>
+                <br />
+                <br />
+                <asp:Label ID="Label33" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label34" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
+                <asp:Label ID="Label35" runat="server" ForeColor="White" Text="工段"></asp:Label>
+                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
                 <br />
                 <br />
                 <asp:Label ID="Label18" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
@@ -107,6 +117,7 @@
                 <asp:Label ID="Label23" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label27" runat="server" ForeColor="White" Text="工段"></asp:Label>
                 <asp:TextBox ID="TextBox4" runat="server" Height="106px" TextMode="MultiLine" Width="344px"></asp:TextBox>
+                <br />
                 <br />
                 <br />
                 <asp:Label ID="Label20" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
@@ -129,10 +140,10 @@
                     <Columns>
                                                 <asp:BoundField DataField="AppraiseID" HeaderText="考核编号" />
                                                 <asp:BoundField DataField="AppraiseClass" HeaderText="考核类别" />
-                                                <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
+                                                <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核人" />
                         <asp:BoundField DataField="UserName" HeaderText="考核提出人" />
                         <asp:BoundField DataField="tc_DateTime" HeaderText="考核提出时间" />
-                        <asp:BoundField DataField="ClassState" HeaderText="工段意见" />
+                        <asp:BoundField DataField="ClassState" HeaderText="考核反馈" />
                         <asp:BoundField DataField="ChargehandState" HeaderText="组长意见" />
                         <asp:BoundField DataField="Leader_1_State" HeaderText="主管领导意见" />
                         <asp:BoundField DataField="Leader_2_State" HeaderText="书记意见" />

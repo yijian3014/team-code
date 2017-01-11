@@ -31,6 +31,7 @@ public partial class KHLR : System.Web.UI.Page
 
         }
         UserID = Convert.ToInt32(Session["UserID"]);
+        RFDDL2();
 
 
     }
@@ -44,6 +45,8 @@ public partial class KHLR : System.Web.UI.Page
         Button1.Visible = false;
         Button2.Visible = false;
         Button3.Visible = false;
+        Label32.Visible = false;
+        TextBox5.Visible = false;
         GridView1.Visible = true;
         //---------------------占位Label无实际异议，只为调整页面控件位置。
         Label16.Visible = false;
@@ -58,6 +61,11 @@ public partial class KHLR : System.Web.UI.Page
         Label27.Visible = false;
         Label28.Visible = false;
         Label29.Visible = false;
+        Label30.Visible = false;
+        Label31.Visible = false;
+        Label33.Visible = false;
+        Label34.Visible = false;
+        Label35.Visible = false;
         //----------------------
 
     }
@@ -70,6 +78,8 @@ public partial class KHLR : System.Web.UI.Page
         Button1.Visible = true;
         Button2.Visible = true;
         Button3.Visible = true;
+        Label32.Visible = true;
+        TextBox5.Visible = true;
         GridView1.Visible = false;
         //---------------------占位Label无实际异议，只为调整页面控件位置。
         Label16.Visible = true;
@@ -84,13 +94,36 @@ public partial class KHLR : System.Web.UI.Page
         Label27.Visible = true;
         Label28.Visible = true;
         Label29.Visible = true;
+        Label30.Visible = true;
+        Label31.Visible = true;
+        Label33.Visible = true;
+        Label34.Visible = true;
+        Label35.Visible = true;
         //----------------------
     }
     void RFrashTable()      //刷新工段反馈表。
     {
-        GridView1.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where Flow_State=1 and ClassState='不同意' and UserID=" + UserID + " and tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by UserName", "SJ2B_KH_KaoHe_info");
+        GridView1.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where Flow_State='考核人' and UserID=" + UserID + " and tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by UserName", "SJ2B_KH_KaoHe_info");
         GridView1.DataKeyNames = new string[] { "ID" };
         GridView1.DataBind();
+    }
+    void RFDDL2()
+    {
+        //string cmdtext1 = "select ClassName,CompleteNo from JY_ClassInfo where CompleteNo<1000";
+        //this.DDListMUGL2.DataSource = bc.GetDataSet(cmdtext1, "JY_ClassInfo");
+        //this.DDListMUGL2.DataTextField = "ClassName";
+        //this.DDListMUGL2.DataValueField = "CompleteNo";
+        //this.DDListMUGL2.DataBind();
+        string sql = "select UserID,UserRName from SJ2B_KH_User where UserRole<3 ";
+        this.DropDownList2.DataSource = bc.GetDataSet(sql, "SJ2B_KH_User");
+        this.DropDownList2.DataTextField = "UserRName";
+        this.DropDownList2.DataValueField = "UserID";
+        this.DropDownList2.DataBind();
+        //sql = "select UserID,UserRName from SJ2B_KH_User where UserRole=1";
+        //this.DropDownList2.DataSource = bc.GetDataSet(sql, "SJ2B_KH_User");
+        //this.DropDownList2.DataTextField = "UserRName";
+        //this.DropDownList2.DataValueField = "UserID";
+
     }
 //--------------------------------
 //--------------------------------按钮事件。
@@ -107,27 +140,31 @@ public partial class KHLR : System.Web.UI.Page
     }
     protected void ImageButton3_Click(object sender, ImageClickEventArgs e)     //转换至View3---考核总览页面。
     {
-        this.MultiView1.ActiveViewIndex = 2;
+        Response.Write("<script language='javascript'>;location.href='Login.aspx';</script>");
+        Response.End();
+        //this.MultiView1.ActiveViewIndex = 2;
 
-        //拴心考核总览表，并以考核类别，及考核提出人排序。
-        GridView2.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where  tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by AppraiseClass desc,UserName", "SJ2B_KH_KaoHe_info");
-        GridView2.DataKeyNames = new string[] { "ID" };
-        GridView2.DataBind();
+        ////拴心考核总览表，并以考核类别，及考核提出人排序。
+        //GridView2.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where  tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by AppraiseClass desc,UserName", "SJ2B_KH_KaoHe_info");
+        //GridView2.DataKeyNames = new string[] { "ID" };
+        //GridView2.DataBind();
 
     }
         protected void BtAdd_Click(object sender, EventArgs e)  //提交考核。-----View1
     {
-       
-        
-        
 
-        string UserName = TBUserName.Text;
+
+
+
+        string UserRName = Session["UserRName"].ToString();
+        string KH_JinE = TBJinE.Text.ToString();
+        string AppGID = DropDownList2.SelectedValue.ToString();
         string AppContent = TBContent.Text;
-        if (UserName != string.Empty && AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
+        if (AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
         {
             //将考核类别及被考核工段转换为数字并分别给变量赋值。
             int AppClass = Convert.ToInt32(DropDownList1.SelectedValue);
-            int AppGroup = Convert.ToInt32(DropDownList2.SelectedValue);
+            string AppGroup =DropDownList2.SelectedItem.ToString();
 
             if (AppContent.Length <= 200)   //判断考核内容是否超过200字。
             {
@@ -140,12 +177,14 @@ public partial class KHLR : System.Web.UI.Page
                 SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
                 sqlCmd.CommandType = CommandType.StoredProcedure;
                 sqlCmd.Parameters.Add("@UserID", SqlDbType.VarChar, 20).Value = UserID;
-                sqlCmd.Parameters.Add("@UserName", SqlDbType.VarChar, 20).Value = UserName;
+                sqlCmd.Parameters.Add("@UserName", SqlDbType.VarChar, 20).Value = UserRName;
                 sqlCmd.Parameters.Add("@DataTime", SqlDbType.VarChar, 20).Value = DateTime.Now;
                 sqlCmd.Parameters.Add("@AppClass", SqlDbType.VarChar, 20).Value = AppClass;
                 sqlCmd.Parameters.Add("@AppTime", SqlDbType.VarChar, 20).Value = Calendar1.SelectedDate;
                 sqlCmd.Parameters.Add("@AppGroup", SqlDbType.VarChar, 20).Value = AppGroup;
+                sqlCmd.Parameters.Add("@AppGID", SqlDbType.VarChar, 20).Value = AppGID;
                 sqlCmd.Parameters.Add("@AppContent", SqlDbType.VarChar, 200).Value = AppContent;
+                sqlCmd.Parameters.Add("@AppMoney", SqlDbType.VarChar, 20).Value = KH_JinE;
 
 
                 sqlCon.Open();
@@ -154,7 +193,7 @@ public partial class KHLR : System.Web.UI.Page
                 Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('考核提交成功。');</script>");       //提交成功后提示。
                 
                 //提交成功后将考核提出人以及考核内容的文本框赋值为空。
-                TBUserName.Text = string.Empty;
+                TBJinE.Text = string.Empty;
                 TBContent.Text = string.Empty;
             }
             else
@@ -168,30 +207,62 @@ public partial class KHLR : System.Web.UI.Page
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)        //提交修改后的考核内容并将考核强行流转至组长当考核类别为其它时直接流转至书记---View2
+    protected void Button1_Click(object sender, EventArgs e)        //提交修改后的考核内容并将考核强行流转至考核提出人的上一级，当考核类别为其它时直接流转至书记或主任---View2
     {
-        string SQLstr = "update SJ2B_KH_KaoHe_info set AppraiseContent='" + TextBox4.Text + "' where ID=" + Label15.Text;
-
-
-        if (bc.ExecSQL(SQLstr))
+        double a;
+        if (double.TryParse(TextBox5.Text, out a))
         {
-            SQLstr = "update SJ2B_KH_KaoHe_info set DJ_ReturnTime='" + DateTime.Now.ToString() + "' where ID=" + Label15.Text;
-            bc.ExecSQL(SQLstr);
-            string AppClass = (bc.SelectSQLReturnObject("select AppraiseClass from SJ2B_KH_KaoHe_info where ID=" + Label15.Text, "SJ2B_KH_KaoHe_info")).ToString();
-            if (AppClass == "其它")
+            string SQLstr = "update SJ2B_KH_KaoHe_info set AppraiseContent='" + TextBox4.Text + "' where ID=" + Label15.Text;
+            string SQLstr1 = "update SJ2B_KH_KaoHe_info set kh_jiner='" + TextBox5.Text + "' where ID=" + Label15.Text;
+            int AppID = UserID / 1000;
+            string F_State;
+            switch (AppID)
             {
-                SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State=5 where ID=" + Label15.Text;
-            }
-            else
-            {
-                SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State=3 where ID=" + Label15.Text;
-            }
+                case 1: F_State = "组长"; break;
+                case 3: F_State = "主管领导"; break;
+                case 4: F_State = "书记"; break;
+                case 5: F_State = "主任"; break;
+                case 6: F_State = "完成"; break;
+                default: F_State = null; break;
 
-            bc.ExecSQL(SQLstr);
-            Response.Write("<script language='javascript'>alert('修改成功。');</script>");
+            }
+            if (bc.ExecSQL(SQLstr)&&bc.ExecSQL(SQLstr1))
+            {
+                SQLstr = "update SJ2B_KH_KaoHe_info set AppraiseContent='" + TextBox5.Text + "' where ID=" + Label15.Text;
+                SQLstr = "update SJ2B_KH_KaoHe_info set DJ_ReturnTime='" + DateTime.Now.ToString() + "' where ID=" + Label15.Text;
+                bc.ExecSQL(SQLstr);
+                string AppClass = (bc.SelectSQLReturnObject("select AppraiseClass from SJ2B_KH_KaoHe_info where ID=" + Label15.Text, "SJ2B_KH_KaoHe_info")).ToString();
+                if (AppClass == "其它")
+                {
+                    if (AppID == 6)
+                    {
+                        SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State='考核完成' where ID=" + Label15.Text;
+                    }
+                    else if (AppID == 5)
+                    {
+                        SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State='主任' where ID=" + Label15.Text;
+                    }
+                    else
+                    {
+                        SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State='书记' where ID=" + Label15.Text;
+                    }
+
+                }
+                else
+                {
+                    SQLstr = "update SJ2B_KH_KaoHe_info set Flow_State='" + F_State + "' where ID=" + Label15.Text;
+                }
+
+                bc.ExecSQL(SQLstr);
+                Response.Write("<script language='javascript'>alert('修改成功。');</script>");
+            }
+            VisF();
+            RFrashTable();
         }
-        VisF();
-        RFrashTable();
+        else
+        {
+            Response.Write("<script language='javascript'>alert('考核金额只能为数字，请重新输入。');</script>");
+        }
 
     }
 
@@ -204,10 +275,12 @@ public partial class KHLR : System.Web.UI.Page
         VisT();
         ID = GridView1.DataKeys[e.RowIndex].Value.ToString();       //将所选行的主键赋值给全局变量ID。
         Label15.Text = ID;                                          //为了在其它功能中使用此ID，将ID赋值给Label15（该Label是隐藏的）。
-        string CO = (bc.SelectSQLReturnObject("select ClassObjection from SJ2B_KH_KaoHe_info where ID=" + ID, "SJ2B_KH_KaoHe_info")).ToString();
+        string FK = (bc.SelectSQLReturnObject("select KHFK_YJ from SJ2B_KH_KaoHe_info where ID=" + ID, "SJ2B_KH_KaoHe_info")).ToString();
         string AC = (bc.SelectSQLReturnObject("select AppraiseContent from SJ2B_KH_KaoHe_info where ID=" + ID, "SJ2B_KH_KaoHe_info")).ToString();
-        TextBox3.Text = CO;
+        string JE =(bc.SelectSQLReturnObject("select kh_jiner from SJ2B_KH_KaoHe_info where ID=" + ID, "SJ2B_KH_KaoHe_info")).ToString();
+        TextBox3.Text = FK;
         TextBox4.Text = AC;
+        TextBox5.Text = JE;
     }
 
 

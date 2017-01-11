@@ -13,20 +13,51 @@
  </head>
 <body >
    
-    <form id="form1" runat="server"  style="text-align:center;width:auto 90%;margin:0 auto;height:auto 65%;" >
+    <form id="form1" runat="server"  style="text-align:center;width:auto 1000px;margin:0 auto;height:auto 65%;" >
         <div style="text-align:center;margin:0 auto;"  >
-           
-            <asp:TextBox ID="tbx_bg_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
-      
-            <asp:Button ID="btn_bg_date" runat="server" Text="开始时间" OnClick="btn_bg_date_Click" />
-              
-           <asp:TextBox ID="tbx_ed_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
-            <asp:Button ID="btn_ed_time" runat="server" Text="结束时间" OnClick="btn_ed_time_Click" />
-            <asp:Label ID="Label3" runat="server" Text="查找关键字：" Visible="False"></asp:Label>
-            <asp:TextBox ID="tbx_gjz" runat="server" Visible="False"></asp:TextBox>
-       
-            <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" Visible="False" />
-       
+           <table style="text-align:center;width:100%;">
+               <tr>
+                   <td>
+  <asp:TextBox ID="tbx_bg_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
+                   </td>
+                    <td>
+  <asp:Button ID="btn_bg_date" runat="server" Text="开始时间" OnClick="btn_bg_date_Click" />
+                   </td>
+                    <td>
+  <asp:TextBox ID="tbx_ed_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
+                   </td>
+                    <td>
+<asp:Button ID="btn_ed_time" runat="server" Text="结束时间" OnClick="btn_ed_time_Click" />
+                   </td>
+                    <td>
+  <asp:Label ID="Label1" runat="server" Text="类别：" Visible="False"></asp:Label>
+                   </td>
+                    <td>
+   <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="74px">
+  <asp:ListItem>全部</asp:ListItem>
+                <asp:ListItem>生产</asp:ListItem>
+                <asp:ListItem>设备</asp:ListItem>
+                <asp:ListItem>其它</asp:ListItem>
+            </asp:DropDownList>
+                   </td>
+                    <td>
+   <asp:Label ID="Label2" runat="server" Text="流程状态：" Visible="False"></asp:Label>
+                   </td>
+                    <td>
+ 
+            <asp:DropDownList ID="ddl_lczt" runat="server" Height="16px" Width="84px">
+                <asp:ListItem>全部</asp:ListItem>
+                <asp:ListItem>完成</asp:ListItem>
+                <asp:ListItem>其它</asp:ListItem>
+                <asp:ListItem>废除</asp:ListItem>
+            </asp:DropDownList>
+                   </td>
+                    <td>
+   <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" />
+                   </td>
+               </tr>
+           </table>
+          
             </div> 
         <div style="text-align:left;margin:0 auto;width:90%;float:none; height:50%;">
         <table style="text-align:left;margin:0 auto;float:none;width:30%">

@@ -18,6 +18,11 @@ public partial class LD1SH : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["UserID"] == "" || Session["UserID"] == null)        //判断是否已经登录,若未登录则弹出提示框并返回登录界面.
+        {
+            Response.Write("<script language='javascript'>alert('您尚未登陆或登陆超时');location.href='Login.aspx';</script>");
+            Response.End();
+        }
         if (!IsPostBack)
         {
 
@@ -247,25 +252,49 @@ public partial class LD1SH : System.Web.UI.Page
 
     protected void BTN_BLLC_Click(object sender, EventArgs e)
     {
-        if (GridView1.Rows.Count > 0)
-        {
-            //办理流程：用于初始化待办流程窗体
-            GDFK_BanLi.Visible = true;
-            if (Leader_1_Opinion.Text != "&nbsp;")
-                tb1_ld1sp_yj.Text = Leader_1_Opinion.Text;
-            else
-                tb1_ld1sp_yj.Text = "";
 
-            if (Leader_1_State.Text == "同意" || Leader_1_State.Text == "&nbsp;")
-                ddl1_ld1sp_zt.SelectedIndex = 0;
+        if (Convert.ToInt16(lb_AppraiseGroupID.Text) == Convert.ToInt16(Session["userid"].ToString()))
+        {
+            if (GridView1.Rows.Count > 0)
+            {
+                dv_khfk_banli.Visible = true;
+                if (lb_khfk_yj.Text != "&nbsp;")
+                    tbx_khfk_yj.Text = lb_khfk_yj.Text;
+                else
+                    tbx_khfk_yj.Text = "";
+
+                if (lb_khfk_zt.Text == "同意" || lb_khfk_zt.Text == "&nbsp;")
+                    ddl_khfk_zt.SelectedIndex = 0;
+                else
+                    ddl_khfk_zt.SelectedIndex = 1;
+                if (lb_khfk_sj.Text == "&nbsp;" || lb_khfk_sj.Text == "")
+                    lb_khfk_sj.Text = DateTime.Now.ToString();
+            }
             else
-                ddl1_ld1sp_zt.SelectedIndex = 1;
+                Response.Write("<script>alert('无待办项')</script>");
         }
         else
-            Response.Write("<script>alert('无待办项')</script>");
+        {
+            if (GridView1.Rows.Count > 0)
+            {
+                //办理流程：用于初始化待办流程窗体
+                GDFK_BanLi.Visible = true;
+                if (Leader_1_Opinion.Text != "&nbsp;")
+                    tb1_ld1sp_yj.Text = Leader_1_Opinion.Text;
+                else
+                    tb1_ld1sp_yj.Text = "";
+
+                if (Leader_1_State.Text == "同意" || Leader_1_State.Text == "&nbsp;")
+                    ddl1_ld1sp_zt.SelectedIndex = 0;
+                else
+                    ddl1_ld1sp_zt.SelectedIndex = 1;
+            }
+            else
+                Response.Write("<script>alert('无待办项')</script>");
 
 
 
+        }
     }
     protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
     {
@@ -296,6 +325,88 @@ public partial class LD1SH : System.Web.UI.Page
 
     protected void btn_exit_Click(object sender, EventArgs e)
     {
+        Session["UserID"] = "";
+        Session["UserName"] = "";
+        Session["UserRName"] = "";
+        Session["UserRule"] = "";
+
+        Response.Redirect("login.aspx");
+    }
+
+    protected void btn_tckh_Click(object sender, EventArgs e)
+    {
+
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("KHLR.aspx");
+    }
+
+    protected void btn_khfk_ok_Click(object sender, EventArgs e)
+    {
+        //0、废除
+        //1、考核人
+        //2、被考核人
+        //3、组长
+        //4、主管领导
+        //5、书记
+        //6、主任
+        //7、完成
+        //说明：任何人都可以发起考核。
+        //但所遵守的原则是审核得要它的上级来进行。同意则由更上级审核，不同意则打回考核提出人。
+        string sqlstr_update = "";
+        string next_step = "";
+        if (ddl_khfk_zt.SelectedIndex == 0)
+        {
+            if (Convert.ToInt16(lb_tcr_usrid.Text) / 1000 > 1)
+                switch (Convert.ToInt16(lb_tcr_usrid.Text) / 1000)
+                {
+                    case 3:
+                        next_step = "主管领导";
+                        break;
+                    case 4:
+                        next_step = "主任";
+                        break;
+                    case 5:
+                        next_step = "主任";
+                        break;
+                    case 6:
+                        next_step = "完成";
+                        break;
+                }
+
+        }
+
+        else
+        {
+            next_step = "考核人";//选择不同意，转到第一步考核人
+
+        }
+
+        if (lb_khfk_yj.Text == "&nbsp;" || lb_khfk_yj.Text == "")
+        //判断是否是第一次办理，只记录第一次办里时间。
+        {
+
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
+                + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
+            + "' [KHFK_ZT]='" + ddl_khfk_zt.Text
+            + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+            + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+        }
+        else
+        {
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] += '" + tbx_khfk_yj.Text
+                + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
+            + "' [KHFK_ZT]='" + ddl_khfk_zt.Text
+                      + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+        }
+        ds.ExecSQL(sqlstr_update);
+        GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+        GridView1.DataBind();
+    }
+
+    protected void btn_khfk_calcel_Click(object sender, EventArgs e)
+    {
+
         Session["UserID"] = "";
         Session["UserName"] = "";
         Session["UserRName"] = "";

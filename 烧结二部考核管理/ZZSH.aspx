@@ -7,11 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
    
-    <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-        }
-    </style>
    
 </head>
 <body>
@@ -19,7 +14,6 @@
         <asp:Label ID="Label26" runat="server" Text="烧结二部考核管理" Font-Bold="True" Font-Size="Larger"></asp:Label> 
         <div style="text-align:right;">            
                <hr  />
-            <asp:Label ID="lb_tcr_usrid" runat="server" Visible="False"></asp:Label>
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
              <asp:Button ID="btn_tckh" runat="server" Text="提出考核" OnClick="btn_tckh_Click" />
@@ -85,45 +79,29 @@
             <hr />
 
         </div>
-        <%--  <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_shenhe_info() %>
-
-        </div>
-
-             <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_banli_info() %>
-
-        </div>
-             <div style="width:80%;text-align:center;float:none;margin:0 auto;">
-             <%=get_huizhong_info() %>
-
-        </div>--%>
-
-       
-
-<div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
+  <div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
     <table style="width:100%;text-align:left;">
         <tr >
             <td style="text-align:left; width:15%">
-<asp:Label ID="Label5" runat="server" Text="考核编号:"></asp:Label>
+<asp:Label ID="Label4" runat="server" Text="考核编号:"></asp:Label>
             </td>
             <td style="text-align:left;width:10%">
   <asp:Label ID="AppraiseID" runat="server" Text="空"></asp:Label>
             </td>
             <td style="text-align:left;width:12%">
-  <asp:Label ID="Label6" runat="server" Text="程序流转状态:"></asp:Label>
+  <asp:Label ID="Label5" runat="server" Text="程序流转状态:"></asp:Label>
             </td>
             <td  style="text-align:left;width:12%">
    <asp:Label ID="Flow_State" runat="server" Text="空"></asp:Label>
             </td>
             <td  style="text-align:left;width:12%">
- <asp:Label ID="Label7" runat="server" Text="用户名:"></asp:Label>
+ <asp:Label ID="Label6" runat="server" Text="提出考核用户:"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
  <asp:Label ID="UserName" runat="server" Text="空"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
-  <asp:Label ID="Label8" runat="server" Text="提出考核时间:"></asp:Label>
+  <asp:Label ID="Label7" runat="server" Text="提出考核时间:"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
    <asp:Label ID="tc_DataTime" runat="server" Text="空"></asp:Label>
@@ -131,28 +109,29 @@
         </tr>
         <tr>
              <td style="text-align:left; width:15%">
-  <asp:Label ID="Label9" runat="server" Text="考核种类:"></asp:Label>
+  <asp:Label ID="Label8" runat="server" Text="考核种类:"></asp:Label>
             </td>
              <td>
   <asp:Label ID="AppraiseClass" runat="server" Text="空"></asp:Label>
             </td> 
             <td>
-  <asp:Label ID="Label11" runat="server" Text="考核发生时间:"></asp:Label>
+  <asp:Label ID="Label9" runat="server" Text="考核发生时间:"></asp:Label>
             </td> 
             <td>
    <asp:Label ID="AppraiseTime" runat="server" Text="空"></asp:Label>
-            </td>
-                         <td>
- <asp:Label ID="Label29" runat="server" Text="被考核工段ID:"></asp:Label>
-            </td>
-             <td>
-  <asp:Label ID="lb_AppraiseGroupID" runat="server" Text="空"></asp:Label>
-            </td>
+            </td>                    
+           
              <td>
  <asp:Label ID="Label12" runat="server" Text="被考核工段:"></asp:Label>
             </td>
              <td>
   <asp:Label ID="AppraiseGroup" runat="server" Text="空"></asp:Label>
+            </td>
+              <td style="width:15%">
+ <asp:Label ID="Label19" runat="server" Text="考核金额:"></asp:Label>
+            </td>
+             <td>
+  <asp:Label ID="lb_kh_jiner" runat="server" Text="空"></asp:Label>
             </td>
             </tr>
         </table>
@@ -171,39 +150,36 @@
 
         </tr>
         </table>
-
-
-    <table style="text-align:left;">
-        <tr>
-            <td style="width:15%">
- <asp:Label ID="Label19" runat="server" Text="考核金额:"></asp:Label>
-            </td>
-             <td>
-  <asp:Label ID="lb_kh_jiner" runat="server" Text="空"></asp:Label>
-            </td>
-<td style="width:15%">
- <asp:Label ID="Label15" runat="server" Text="点检操作是否超时:"></asp:Label>
-            </td>
-             <td>
-  <asp:Label ID="DJ_ReturnTime" runat="server" Text="空"></asp:Label>
-            </td>
-             <td  style="width:15%">
-  <asp:Label ID="Label16" runat="server" Text="工段反馈状态:"></asp:Label>
-            </td>
-             <td>
- <asp:Label ID="ClassState" runat="server" Text="空"></asp:Label>
-            </td>
-             <td  style="width:15%">
-  <asp:Label ID="Label18" runat="server" Text="工段意见提出时间:"></asp:Label>
-            </td> 
-            <td>
-<asp:Label ID="COTime1" runat="server" Text="空"></asp:Label>
-
-            </td>
-        </tr>
-        </table>
     <table style="width:100%;text-align:left;">
         <tr>
+            <td  style="width:15%;text-align:left;column-span:all;">
+   <asp:Label ID="Label35" runat="server" Text="考核反馈意见:"></asp:Label>
+            </td>
+          
+             <td style="width:85%;text-align:left;column-span:all;">
+   <asp:Label ID="lb_khfk_yj" runat="server" Text="空"></asp:Label>
+            </td>
+           </tr>
+       <tr>
+           
+             <td  style="width:15%;text-align:left;column-span:all;">
+   <asp:Label ID="Label39" runat="server" Text="考核反馈状态:"></asp:Label>
+            </td>
+           <td style="width:85%;text-align:left;column-span:all;">
+     <asp:Label ID="lb_khfk_zt" runat="server" Text="空"></asp:Label>
+            </td>
+           </tr>
+        <tr>
+              <td  style="width:15%">
+  <asp:Label ID="Label16" runat="server" Text="工段反馈状态:"></asp:Label>
+            </td>
+             <td  style="width:15%">
+ <asp:Label ID="ClassState" runat="server" Text="空"></asp:Label>
+            </td>
+            </tr>
+       
+        <tr>
+
              <td style="text-align:left;column-span:all;"" >
  <asp:Label ID="Label17" runat="server" Text="工段意见:"></asp:Label>
             </td>
@@ -212,7 +188,15 @@
   <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
             </td>
             </tr>
-          
+           <tr>
+             <td  style="width:15%">
+  <asp:Label ID="Label18" runat="server" Text="工段意见提出时间:"></asp:Label>
+            </td> 
+            <td  style="width:15%">
+<asp:Label ID="COTime1" runat="server" Text="空"></asp:Label>
+
+            </td>
+        </tr>
         <tr>
             <td  style="width:15%;text-align:left;column-span:all;">
    <asp:Label ID="Label20" runat="server" Text="组长审批意见:"></asp:Label>
@@ -287,7 +271,7 @@
             </td>
         </tr>
     </table>
- </div>       
+ </div>        
         <div id="GDFK_BanLi" runat="server" style="text-align:center;margin:0 auto;width:100%">
     <asp:Label ID="Label1" runat="server" Text="组长审批" Font-Bold="False" Font-Size="Larger"></asp:Label>
 <hr />
@@ -308,7 +292,7 @@
                      <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
                     </td>
                      <td style="width:15%" >
-                           <asp:TextBox ID="tbx_kh_jiner" runat="server" Height="16px" Width="100%" ></asp:TextBox>
+                           <asp:TextBox ID="tbx_kh_jiner" runat="server" Height="16px" Width="100%"  Enabled="False"></asp:TextBox>
                     </td>
                 </tr>
 
@@ -332,7 +316,74 @@
       </tr>
  </table>  
         </div>
-        
+    <div id="dv_khfk_banli" runat="server" style="width:100%;text-align:center;float:none;margin:0 auto;" visible="false" >
+    <asp:Label ID="Label31" runat="server" Text="考核反馈" Font-Bold="False" Font-Size="Larger"></asp:Label>
+<hr />
+            <table style="width:100%;text-align:left;">
+                <tr>
+                    <td style="width:15%">
+ <asp:Label ID="Label33" runat="server" Text="反馈状态:"></asp:Label>
+          
+                    </td>
+                     <td>
+  <asp:DropDownList ID="ddl_khfk_zt" runat="server">
+                <asp:ListItem Selected="True">同意</asp:ListItem>
+                <asp:ListItem>不同意</asp:ListItem>
+            </asp:DropDownList>
+                    </td>
+                    
+                     <td style="width:15%">
+    <asp:Label ID="Label34" runat="server" Text="意见提出时间:"></asp:Label>
+                    </td >
+                     <td style="width:15%">
+  <asp:Label ID="lb_khfk_sj" runat="server" Text="意见提出时间"></asp:Label> 
+                    </td>
+                    <td style="width:10%" >
+                     <asp:Label ID="Label36" runat="server" Text="考核金额:"></asp:Label>   
+                    </td>
+                     <td style="width:15%" >
+                           <asp:TextBox ID="tbx_khfk_jiner" runat="server" Height="16px" Width="100%" Enabled="False" ></asp:TextBox>
+                    </td>
+                </tr>
+            </table>
+       <table style="width:100%">
+           <tr>
+               <td style="text-align:left;">
+        <asp:Label ID="Label37" runat="server" Text="意见:" ></asp:Label>
+               </td>
+               </tr>
+           <tr>
+               <td colspan="3" >
+            <asp:TextBox ID="tbx_khfk_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+               </td>
+           </tr>
+      <tr>
+               <td colspan="3">  
+
+            <asp:Button ID="btn_khfk_ok" runat="server" Text="确认" Width="99px" OnClick="btn_khfk_ok_Click" />
+
+                   
+            <asp:Button ID="btn_khfk_cancel" runat="server" Text="取消" Width="99px" OnClick="btn_khfk_calcel_Click" />
+
+</td> 
+      </tr>
+ </table>  
+        </div>
+       <div>
+          <%--下面的字段全部为隐藏，主要用于前后台数据缓存--%>
+          
+ <asp:Label ID="Label29" runat="server" Text="被考核工段ID:" Visible="False"></asp:Label>
+            
+  <asp:Label ID="lb_AppraiseGroupID" runat="server" Text="空" Visible="False"></asp:Label>
+           <asp:Label ID="lb_tcr_usrid" runat="server" Visible="False"></asp:Label>
+          
+ 
+
+ <asp:Label ID="Label15" runat="server" Text="点检操作是否超时:" Visible="False"></asp:Label>
+            
+  <asp:Label ID="DJ_ReturnTime" runat="server" Text="空" Visible="False"></asp:Label>
+            
+</div>         
 
     </form>
 </body>
