@@ -30,26 +30,26 @@
 <asp:Button ID="btn_ed_time" runat="server" Text="结束时间" OnClick="btn_ed_time_Click" />
                    </td>
                     <td>
-  <asp:Label ID="Label1" runat="server" Text="类别：" Visible="False"></asp:Label>
+  <asp:Label ID="Label1" runat="server" Text="流程类别：" ></asp:Label>
                    </td>
                     <td>
-   <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="74px">
-  <asp:ListItem>全部</asp:ListItem>
+   <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="74px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lclb_SelectedIndexChanged">
+       <asp:ListItem Value="生,产,设备,其它">全部</asp:ListItem>
                 <asp:ListItem>生产</asp:ListItem>
                 <asp:ListItem>设备</asp:ListItem>
                 <asp:ListItem>其它</asp:ListItem>
             </asp:DropDownList>
                    </td>
                     <td>
-   <asp:Label ID="Label2" runat="server" Text="流程状态：" Visible="False"></asp:Label>
+   <asp:Label ID="Label2" runat="server" Text="流程状态："></asp:Label>
                    </td>
                     <td>
  
-            <asp:DropDownList ID="ddl_lczt" runat="server" Height="16px" Width="84px">
+            <asp:DropDownList ID="ddl_lczt" runat="server" Height="16px" Width="84px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lczt_SelectedIndexChanged">
                 <asp:ListItem>全部</asp:ListItem>
                 <asp:ListItem>完成</asp:ListItem>
-                <asp:ListItem>其它</asp:ListItem>
                 <asp:ListItem>废除</asp:ListItem>
+                <asp:ListItem Value="考核人,被考核人,组长,主管领导,书记,主任">其它</asp:ListItem>
             </asp:DropDownList>
                    </td>
                     <td>
@@ -89,10 +89,12 @@
            
         </rsweb:ReportViewer>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter"></asp:ObjectDataSource>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dzswConnectionString %>" SelectCommand="SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN @bg_date AND @ed_date)">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dzswConnectionString %>" SelectCommand="SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN @bg_date AND @ed_date) AND (Flow_State IN (@Flow_State)) AND (AppraiseClass IN (@AppraiseClass))" OnSelecting="SqlDataSource1_Selecting">
             <SelectParameters>
                 <asp:ControlParameter ControlID="tbx_bg_date" Name="bg_date" PropertyName="Text" />
                 <asp:ControlParameter ControlID="tbx_ed_date" Name="ed_date" PropertyName="Text" />
+                <asp:ControlParameter ControlID="ddl_lczt" Name="Flow_State" PropertyName="SelectedValue" />
+                <asp:ControlParameter ControlID="ddl_lclb" Name="AppraiseClass" PropertyName="SelectedValue" />
             </SelectParameters>
         </asp:SqlDataSource>
     
