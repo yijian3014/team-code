@@ -34,7 +34,7 @@
                    </td>
                     <td>
    <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="74px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lclb_SelectedIndexChanged">
-       <asp:ListItem Value="生,产,设备,其它">全部</asp:ListItem>
+       <asp:ListItem>全部</asp:ListItem>
                 <asp:ListItem>生产</asp:ListItem>
                 <asp:ListItem>设备</asp:ListItem>
                 <asp:ListItem>其它</asp:ListItem>
@@ -49,7 +49,7 @@
                 <asp:ListItem>全部</asp:ListItem>
                 <asp:ListItem>完成</asp:ListItem>
                 <asp:ListItem>废除</asp:ListItem>
-                <asp:ListItem Value="考核人,被考核人,组长,主管领导,书记,主任">其它</asp:ListItem>
+                <asp:ListItem>其它</asp:ListItem>
             </asp:DropDownList>
                    </td>
                     <td>
@@ -83,18 +83,21 @@
   </div>
          
 
-    <div style="text-align:center;margin:0 auto;width:90%;float:none; height:50%;">
+    <div style="text-align:center;margin:0 auto;width:90%;float:none; height:auto 50%;overflow:auto;">
     
-        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="800px" ShowBackButton="False" ShowFindControls="False" >
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="600px" ShowBackButton="False" ShowFindControls="False" >
            
         </rsweb:ReportViewer>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter"></asp:ObjectDataSource>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dzswConnectionString %>" SelectCommand="SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM SJ2B_KH_KaoHe_info WHERE (AppraiseTime BETWEEN @bg_date AND @ed_date) AND (Flow_State IN (@Flow_State)) AND (AppraiseClass IN (@AppraiseClass))" OnSelecting="SqlDataSource1_Selecting">
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dzswConnectionString %>" 
+            SelectCommand="SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, 
+            AppraiseContent, DJ_ReturnTime, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion,
+             Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM SJ2B_KH_KaoHe_info 
+            WHERE (AppraiseTime BETWEEN @bg_date AND @ed_date)  order by AppraiseTime ,UserName" OnSelecting="SqlDataSource1_Selecting">
             <SelectParameters>
                 <asp:ControlParameter ControlID="tbx_bg_date" Name="bg_date" PropertyName="Text" />
                 <asp:ControlParameter ControlID="tbx_ed_date" Name="ed_date" PropertyName="Text" />
-                <asp:ControlParameter ControlID="ddl_lczt" Name="Flow_State" PropertyName="SelectedValue" />
-                <asp:ControlParameter ControlID="ddl_lclb" Name="AppraiseClass" PropertyName="SelectedValue" />
+              
             </SelectParameters>
         </asp:SqlDataSource>
     
