@@ -43,20 +43,20 @@
                 <br />
                 <br />
                 <asp:Label ID="Label3" runat="server" Text="考核类别："></asp:Label>
-                <asp:DropDownList ID="DropDownList1" runat="server">
+                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True">
                     <asp:ListItem Value="1">生产</asp:ListItem>
                     <asp:ListItem Value="2">设备</asp:ListItem>
                     <asp:ListItem Value="3">其它</asp:ListItem>
                 </asp:DropDownList>
                 &nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label4" runat="server" Text="被考核工段："></asp:Label>
-                <asp:DropDownList ID="DropDownList2" runat="server">
-                    <asp:ListItem Value="1">甲班</asp:ListItem>
+                <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
+                   <%-- <asp:ListItem Value="1">甲班</asp:ListItem>
                     <asp:ListItem Value="2">乙班</asp:ListItem>
                     <asp:ListItem Value="3">丙班</asp:ListItem>
                     <asp:ListItem Value="4">丁班</asp:ListItem>
                     <asp:ListItem Value="5">白班</asp:ListItem>
-                    <asp:ListItem Value="6">车间</asp:ListItem>
+                    <asp:ListItem Value="6">车间</asp:ListItem>--%>
                 </asp:DropDownList>
                 <br />
                 <br />

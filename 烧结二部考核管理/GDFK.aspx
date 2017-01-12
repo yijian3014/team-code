@@ -15,7 +15,7 @@
                <hr  />
         <asp:Label ID="Label25" runat="server" Text="用户名："></asp:Label>
         <asp:Label ID="login_user" runat="server" Text=""></asp:Label>
-             <asp:Button ID="btn_tckh" runat="server" Text="提出考核" OnClick="btn_tckh_Click" />
+             <asp:Button ID="btn_tckh" runat="server" Text="提出考核" OnClick="btn_tckh_Click" Visible="False" />
  <asp:Button ID="btn_acc_mgr" runat="server" Text="帐户管理" OnClick="btn_acc_mgr_Click" />
                   <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />
  </div>

@@ -26,7 +26,7 @@ public partial class DJSH : System.Web.UI.Page
         if (!IsPostBack)
         {
 
-            GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+            GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info order by AppraiseClass desc ,UserName");
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
         }
@@ -51,14 +51,14 @@ public partial class DJSH : System.Web.UI.Page
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where flow_state='被考核人' and AppraiseGroupID='" + Session["UserID"].ToString() + "'";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state='被考核人' and  AppraiseGroupID='"
+                + Session["UserID"].ToString() + "') or (flow_state='考核人' and userid='" + Session["UserID"].ToString() + "')";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (AppraiseGroupID='"
-                + Session["UserID"].ToString() + "' or UserId='" + Session["UserID"].ToString()
-                + "') and flow_state<>'被考核人' and cotime<>''";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state<>'被考核人' and  AppraiseGroupID='"
+                + Session["UserID"].ToString() + "') or (flow_state<>'考核人' and userid='" + Session["UserID"].ToString() + "')";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -115,9 +115,10 @@ public partial class DJSH : System.Web.UI.Page
                 AppraiseContent.Text = AppraiseContent_;
                 tbx_djsh_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
-                lb_khfk_yj.Text = KHFK_SJ_;
+                lb_khfk_yj.Text = KHFK_YJ_;
                 lb_khfk_zt.Text = KHFK_ZT_;
                 tbx_khfk_jiner.Text = kh_jiner_;
+                lb_khfk_sj.Text = KHFK_SJ_;
                 ClassState.Text = ClassState_;
                 COTime1.Text = COTime_;
                 COTime.Text = COTime1.Text;
@@ -225,7 +226,7 @@ public partial class DJSH : System.Web.UI.Page
         //但所遵守的原则是审核得要它的上级来进行。同意则由更上级审核，不同意则打回考核提出人。
         string sqlstr_update = "";
         string next_step = "";
-        if (ddl_khfk_zt.SelectedIndex == 0)
+        if (ddl_khfk_zt.Text == "同意")
         {
             if (Convert.ToInt16(lb_tcr_usrid.Text) / 1000 > 1)
                 switch (Convert.ToInt16(lb_tcr_usrid.Text) / 1000)
@@ -255,19 +256,19 @@ public partial class DJSH : System.Web.UI.Page
         if (lb_khfk_yj.Text == "&nbsp;" || lb_khfk_yj.Text == "")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
-
+            tbx_khfk_yj.Text += " Char(13)+Char(10)+该信息由" + Session["UserRname"].ToString() + "编辑于" + DateTime.Now.ToString() + "Char(13)+Char(10)";
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
-                + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
-            + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+            + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text+"'  ,flow_state ='" + next_step
+            + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
+            tbx_khfk_yj.Text += " Char(13)+Char(10)+'该信息由'" + Session["UserRname"].ToString() + "编辑于" + DateTime.Now.ToString() + "Char(13)+Char(10)";
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] += '" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
-           
-                      + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
-                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+                + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
+                + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         ds.ExecSQL(sqlstr_update);
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -276,7 +277,7 @@ public partial class DJSH : System.Web.UI.Page
 }
 
 
-    // Button1_Clic该功能处理封冻状态 
+    // Button1_Click该功能处理封冻状态 
     protected void Button1_Click(object sender, EventArgs e)
     {
         

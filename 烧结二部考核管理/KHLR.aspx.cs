@@ -28,10 +28,10 @@ public partial class KHLR : System.Web.UI.Page
         }
         if (!IsPostBack)
         {
-
+ RFDDL2();
         }
         UserID = Convert.ToInt32(Session["UserID"]);
-        RFDDL2();
+       
 
 
     }
@@ -140,8 +140,7 @@ public partial class KHLR : System.Web.UI.Page
     }
     protected void ImageButton3_Click(object sender, ImageClickEventArgs e)     //转换至View3---考核总览页面。
     {
-        Response.Write("<script language='javascript'>;location.href='Login.aspx';</script>");
-        Response.End();
+        Response.Redirect(Session["parent_page"].ToString());
         //this.MultiView1.ActiveViewIndex = 2;
 
         ////拴心考核总览表，并以考核类别，及考核提出人排序。
