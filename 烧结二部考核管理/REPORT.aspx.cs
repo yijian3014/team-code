@@ -111,4 +111,15 @@ public partial class REPORT : System.Web.UI.Page
     {
 
     }
+
+    protected void btn_exit_Click(object sender, EventArgs e)
+    {
+
+        Session["UserID"] = "";
+        Session["UserName"] = "";
+        Session["UserRName"] = "";
+        Session["UserRule"] = "";
+
+        Response.Redirect("login.aspx");
+    }
 }

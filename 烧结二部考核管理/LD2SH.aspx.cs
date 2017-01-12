@@ -32,6 +32,7 @@ public partial class LD2SH : System.Web.UI.Page
        
         }
         GDFK_BanLi.Visible = false;
+        dv_khfk_banli.Visible = false;
         if (rbl_cx.SelectedIndex == 1)
         {
             BTN_BLLC.Visible = true;

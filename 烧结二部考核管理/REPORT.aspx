@@ -15,7 +15,7 @@
    
     <form id="form1" runat="server"  style="text-align:center;width:auto 1000px;margin:0 auto;height:auto 65%;" >
         <div style="text-align:center;margin:0 auto;"  >
-           <table style="text-align:center;width:100%;">
+           <table style="text-align:center;width:950px;float:0;margin:auto;">
                <tr>
                    <td>
   <asp:TextBox ID="tbx_bg_date" runat="server" Enabled="False" Width="94px"></asp:TextBox> 
@@ -54,6 +54,9 @@
                    </td>
                     <td>
    <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" />
+                   </td>
+                   <td>
+                         <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />
                    </td>
                </tr>
            </table>

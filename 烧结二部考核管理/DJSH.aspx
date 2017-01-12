@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GDFK.aspx.cs" Inherits="GDFK" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DJSH.aspx.cs" Inherits="DJSH"  EnableEventValidation="false"  %>
 
 <!DOCTYPE html>
 
@@ -6,10 +6,9 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-  
 </head>
 <body>
-    <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
+ <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
         <asp:Label ID="Label26" runat="server" Text="烧结二部考核管理" Font-Bold="True" Font-Size="Larger"></asp:Label> 
         <div style="text-align:right;">            
                <hr  />
@@ -274,44 +273,44 @@
     </table>
  </div>       
         <div id="GDFK_BanLi" runat="server" style="width:100%;text-align:center;float:none;margin:0 auto;">
-    <asp:Label ID="Label1" runat="server" Text="工段反馈" Font-Bold="False" Font-Size="Larger"></asp:Label>
+    <asp:Label ID="Label1" runat="server" Text="点检审核" Font-Bold="False" Font-Size="Larger"></asp:Label>
 <hr />
             <table style="width:100%;text-align:left;">
                 <tr>
                     <td style="width:15%">
- <asp:Label ID="Label10" runat="server" Text="工段反馈状态:"></asp:Label>
+ <asp:Label ID="Label10" runat="server" Text="点检反馈状态:"></asp:Label>
           
                     </td>
                      <td>
-  <asp:DropDownList ID="ddl_gdsh_zt" runat="server">
+  <asp:DropDownList ID="ddl_djsh_zt" runat="server">
                 <asp:ListItem Selected="True">同意</asp:ListItem>
                 <asp:ListItem>不同意</asp:ListItem>
             </asp:DropDownList>
                     </td>
                     
                      <td style="width:15%">
-    <asp:Label ID="Label11" runat="server" Text="工段意见提出时间:"></asp:Label>
+    <asp:Label ID="Label11" runat="server" Text="点检意见提出时间:"></asp:Label>
                     </td >
                      <td style="width:15%">
-  <asp:Label ID="COTime" runat="server" Text="工段意见提出时间"></asp:Label> 
+  <asp:Label ID="COTime" runat="server" Text="点检意见提出时间"></asp:Label> 
                     </td>
                     <td style="width:10%" >
                      <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
                     </td>
                      <td style="width:15%" >
-                           <asp:TextBox ID="tbx_gdsh_kh_jiner" runat="server" Height="16px" Width="100%" Enabled="False" ></asp:TextBox>
+                           <asp:TextBox ID="tbx_djsh_kh_jiner" runat="server" Height="16px" Width="100%" Enabled="False" ></asp:TextBox>
                     </td>
                 </tr>
             </table>
        <table style="width:100%">
            <tr>
                <td style="text-align:left;">
-        <asp:Label ID="Label13" runat="server" Text="工段意见:" ></asp:Label>
+        <asp:Label ID="Label13" runat="server" Text="点检意见:" ></asp:Label>
                </td>
                </tr>
            <tr>
                <td colspan="3" >
-            <asp:TextBox ID="tbx_gdsh_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="tbx_djsh_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
                </td>
            </tr>
       <tr>

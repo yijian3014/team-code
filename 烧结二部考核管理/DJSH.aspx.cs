@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
 
-public partial class LD1SH : System.Web.UI.Page
+using System.Data.SqlClient;
+using System.Data;
+
+
+public partial class DJSH : System.Web.UI.Page
 {
     public static string sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
-    SqlDataReader dr;
-    public static string lb;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,16 +29,6 @@ public partial class LD1SH : System.Web.UI.Page
             GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
-
-            switch (Convert.ToInt16(Session["UserID"].ToString()))
-            {
-                case 4001:
-                    lb = "生产";
-                    break;
-                case 4002:
-                    lb = "设备";
-                    break;
-            }
         }
         GDFK_BanLi.Visible = false;
         dv_khfk_banli.Visible = false;
@@ -48,28 +38,33 @@ public partial class LD1SH : System.Web.UI.Page
         }
         else
             BTN_BLLC.Visible = false;
+
+
     }
+
     protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>0  order by AppraiseClass desc ,UserName";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state=4 and AppraiseClass='" + lb + "'";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where flow_state='被考核人' and AppraiseGroupID='" + Session["UserID"].ToString() + "'";
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info where flow_state<>4 and flow_state<>0 and AppraiseClass='" + lb + "' and Leader_1_State<>''";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (AppraiseGroupID='"
+                + Session["UserID"].ToString() + "' or UserId='" + Session["UserID"].ToString()
+                + "') and flow_state<>'被考核人' and cotime<>''";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataSource = ds1;
-
         GridView1.DataBind();
+        //Response.Write("<script> alert(" +ds1.Tables[0].Columns[0].ColumnName.ToString() + ")</script>");             
     }
     protected void get_sing_rec(string sel_rec)
     {
@@ -89,8 +84,13 @@ public partial class LD1SH : System.Web.UI.Page
                 string AppraiseClass_ = dr["AppraiseClass"].ToString();
                 string AppraiseTime_ = dr["AppraiseTime"].ToString();
                 string AppraiseGroup_ = dr["AppraiseGroup"].ToString();
+                string AppraiseGroupID_ = dr["AppraiseGroupID"].ToString();
                 string AppraiseContent_ = dr["AppraiseContent"].ToString();
+                string kh_jiner_ = dr["kh_jiner"].ToString();
                 string DJ_ReturnTime_ = dr["DJ_ReturnTime"].ToString();
+                string KHFK_YJ_ = dr["KHFK_YJ"].ToString();
+                string KHFK_ZT_ = dr["KHFK_ZT"].ToString();
+                string KHFK_SJ_ = dr["KHFK_SJ"].ToString();
                 string ClassState_ = dr["ClassState"].ToString();
                 string ClassObjection_ = dr["ClassObjection"].ToString();
                 string COTime_ = dr["COTime"].ToString();
@@ -106,15 +106,21 @@ public partial class LD1SH : System.Web.UI.Page
                 AppraiseID.Text = AppraiseID_;
                 Flow_State.Text = Flow_State_;
                 UserName.Text = UserName_;
-
+                lb_tcr_usrid.Text = UserID_;
                 tc_DataTime.Text = tc_DateTime_;
                 AppraiseClass.Text = AppraiseClass_;
                 AppraiseTime.Text = AppraiseTime_;
                 AppraiseGroup.Text = AppraiseGroup_;
+                lb_AppraiseGroupID.Text = AppraiseGroupID_;
                 AppraiseContent.Text = AppraiseContent_;
+                tbx_djsh_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
+                lb_khfk_yj.Text = KHFK_SJ_;
+                lb_khfk_zt.Text = KHFK_ZT_;
+                tbx_khfk_jiner.Text = kh_jiner_;
                 ClassState.Text = ClassState_;
                 COTime1.Text = COTime_;
+                COTime.Text = COTime1.Text;
                 ClassObjection.Text = ClassObjection_;
                 ChargehandOpinion.Text = ChargehandOpinion_;
                 ChargehandState.Text = ChargehandState_;
@@ -129,10 +135,11 @@ public partial class LD1SH : System.Web.UI.Page
         catch (Exception er)
         {
 
-            Response.Write (er.Message.ToString());
+            Response.Write(er.Message.ToString());
 
         }
     }
+
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -176,6 +183,7 @@ public partial class LD1SH : System.Web.UI.Page
             //AppraiseID.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text;
             //Flow_State.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[2].Text;
             //UserName.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[4].Text;
+
             //tc_DataTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[5].Text;
             //AppraiseClass.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[6].Text;
             //AppraiseTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[7].Text;
@@ -184,7 +192,7 @@ public partial class LD1SH : System.Web.UI.Page
             //DJ_ReturnTime.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[10].Text;
             //ClassState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[11].Text;
             //COTime1.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[12].Text;
-
+            //COTime.Text = COTime1.Text;
             //ClassObjection.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[13].Text;
             //ChargehandOpinion.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[14].Text;
             //ChargehandState.Text = GridView1.Rows[GridView1.SelectedIndex].Cells[15].Text;
@@ -199,147 +207,9 @@ public partial class LD1SH : System.Web.UI.Page
             get_sing_rec(sel_rec);
 
         }
-
-
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        string sqlstr_update = "";
-        string next_step = "";
 
-        if (ddl1_ld1sp_zt.SelectedIndex == 0)
-
-            next_step = "书记";
-
-        else next_step = "废除";
-        if (Leader_1_Opinion.Text == "&nbsp;")
-        //判断是否是第一次办理，只记录第一次办里时间。
-        {
-
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_1_Opinion] = '" + tb1_ld1sp_yj.Text + "',[Leader_1_State]='"
-                      + ddl1_ld1sp_zt.Text + "',flow_state = " + next_step
-            + " where AppraiseClass='" + lb + "'"
-            + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
-        }
-        else
-        {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_1_Opinion] = '" + tb1_ld1sp_yj.Text
-                 + "',[Leader_1_State]='" + ddl1_ld1sp_zt.Text + "',flow_state= " + next_step
-                 + " where AppraiseClass='" + lb + "'"
-                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
-        }
-
-
-        ds.ExecSQL(sqlstr_update);
-
-        GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
-        GridView1.DataBind();
-
-    }
-
-    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-
-        PostBackOptions myPostBackOptions = new PostBackOptions(this);
-        myPostBackOptions.AutoPostBack = false;
-        myPostBackOptions.RequiresJavaScriptProtocol = true;
-        myPostBackOptions.PerformValidation = false;
-
-        String evt = Page.ClientScript.GetPostBackClientHyperlink(sender as GridView, "Select$" + e.Row.RowIndex.ToString());
-        e.Row.Attributes.Add("onclick", evt);
-
-    }
-
-    protected void BTN_BLLC_Click(object sender, EventArgs e)
-    {
-
-        if (Convert.ToInt16(lb_AppraiseGroupID.Text) == Convert.ToInt16(Session["userid"].ToString()))
-        {
-            if (GridView1.Rows.Count > 0)
-            {
-                dv_khfk_banli.Visible = true;
-                if (lb_khfk_yj.Text != "&nbsp;")
-                    tbx_khfk_yj.Text = lb_khfk_yj.Text;
-                else
-                    tbx_khfk_yj.Text = "";
-
-                if (lb_khfk_zt.Text == "同意" || lb_khfk_zt.Text == "&nbsp;")
-                    ddl_khfk_zt.SelectedIndex = 0;
-                else
-                    ddl_khfk_zt.SelectedIndex = 1;
-                if (lb_khfk_sj.Text == "&nbsp;" || lb_khfk_sj.Text == "")
-                    lb_khfk_sj.Text = DateTime.Now.ToString();
-            }
-            else
-                Response.Write("<script>alert('无待办项')</script>");
-        }
-        else
-        {
-            if (GridView1.Rows.Count > 0)
-            {
-                //办理流程：用于初始化待办流程窗体
-                GDFK_BanLi.Visible = true;
-                if (Leader_1_Opinion.Text != "&nbsp;")
-                    tb1_ld1sp_yj.Text = Leader_1_Opinion.Text;
-                else
-                    tb1_ld1sp_yj.Text = "";
-
-                if (Leader_1_State.Text == "同意" || Leader_1_State.Text == "&nbsp;")
-                    ddl1_ld1sp_zt.SelectedIndex = 0;
-                else
-                    ddl1_ld1sp_zt.SelectedIndex = 1;
-            }
-            else
-                Response.Write("<script>alert('无待办项')</script>");
-
-
-
-        }
-    }
-    protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
-    {
-
-        if (e.Row.Cells.Count == 22)
-        {
-            e.Row.Cells[0].Visible = false;
-            e.Row.Cells[3].Visible = false;
-            e.Row.Cells[9].Visible = false;
-            e.Row.Cells[13].Visible = false;
-            e.Row.Cells[14].Visible = false;
-            e.Row.Cells[16].Visible = false;
-            e.Row.Cells[18].Visible = false;
-            e.Row.Cells[20].Visible = false;
-
-
-        }
-    }
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        GDFK_BanLi.Visible = false;
-    }
-    protected void btn_acc_mgr_Click(object sender, EventArgs e)
-    {
-        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
-        Response.Redirect("user_mgr.aspx");
-    }
-
-    protected void btn_exit_Click(object sender, EventArgs e)
-    {
-        Session["UserID"] = "";
-        Session["UserName"] = "";
-        Session["UserRName"] = "";
-        Session["UserRule"] = "";
-
-        Response.Redirect("login.aspx");
-    }
-
-    protected void btn_tckh_Click(object sender, EventArgs e)
-    {
-
-        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
-        Response.Redirect("KHLR.aspx");
-    }
 
     protected void btn_khfk_ok_Click(object sender, EventArgs e)
     {
@@ -388,7 +258,6 @@ public partial class LD1SH : System.Web.UI.Page
 
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
-            + "' [KHFK_ZT]='" + ddl_khfk_zt.Text
             + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
@@ -396,13 +265,163 @@ public partial class LD1SH : System.Web.UI.Page
         {
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] += '" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
-            + "' [KHFK_ZT]='" + ddl_khfk_zt.Text
+           
                       + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         ds.ExecSQL(sqlstr_update);
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         GridView1.DataBind();
+    
+}
+
+
+    // Button1_Clic该功能处理封冻状态 
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        
+        string sqlstr_update = "";
+        string next_step = "";
+        if (ddl_djsh_zt.SelectedIndex == 0)
+        {
+            if (AppraiseClass.Text == "设备" || AppraiseClass.Text == "生产")
+                next_step = "组长";//默认提出人IDConvert.ToInt16(lb_tcr_usrid.Text) / 1000 = 1是点检时，则提交第三步
+
+            else
+                next_step = "书记";//其它选项转到第五步书记
+        }
+        else
+        {
+            next_step = "考核人";//选择不同意，转到第一步考核人
+
+        }
+        // 注数据库更新操作时需注意所操作的字段是否是当前角色的字段，下面操作的是工段反馈相关字段，数据库还没有为此角色设审核用字段，下面语名句不能启用
+        if (ClassObjection.Text == "&nbsp;" || ClassObjection.Text == "")
+        //判断是否是第一次办理，只记录第一次办里时间。
+        {
+            
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_djsh_yj.Text +
+                "',kh_jiner= '" + Convert.ToDecimal(tbx_djsh_kh_jiner.Text) +
+                "',[COTime]=getdate(),ClassState='" + ddl_djsh_zt.Text + "',flow_state ='" + next_step
+            + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+            + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+        }
+        else
+        {
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_djsh_yj.Text
+               + "',kh_jiner= '" + Convert.ToDecimal(tbx_djsh_kh_jiner.Text)
+                 + "',ClassState='" + ddl_djsh_zt.Text + "',flow_state= '" + next_step
+                 + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+        }
+        ds.ExecSQL(sqlstr_update);
+        GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+        GridView1.DataBind();
+
+    }
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+
+        PostBackOptions myPostBackOptions = new PostBackOptions(this);
+        myPostBackOptions.AutoPostBack = false;
+        myPostBackOptions.RequiresJavaScriptProtocol = true;
+        myPostBackOptions.PerformValidation = false;
+
+        String evt = Page.ClientScript.GetPostBackClientHyperlink(sender as GridView, "Select$" + e.Row.RowIndex.ToString());
+        e.Row.Attributes.Add("onclick", evt);
+
+    }
+
+
+    // Button2_Clic该功能处理封冻状态 
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        GDFK_BanLi.Visible = false;
+    }
+
+    protected void BTN_BLLC_Click(object sender, EventArgs e)
+    {
+
+        if (Convert.ToInt16(lb_AppraiseGroupID.Text) == Convert.ToInt16(Session["userid"].ToString()))
+        {
+
+            if (GridView1.Rows.Count > 0)
+            {
+                dv_khfk_banli.Visible = true;
+                if (lb_khfk_yj.Text != "&nbsp;")
+                    tbx_khfk_yj.Text = lb_khfk_yj.Text;
+                else
+                    tbx_khfk_yj.Text = "";
+
+                if (lb_khfk_zt.Text == "同意" || lb_khfk_zt.Text == "&nbsp;")
+                    ddl_khfk_zt.SelectedIndex = 0;
+                else
+                    ddl_khfk_zt.SelectedIndex = 1;
+                if (lb_khfk_sj.Text == "&nbsp;" || lb_khfk_sj.Text == "")
+                    lb_khfk_sj.Text = DateTime.Now.ToString();
+            }
+            else
+                Response.Write("<script>alert('无待办项')</script>");
+        }
+        else
+        {
+            //办理流程：用于初始化待办流程窗体
+            if (GridView1.Rows.Count > 0)
+            {
+                GDFK_BanLi.Visible = true;
+                if (ClassObjection.Text != "&nbsp;")
+                    tbx_djsh_yj.Text = ClassObjection.Text;
+                else
+                    tbx_djsh_yj.Text = "";
+
+                if (ClassState.Text == "同意" || ClassState.Text == "&nbsp;")
+                    ddl_djsh_zt.SelectedIndex = 0;
+                else
+                    ddl_djsh_zt.SelectedIndex = 1;
+                if (COTime.Text == "&nbsp;")
+                    COTime.Text = DateTime.Now.ToString();
+            }
+            else
+                Response.Write("<script>alert('无待办项')</script>");
+        }
+    }
+
+    protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
+    {
+
+        if (e.Row.Cells.Count == 22)
+        {
+            //e.Row.Cells[0].Visible = false;
+            //e.Row.Cells[3].Visible = false;
+            //e.Row.Cells[9].Visible = false;
+            //  e.Row.Cells[13].Visible = false;
+            //e.Row.Cells[14].Visible = false;
+            //e.Row.Cells[16].Visible = false;
+            //e.Row.Cells[18].Visible = false;
+            //e.Row.Cells[20].Visible = false;
+
+
+        }
+    }
+    protected void btn_acc_mgr_Click(object sender, EventArgs e)
+    {
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("user_mgr.aspx");
+    }
+
+    protected void btn_exit_Click(object sender, EventArgs e)
+    {
+        Session["UserID"] = "";
+        Session["UserName"] = "";
+        Session["UserRName"] = "";
+        Session["UserRule"] = "";
+
+        Response.Redirect("login.aspx");
+    }
+    protected void btn_tckh_Click(object sender, EventArgs e)
+    {
+        Session["parent_page"] = System.IO.Path.GetFileName(Request.Path).ToString();
+        Response.Redirect("KHLR.aspx");
     }
 
     protected void btn_khfk_calcel_Click(object sender, EventArgs e)
