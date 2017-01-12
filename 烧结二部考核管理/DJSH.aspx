@@ -6,6 +6,11 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
  <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
@@ -42,7 +47,7 @@
          
 
         </div>
-          <div style="text-align:center;margin:0 auto;width:100%;">
+          <div style="text-align:center;margin:0 auto;width:950px;height:300px;float:none;overflow:auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
                  <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
@@ -72,14 +77,11 @@
              </Columns>
          </asp:GridView>
        </div>
-        <div style="width:100%;text-align:center;float:none;margin:0 auto;overflow:auto;">
-             <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
+
+
+<div ID="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
+      <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
-
-        </div>
-       
-
-<div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
     <table style="width:100%;text-align:left;">
         <tr >
             <td style="text-align:left; width:15%">
@@ -137,14 +139,14 @@
         </table>
 
 
-    <table style="text-align:left;width:100%;">
+    <table style="text-align:left;" class="auto-style1">
         <tr >
              <td  style="width:15%;text-align:left;">
  <asp:Label ID="Label14" runat="server" Text="考核内容:"></asp:Label> 
             </td>
 
              <td style="width:85%;text-align:left;">
-  <asp:Label ID="AppraiseContent" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_AppraiseContent" runat="server" Enabled="False"></asp:TextBox>
             </td>
              
 
@@ -157,7 +159,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-   <asp:Label ID="lb_khfk_yj" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_lb_khfk_yj" runat="server" Enabled="False"></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -185,7 +187,7 @@
             </td>
         
              <td style="text-align:left;column-span:all;">
-  <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server" Enabled="False"></asp:TextBox>
             </td>
             </tr>
            <tr>
@@ -204,6 +206,7 @@
           
              <td style="width:85%;text-align:left;column-span:all;">
    <asp:Label ID="ChargehandOpinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ChargehandOpinion" runat="server" Enabled="False"></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -222,6 +225,7 @@
      
             <td style="width:85%;text-align:left;column-span:all;">
  <asp:Label ID="Leader_1_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_1_Opinion" runat="server" Enabled="False"></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -240,6 +244,7 @@
          
             <td style="width:85%;text-align:left;column-span:all;">
                 <asp:Label ID="Leader_2_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_2_Opinion" runat="server" Enabled="False"></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -259,6 +264,7 @@
       
             <td style="width:85%;text-align:left;column-span:all;">
                  <asp:Label ID="Leader_3_Opinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_Leader_3_Opinion" runat="server" Enabled="False"></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -285,6 +291,7 @@
   <asp:DropDownList ID="ddl_djsh_zt" runat="server">
                 <asp:ListItem Selected="True">同意</asp:ListItem>
                 <asp:ListItem>不同意</asp:ListItem>
+      <asp:ListItem>废除</asp:ListItem>
             </asp:DropDownList>
                     </td>
                     
@@ -335,9 +342,10 @@
           
                     </td>
                      <td>
-  <asp:DropDownList ID="ddl_khfk_zt" runat="server">
+  <asp:DropDownList ID="ddl_khfk_zt" runat="server" >
                 <asp:ListItem Selected="True">同意</asp:ListItem>
                 <asp:ListItem>不同意</asp:ListItem>
+       <asp:ListItem Enabled="False">废除</asp:ListItem>
             </asp:DropDownList>
                     </td>
                     
