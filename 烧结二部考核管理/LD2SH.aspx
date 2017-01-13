@@ -43,7 +43,7 @@
          
 
         </div>
-          <div style="text-align:center;margin:0 auto;width:100%;">
+          <div style="text-align:center;margin:0 auto;width:950px;height:100px auto;float:none;overflow:auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
                  <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
@@ -73,7 +73,7 @@
              </Columns>
          </asp:GridView>
        </div>
-        <div style="width:100%;text-align:center;float:none;margin:0 auto;overflow:auto;">
+ <div id="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
              <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
 

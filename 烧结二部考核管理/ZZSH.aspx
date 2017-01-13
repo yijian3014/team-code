@@ -74,12 +74,10 @@
              </Columns>
          </asp:GridView>
        </div>
-        <div style="width:100%;text-align:center;float:none;margin:0 auto;overflow:auto;">
-             <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
+      
+<div id="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
+      <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
-
-        </div>
-  <div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
     <table style="width:100%;text-align:left;">
         <tr >
             <td style="text-align:left; width:15%">
@@ -137,14 +135,14 @@
         </table>
 
 
-    <table style="text-align:left;width:100%;">
+    <table style="width:100%;text-align:left;" >
         <tr >
              <td  style="width:15%;text-align:left;">
  <asp:Label ID="Label14" runat="server" Text="考核内容:"></asp:Label> 
             </td>
 
              <td style="width:85%;text-align:left;">
-  <asp:Label ID="AppraiseContent" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_AppraiseContent" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
              
 
@@ -157,7 +155,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-   <asp:Label ID="lb_khfk_yj" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_lb_khfk_yj" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -185,7 +183,7 @@
             </td>
         
              <td style="text-align:left;column-span:all;">
-  <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
             </tr>
            <tr>
@@ -203,7 +201,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-   <asp:Label ID="ChargehandOpinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ChargehandOpinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -221,7 +219,7 @@
             </td>
      
             <td style="width:85%;text-align:left;column-span:all;">
- <asp:Label ID="Leader_1_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_1_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -239,7 +237,7 @@
             </td>
          
             <td style="width:85%;text-align:left;column-span:all;">
-                <asp:Label ID="Leader_2_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_2_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -258,7 +256,7 @@
             </td>
       
             <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:Label ID="Leader_3_Opinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_Leader_3_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -292,7 +290,7 @@
                      <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
                     </td>
                      <td style="width:15%" >
-                           <asp:TextBox ID="tbx_kh_jiner" runat="server" Height="16px" Width="100%"  Enabled="False"></asp:TextBox>
+                           <asp:TextBox ID="tbx_zzsh_kh_jiner" runat="server" Height="16px" Width="100%"  Enabled="False"></asp:TextBox>
                     </td>
                 </tr>
 
