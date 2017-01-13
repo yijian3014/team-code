@@ -32,7 +32,9 @@ public partial class GDFK : System.Web.UI.Page
         GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
             login_usrid = Session["UserID"].ToString();
+           
         }
+        div_khxd.Visible = false;
         GDFK_BanLi.Visible = false;
         dv_khfk_banli.Visible = false;
         if (rbl_cx.SelectedIndex == 1)
@@ -47,7 +49,10 @@ public partial class GDFK : System.Web.UI.Page
 
     protected void RadioButtonList1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if(rbl_cx.SelectedIndex==0)
+        GDFK_BanLi.Visible = false;
+        dv_khfk_banli.Visible = false;
+        div_khxd.Visible = false;
+        if (rbl_cx.SelectedIndex==0)
         { 
         sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
             BTN_BLLC.Visible = false;
@@ -134,6 +139,7 @@ public partial class GDFK : System.Web.UI.Page
                 lb_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
                 tbx_khfk_yj.Text = KHFK_YJ_;
+                tbx_xd_khfk_yj.Text = KHFK_YJ_;
                 lb_khfk_zt.Text = KHFK_ZT_;
                 tbx_khfk_jiner.Text= kh_jiner_;
                 lb_khfk_sj.Text = KHFK_SJ_;
@@ -161,7 +167,7 @@ public partial class GDFK : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        div_khxd.Visible = true;
 
         for (int i = 0; i < GridView1.Rows.Count; i++)
         {
@@ -230,43 +236,44 @@ public partial class GDFK : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        //办理流程
+       ////工段没有审核考核的权限故该功能被封印
+       // //办理流程
  
-        string sqlstr_update = "";
-        string next_step = "";
-        if (ddl_gdsh_zt.SelectedIndex == 0)
-        {
-            if (AppraiseClass.Text == "设备" || AppraiseClass.Text == "生产")
-                next_step = "组长";//默认提出人IDConvert.ToInt16(lb_tcr_usrid.Text) / 1000 = 1是点检时，则提交第三步
+       // string sqlstr_update = "";
+       // string next_step = "";
+       // if (ddl_gdsh_zt.SelectedIndex == 0)
+       // {
+       //     if (AppraiseClass.Text == "设备" || AppraiseClass.Text == "生产")
+       //         next_step = "组长";//默认提出人IDConvert.ToInt16(lb_tcr_usrid.Text) / 1000 = 1是点检时，则提交第三步
 
-            else
-                next_step = "书记";//其它选项转到第五步书记
-        }
-        else
-        {
-            next_step = "考核人";//选择不同意，转到第一步考核人
+       //     else
+       //         next_step = "书记";//其它选项转到第五步书记
+       // }
+       // else
+       // {
+       //     next_step = "考核人";//选择不同意，转到第一步考核人
 
-        }
-        if (tbx_ClassObjection.Text == "&nbsp;" || tbx_ClassObjection.Text == "")
-        //判断是否是第一次办理，只记录第一次办里时间。
-        {
-           sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_gdsh_yj.Text +
-                "',kh_jiner= '" + Convert.ToDecimal(tbx_gdsh_kh_jiner.Text) +
-                "',[COTime]=getdate(),ClassState='" + ddl_gdsh_zt.Text + "',flow_state ='" + next_step
-            + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
-            + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
-        }
-        else
-        {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_gdsh_yj.Text
-               + "',kh_jiner= '" + Convert.ToDecimal(tbx_gdsh_kh_jiner.Text)
-                 + "',ClassState='" + ddl_gdsh_zt.Text + "',flow_state= '" + next_step
-                 + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
-                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
-        }
-       ds.ExecSQL(sqlstr_update);
-        GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
-        GridView1.DataBind();
+       // }
+       // if (tbx_ClassObjection.Text == "&nbsp;" || tbx_ClassObjection.Text == "")
+       // //判断是否是第一次办理，只记录第一次办里时间。
+       // {
+       //    sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_gdsh_yj.Text +
+       //         "',kh_jiner= '" + Convert.ToDecimal(tbx_gdsh_kh_jiner.Text) +
+       //         "',[COTime]=getdate(),ClassState='" + ddl_gdsh_zt.Text + "',flow_state ='" + next_step
+       //     + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+       //     + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+       // }
+       // else
+       // {
+       //     sqlstr_update = "update SJ2B_KH_KaoHe_info set [ClassObjection] = '" + tbx_gdsh_yj.Text
+       //        + "',kh_jiner= '" + Convert.ToDecimal(tbx_gdsh_kh_jiner.Text)
+       //          + "',ClassState='" + ddl_gdsh_zt.Text + "',flow_state= '" + next_step
+       //          + "' where AppraiseGroup='" + Session["UserRName"].ToString() + "'"
+       //          + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
+       // }
+       //ds.ExecSQL(sqlstr_update);
+       // GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
+       // GridView1.DataBind();
 
     }
 
@@ -309,10 +316,12 @@ public partial class GDFK : System.Web.UI.Page
                     Response.Write("<script>alert('无待办项')</script>");
             }
 
+
             else
             {
 
                 Response.Write("<script>alert('工段角色不能办理此项工作！')</script>");
+               
                 /*
                 //办理流程：用于初始化待办流程窗体
                 if (GridView1.Rows.Count > 0)
@@ -427,10 +436,10 @@ public partial class GDFK : System.Web.UI.Page
             next_step = "考核人";//选择不同意，转到考核人
        
 
-        if (tbx_khfk_yj.Text == "&nbsp;" || tbx_khfk_yj.Text == "")
+        if (tbx_xd_khfk_yj.Text == "&nbsp;" || tbx_xd_khfk_yj.Text == "")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
-            //    tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由" + Session["UserRname"].ToString() + "编辑于" + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
+            tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
             + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "'  ,flow_state ='" + next_step
             + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
@@ -438,8 +447,9 @@ public partial class GDFK : System.Web.UI.Page
         }
         else
         {
-            //   tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由" + Session["UserRname"].ToString() + "编辑于" + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] += '" + tbx_khfk_yj.Text
+            
+            tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
                 + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -452,10 +462,6 @@ public partial class GDFK : System.Web.UI.Page
     protected void btn_khfk_calcel_Click(object sender, EventArgs e)
     {
 
-        Session["UserID"] = "";
-        Session["UserName"] = "";
-        Session["UserRName"] = "";
-        Session["UserRule"] = "";
-        Response.Redirect("login.aspx");
+        div_khxd.Visible = true;
     }
 }

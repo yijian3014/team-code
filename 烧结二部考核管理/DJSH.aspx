@@ -74,7 +74,7 @@
        </div>
 
 
-<div id="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
+<div id="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;" visible="false" >
       <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
     <table style="width:100%;text-align:left;">
@@ -141,7 +141,7 @@
             </td>
 
              <td style="width:85%;text-align:left;">
-                 <asp:TextBox ID="tbx_AppraiseContent" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_AppraiseContent" runat="server" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
              
 
@@ -154,7 +154,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_lb_khfk_yj" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_xd_khfk_yj" runat="server" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -182,7 +182,7 @@
             </td>
         
              <td style="text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_ClassObjection" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
             </tr>
            <tr>
@@ -200,7 +200,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_ChargehandOpinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_ChargehandOpinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -218,7 +218,7 @@
             </td>
      
             <td style="width:85%;text-align:left;column-span:all;">
-                <asp:TextBox ID="tbx_Leader_1_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                <asp:TextBox ID="tbx_Leader_1_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -236,7 +236,7 @@
             </td>
          
             <td style="width:85%;text-align:left;column-span:all;">
-                <asp:TextBox ID="tbx_Leader_2_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                <asp:TextBox ID="tbx_Leader_2_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -255,7 +255,7 @@
             </td>
       
             <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_Leader_3_Opinion" runat="server" Enabled="False"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_Leader_3_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>

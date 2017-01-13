@@ -155,7 +155,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_lb_khfk_yj" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_xd_khfk_yj" runat="server" Enabled="False" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -303,7 +303,7 @@
                </tr>
            <tr>
                <td colspan="3" >
-            <asp:TextBox ID="tb1_zzsp_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="tbx_zzsp_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
                </td>
            </tr>
       <tr>

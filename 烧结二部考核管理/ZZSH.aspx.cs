@@ -43,6 +43,8 @@ public partial class ZZSH : System.Web.UI.Page
             }
         }
         GDFK_BanLi.Visible = false;
+        dv_khfk_banli.Visible = false;
+        div_khxd.Visible = false;
         if (rbl_cx.SelectedIndex == 1)
         {
             BTN_BLLC.Visible = true;
@@ -123,7 +125,8 @@ public partial class ZZSH : System.Web.UI.Page
                 tbx_zzsh_kh_jiner.Text = kh_jiner_;
                 lb_kh_jiner.Text = kh_jiner_;
                 DJ_ReturnTime.Text = DJ_ReturnTime_;
-                tbx_lb_khfk_yj.Text = KHFK_YJ_;
+                tbx_xd_khfk_yj.Text = KHFK_YJ_;
+                tbx_khfk_yj.Text = KHFK_YJ_;
                 lb_khfk_zt.Text = KHFK_ZT_;
                 tbx_khfk_jiner.Text = kh_jiner_;
                 lb_khfk_sj.Text = KHFK_SJ_;
@@ -150,7 +153,9 @@ public partial class ZZSH : System.Web.UI.Page
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        GDFK_BanLi.Visible = false;
+        dv_khfk_banli.Visible = false;
+        div_khxd.Visible = false;
 
         for (int i = 0; i < GridView1.Rows.Count; i++)
         {
@@ -233,14 +238,14 @@ public partial class ZZSH : System.Web.UI.Page
         //判断是否是第一次办理，只记录第一次办里时间。
         {
 
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text + "',[ChargehandState]='"
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tbx_zzsp_yj.Text + "',[ChargehandState]='"
                       + ddl1_zzsp_zt.Text + "',flow_state = '" + next_step
             + "' where AppraiseClass='" + lb + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
         }
         else
         {
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tb1_zzsp_yj.Text
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [ChargehandOpinion] = '" + tbx_zzsp_yj.Text
                  + "',[ChargehandState]='" + ddl1_zzsp_zt.Text + "',flow_state= '" + next_step
                  + "' where AppraiseClass='" + lb + "'"
                  + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -300,9 +305,9 @@ public partial class ZZSH : System.Web.UI.Page
 
                 GDFK_BanLi.Visible = true;
                 if (tbx_ChargehandOpinion.Text != "&nbsp;")
-                    tb1_zzsp_yj.Text = tbx_ChargehandOpinion.Text;
+                    tbx_zzsp_yj.Text = tbx_ChargehandOpinion.Text;
                 else
-                    tb1_zzsp_yj.Text = "";
+                    tbx_zzsp_yj.Text = "";
 
                 if (ChargehandState.Text == "同意" || ChargehandState.Text == "&nbsp;")
                     ddl1_zzsp_zt.SelectedIndex = 0;
