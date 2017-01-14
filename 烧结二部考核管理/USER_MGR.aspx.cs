@@ -100,7 +100,7 @@ public partial class USER_MGR : System.Web.UI.Page
         if (GridView1.SelectedIndex >= 0)
         //表格表头索引是-1，要屏蔽
         {
-            GridView1.Rows[GridView1.SelectedIndex].BackColor = System.Drawing.Color.Blue;
+            GridView1.Rows[GridView1.SelectedIndex].BackColor = System.Drawing.Color.BlanchedAlmond;
             string sel_rec = "";
             sel_rec = "select * from [dzsw].[dbo].[SJ2B_KH_User] where  UserID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text;
             get_sing_rec(sel_rec);

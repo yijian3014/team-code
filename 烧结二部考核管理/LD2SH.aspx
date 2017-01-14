@@ -1,12 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LD2SH.aspx.cs" Inherits="LD2SH" EnableEventValidation="false" %>
-
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-
 </head>
 <body>
    <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
@@ -74,35 +71,31 @@
          </asp:GridView>
        </div>
  <div id="div_khxd" runat="server"  style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
-             <asp:Label ID="Label3" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
+           
+      <asp:Label ID="Label4" runat="server" Text="考核表详单" Font-Bold="False" Font-Size="Larger"></asp:Label>
             <hr />
-
-        </div>
-       
-
-<div style="width:100%;height:auto;text-align:center;float:none;margin:0 auto;">
     <table style="width:100%;text-align:left;">
         <tr >
             <td style="text-align:left; width:15%">
-<asp:Label ID="Label4" runat="server" Text="考核编号:"></asp:Label>
+<asp:Label ID="Label5" runat="server" Text="考核编号:"></asp:Label>
             </td>
             <td style="text-align:left;width:10%">
   <asp:Label ID="AppraiseID" runat="server" Text="空"></asp:Label>
             </td>
             <td style="text-align:left;width:12%">
-  <asp:Label ID="Label5" runat="server" Text="程序流转状态:"></asp:Label>
+  <asp:Label ID="Label6" runat="server" Text="程序流转状态:"></asp:Label>
             </td>
             <td  style="text-align:left;width:12%">
    <asp:Label ID="Flow_State" runat="server" Text="空"></asp:Label>
             </td>
             <td  style="text-align:left;width:12%">
- <asp:Label ID="Label6" runat="server" Text="提出考核用户:"></asp:Label>
+ <asp:Label ID="Label7" runat="server" Text="提出考核用户:"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
  <asp:Label ID="UserName" runat="server" Text="空"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
-  <asp:Label ID="Label7" runat="server" Text="提出考核时间:"></asp:Label>
+  <asp:Label ID="Label8" runat="server" Text="提出考核时间:"></asp:Label>
             </td>
              <td  style="text-align:left;width:12%">
    <asp:Label ID="tc_DataTime" runat="server" Text="空"></asp:Label>
@@ -110,13 +103,13 @@
         </tr>
         <tr>
              <td style="text-align:left; width:15%">
-  <asp:Label ID="Label8" runat="server" Text="考核种类:"></asp:Label>
+  <asp:Label ID="Label9" runat="server" Text="考核种类:"></asp:Label>
             </td>
              <td>
   <asp:Label ID="AppraiseClass" runat="server" Text="空"></asp:Label>
             </td> 
             <td>
-  <asp:Label ID="Label9" runat="server" Text="考核发生时间:"></asp:Label>
+  <asp:Label ID="Label11" runat="server" Text="考核发生时间:"></asp:Label>
             </td> 
             <td>
    <asp:Label ID="AppraiseTime" runat="server" Text="空"></asp:Label>
@@ -138,14 +131,14 @@
         </table>
 
 
-    <table style="text-align:left;width:100%;">
+    <table style="width:100%;text-align:left;" >
         <tr >
              <td  style="width:15%;text-align:left;">
  <asp:Label ID="Label14" runat="server" Text="考核内容:"></asp:Label> 
             </td>
 
              <td style="width:85%;text-align:left;">
-  <asp:Label ID="AppraiseContent" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_AppraiseContent" runat="server" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
              
 
@@ -158,7 +151,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-   <asp:Label ID="lb_khfk_yj" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_xd_khfk_yj" runat="server" Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -186,7 +179,7 @@
             </td>
         
              <td style="text-align:left;column-span:all;">
-  <asp:Label ID="ClassObjection" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
             </tr>
            <tr>
@@ -204,7 +197,7 @@
             </td>
           
              <td style="width:85%;text-align:left;column-span:all;">
-   <asp:Label ID="ChargehandOpinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_ChargehandOpinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -222,7 +215,7 @@
             </td>
      
             <td style="width:85%;text-align:left;column-span:all;">
- <asp:Label ID="Leader_1_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_1_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -240,7 +233,7 @@
             </td>
          
             <td style="width:85%;text-align:left;column-span:all;">
-                <asp:Label ID="Leader_2_Opinion" runat="server" Text="空"></asp:Label>
+                <asp:TextBox ID="tbx_Leader_2_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -259,7 +252,7 @@
             </td>
       
             <td style="width:85%;text-align:left;column-span:all;">
-                 <asp:Label ID="Leader_3_Opinion" runat="server" Text="空"></asp:Label>
+                 <asp:TextBox ID="tbx_Leader_3_Opinion" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
             </td>
            </tr>
        <tr>
@@ -272,29 +265,30 @@
             </td>
         </tr>
     </table>
- </div>             
+ </div>   
         <div id="GDFK_BanLi" runat="server" style="width:950px;text-align:center;float:none;margin:0 auto;">
     <asp:Label ID="Label1" runat="server" Text="书记审批" Font-Bold="False" Font-Size="Larger"></asp:Label>
 <hr />
             <table style="width:100%">
                 <tr>
-                    <td>
+                    <td style="width:15%">
  <asp:Label ID="Label10" runat="server" Text="书记审批状态:"></asp:Label>
           
                     </td>
-                     <td>
+                     <td style="width:15%">
   <asp:DropDownList ID="ddl1_ld2sp_zt" runat="server">
                 <asp:ListItem Selected="True">同意</asp:ListItem>
                 <asp:ListItem>不同意</asp:ListItem>
             </asp:DropDownList>
                     </td>
-                    <td style="width:65%" >
-
+                   <td style="width:15%"></td>
+                     <td style="width:15%"></td>
+                    <td style="width:10%" >
+                     <asp:Label ID="Label27" runat="server" Text="考核金额:"></asp:Label>   
                     </td>
-                     <td>
-                         &nbsp;</td>
-                     <td>
-                         &nbsp;</td>
+                     <td style="width:15%" >
+                           <asp:TextBox ID="tbx_sjsh_kh_jiner" runat="server" Height="16px" Width="100%" Enabled="False" ></asp:TextBox>
+                    </td>
                 </tr>
             </table>
        <table style="width:100%">

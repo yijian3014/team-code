@@ -19,7 +19,7 @@ using System.Data;
 */
 public partial class DJSH : System.Web.UI.Page
 {
-    public static string sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
+    public static string sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -64,15 +64,17 @@ public partial class DJSH : System.Web.UI.Page
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
-        {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state='被考核人' and  AppraiseGroupID='"
-                + Session["UserID"].ToString() + "') or (flow_state='考核人' and userid='" + Session["UserID"].ToString() + "')";
+        {//选择数据时要包含反馈与审核两种类弄记录
+
+                sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state='考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString()
+                + "')or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "')   order by AppraiseClass desc ,UserName";
+
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state<>'被考核人' and  AppraiseGroupID='"
-                + Session["UserID"].ToString() + "') or (flow_state<>'考核人' and userid='" + Session["UserID"].ToString() + "')";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where (flow_state<>'被考核人' and  KHFK_ZT is not null and  AppraiseGroupID='"+ Session["UserID"].ToString()
+                + "') or (flow_state<>'考核人' and  KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')   order by AppraiseClass desc ,UserName";
             BTN_BLLC.Visible = false;
         }
         ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
@@ -170,7 +172,7 @@ public partial class DJSH : System.Web.UI.Page
         if (GridView1.SelectedIndex >= 0)
         //表格表头索引是-1，要屏蔽
         {
-            GridView1.Rows[GridView1.SelectedIndex].BackColor = System.Drawing.Color.Blue;
+            GridView1.Rows[GridView1.SelectedIndex].BackColor = System.Drawing.Color.BlanchedAlmond;
 
             // Response.Write("<script>alert(" + GridView1.Rows[GridView1.SelectedIndex].Cells.Count + ")</script>");
 
@@ -246,13 +248,14 @@ public partial class DJSH : System.Web.UI.Page
         if (ddl_khfk_zt.Text == "同意")
 
         {
+
             switch (Convert.ToInt16(lb_tcr_usrid.Text) / 1000)
             {
                 case 1:
                     next_step = "组长";
                     break;
                 case 3:
-                    next_step = "主管领导";
+                     next_step = "主管领导";
                     break;
                 case 4:
                     next_step = "主任";
@@ -264,6 +267,8 @@ public partial class DJSH : System.Web.UI.Page
                     next_step = "完成";
                     break;
             }
+            if (AppraiseClass.Text == "其它" )
+                next_step = "书记";
         }
 
         if (ddl_khfk_zt.Text == "不同意")
@@ -276,6 +281,7 @@ public partial class DJSH : System.Web.UI.Page
         if (tbx_khfk_yj.Text == "&nbsp;" || tbx_khfk_yj.Text == "")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
+            tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
             + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "'  ,flow_state ='" + next_step
@@ -284,8 +290,9 @@ public partial class DJSH : System.Web.UI.Page
         }
         else
         {
+            tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
+            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] ='" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
                 + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -370,7 +377,7 @@ public partial class DJSH : System.Web.UI.Page
     {
         if (GridView1.SelectedIndex > -1)
         {
-            if ((Convert.ToInt16(lb_AppraiseGroupID.Text) == Convert.ToInt16(login_usrid)) && (Flow_State.Text == "考核人" || Flow_State.Text == "被考核人"))
+            if ((Convert.ToInt16(lb_AppraiseGroupID.Text) == Convert.ToInt16(login_usrid)) &&  Flow_State.Text == "被考核人")
             {//当处理被考核流程时用考核反馈界面，没有流程销毁权限
 
                 if (GridView1.Rows.Count > 0)
@@ -391,32 +398,34 @@ public partial class DJSH : System.Web.UI.Page
                 else
                     Response.Write("<script>alert('无待办项')</script>");
             }
-            else
+            if ((Convert.ToInt16(lb_tcr_usrid.Text) == Convert.ToInt16(login_usrid)) && Flow_State.Text == "考核人" )
             {
                 Response.Redirect("KHLR.aspx");                        
             }
-            //if (Convert.ToInt16(lb_tcr_usrid.Text) == Convert.ToInt16(login_usrid) && Flow_State.Text == "考核人---废除")
-            //{
-            //    //当处理考核流程时用审核界面，所不同的是发起人有销毁流程的权限。     
-            //    //办理流程：用于初始化待办流程窗体
-            //    if (GridView1.Rows.Count > 0)
-            //    {
-            //        GDFK_BanLi.Visible = true;
-            //        if (tbx_ClassObjection.Text != "&nbsp;")
-            //            tbx_djsh_yj.Text = tbx_ClassObjection.Text;
-            //        else
-            //            tbx_djsh_yj.Text = "";
 
-            //        if (ClassState.Text == "同意" || ClassState.Text == "&nbsp;")
-            //            ddl_djsh_zt.SelectedIndex = 0;
-            //        else
-            //            ddl_djsh_zt.SelectedIndex = 1;
-            //        if (COTime.Text == "&nbsp;")
-            //            COTime.Text = DateTime.Now.ToString();
-            //    }
-            //    else
-            //        Response.Write("<script>alert('无待办项')</script>");
-            //}
+            //事实上点检这一状态在数据库没有被定义，也就是点检角色没有审核流程的权限，只有发起，反馈的权限。
+            if (Convert.ToInt16(lb_tcr_usrid.Text) == Convert.ToInt16(login_usrid) && Flow_State.Text == "点检")
+            {
+                //当处理考核流程时用审核界面，所不同的是发起人有销毁流程的权限。     
+                //办理流程：用于初始化待办流程窗体
+                if (GridView1.Rows.Count > 0)
+                {
+                    GDFK_BanLi.Visible = true;
+                    if (tbx_ClassObjection.Text != "&nbsp;")
+                        tbx_djsh_yj.Text = tbx_ClassObjection.Text;
+                    else
+                        tbx_djsh_yj.Text = "";
+
+                    if (ClassState.Text == "同意" || ClassState.Text == "&nbsp;")
+                        ddl_djsh_zt.SelectedIndex = 0;
+                    else
+                        ddl_djsh_zt.SelectedIndex = 1;
+                    if (COTime.Text == "&nbsp;")
+                        COTime.Text = DateTime.Now.ToString();
+                }
+                else
+                    Response.Write("<script>alert('无待办项')</script>");
+            }
 
         }
         else
