@@ -281,7 +281,7 @@ public partial class DJSH : System.Web.UI.Page
         if (tbx_khfk_yj.Text == "&nbsp;" || tbx_khfk_yj.Text == "")
         //判断是否是第一次办理，只记录第一次办里时间。
         {
-            tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
+            tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");       
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
             sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
             + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "'  ,flow_state ='" + next_step
@@ -474,5 +474,12 @@ public partial class DJSH : System.Web.UI.Page
     protected void btn_khfk_calcel_Click(object sender, EventArgs e)
     {
         div_khxd.Visible = true;
-    }    
+    }
+
+    protected void tbx_check_Click(object sender, EventArgs e)
+    {
+        TextBox TBX = (TextBox)sender;
+        TBX.Text.Replace("<", "<'");
+        TBX.Text.Replace(">", "'>");
+    }
 }

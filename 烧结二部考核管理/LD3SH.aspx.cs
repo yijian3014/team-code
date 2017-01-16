@@ -441,4 +441,10 @@ public partial class LD3SH : System.Web.UI.Page
         Session["UserRule"] = "";
         Response.Redirect("login.aspx");
     }
+    protected void tbx_check_Click(object sender, EventArgs e)
+    {
+        TextBox TBX = (TextBox)sender;
+        TBX.Text.Replace("<", "<'");
+        TBX.Text.Replace(">", "'>");
+    }
 }

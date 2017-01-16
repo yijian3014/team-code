@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GDFK.aspx.cs" Inherits="GDFK" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GDFK.aspx.cs" Inherits="GDFK" EnableEventValidation="false"  validateRequest="false" %>
 
 <!DOCTYPE html>
 
@@ -8,22 +8,6 @@
     <title></title>
   
 
-  
-    <style type="text/css">
-        .auto-style1 {
-            height: 34px;
-        }
-        .auto-style2 {
-            width: 15%;
-        }
-        .auto-style3 {
-            height: 34px;
-            width: 15%;
-        }
-    </style>
-  
-
-  
 </head>
 <body>
     <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
@@ -60,7 +44,7 @@
          
 
         </div>
-          <div style="text-align:center;margin:0 auto;width:100%;width:950px;height:100px auto;float:none;overflow:auto;">
+         <div style="text-align:center;margin:0 auto;width:950px;height:400px;overflow:auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
    <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
@@ -188,34 +172,7 @@
      <asp:Label ID="lb_khfk_zt" runat="server" Text="空"></asp:Label>
             </td>
            </tr>
-        <tr>
-              <td class="auto-style2">
-  <asp:Label ID="Label17" runat="server" Text="工段反馈状态:" Visible="False"></asp:Label>
-            </td>
-             <td  style="width:15%">
- <asp:Label ID="ClassState" runat="server" Text="空" Visible="False"></asp:Label>
-            </td>
-            </tr>
-       
-        <tr>
-
-             <td style="text-align:left;column-span:all;"" class="auto-style3" >
- <asp:Label ID="Label18" runat="server" Text="工段意见:" Visible="False"></asp:Label>
-            </td>
-        
-             <td style="text-align:left;column-span:all;" class="auto-style1">
-                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" Visible="False" ></asp:TextBox>
-            </td>
-            </tr>
-           <tr>
-             <td class="auto-style2">
-  <asp:Label ID="Label20" runat="server" Text="工段意见提出时间:" Visible="False"></asp:Label>
-            </td> 
-            <td  style="width:15%">
-<asp:Label ID="COTime1" runat="server" Text="空" Visible="False"></asp:Label>
-
-            </td>
-        </tr>
+     
         <tr>
             <td  style="text-align:left;column-span:all;" class="auto-style2">
    <asp:Label ID="Label21" runat="server" Text="组长审批意见:"></asp:Label>
@@ -377,12 +334,12 @@
        <table style="width:100%">
            <tr>
                <td style="text-align:left;">
-        <asp:Label ID="Label37" runat="server" Text="意见:" ></asp:Label>
+        <asp:Label ID="Label37" runat="server" Text="反馈意见:" ></asp:Label>
                </td>
                </tr>
            <tr>
                <td colspan="3" >
-            <asp:TextBox ID="tbx_khfk_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="tbx_khfk_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine" OnTextChanged="tbx_check_Click"></asp:TextBox>
                </td>
            </tr>
       <tr>
@@ -397,7 +354,7 @@
       </tr>
  </table>  
         </div>
-       <div>
+      <div>
           <%--下面的字段全部为隐藏，主要用于前后台数据缓存--%>
           
  <asp:Label ID="Label29" runat="server" Text="被考核工段ID:" Visible="False"></asp:Label>
@@ -410,6 +367,20 @@
  <asp:Label ID="Label15" runat="server" Text="点检操作是否超时:" Visible="False"></asp:Label>
             
   <asp:Label ID="DJ_ReturnTime" runat="server" Text="空" Visible="False"></asp:Label>
+             <td  style="width:15%">
+  <asp:Label ID="Label14" runat="server" Text="工段反馈状态:" Visible="False"></asp:Label>
+       
+ <asp:Label ID="ClassState" runat="server" Text="空" Visible="False"></asp:Label>
+           
+           
+ <asp:Label ID="Label17" runat="server" Text="工段意见:" Visible="False"></asp:Label>
+          
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" Visible="False" ></asp:TextBox>
+        
+  <asp:Label ID="Label18" runat="server" Text="工段意见提出时间:" Visible="False"></asp:Label>
+        
+<asp:Label ID="COTime1" runat="server" Text="空" Visible="False"></asp:Label>
+
             
 </div>    
 

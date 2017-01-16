@@ -248,7 +248,7 @@ public partial class LD1SH : System.Web.UI.Page
             if(AppraiseClass.Text =="其它")
                 next_step = "书记";
         else 
-        next_step = "主任";
+        next_step = "主管领导";
 
         else next_step = "废除";
 
@@ -453,5 +453,11 @@ public partial class LD1SH : System.Web.UI.Page
         Session["UserRule"] = "";
 
         Response.Redirect("login.aspx");
+    }
+    protected void tbx_check_Click(object sender, EventArgs e)
+    {
+        TextBox TBX = (TextBox)sender;
+        TBX.Text.Replace("<", "<'");
+        TBX.Text.Replace(">", "'>");
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="KHLR.aspx.cs" Inherits="KHLR" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="KHLR.aspx.cs" Inherits="KHLR" validateRequest="false"  %>
 
 <!DOCTYPE html>
 
@@ -49,8 +49,8 @@
                     <asp:ListItem Value="3">其它</asp:ListItem>
                 </asp:DropDownList>
                 &nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label4" runat="server" Text="被考核工段："></asp:Label>
-                <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
+                <asp:Label ID="Label4" runat="server" Text="被考核人："></asp:Label>
+                <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged">
                 </asp:DropDownList>
                 <br />
                 <br />
@@ -89,7 +89,7 @@
                 <asp:Label ID="Label17" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label22" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label26" runat="server" ForeColor="White" Text="工段"></asp:Label>
-                <asp:TextBox ID="TextBox3" runat="server" Height="106px" ReadOnly="True" TextMode="MultiLine" Width="344px"></asp:TextBox>
+                <asp:TextBox ID="TextBox3" runat="server" Height="106px" ReadOnly="True" TextMode="MultiLine" Width="344px" OnTextChanged="tbx_check_Click"></asp:TextBox>
                 <br />
                 <br />
                 <asp:Label ID="Label30" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
@@ -110,7 +110,7 @@
                 <asp:Label ID="Label19" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label23" runat="server" ForeColor="White" Text="月落乌啼霜满天"></asp:Label>
                 <asp:Label ID="Label27" runat="server" ForeColor="White" Text="工段"></asp:Label>
-                <asp:TextBox ID="TextBox4" runat="server" Height="106px" TextMode="MultiLine" Width="344px"></asp:TextBox>
+                <asp:TextBox ID="TextBox4" runat="server" Height="106px" TextMode="MultiLine" Width="344px" OnTextChanged="tbx_check_Click"></asp:TextBox>
                 <br />
                 <br />
                 <br />

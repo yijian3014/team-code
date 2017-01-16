@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LD1SH.aspx.cs" Inherits="LD1SH" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="LD1SH.aspx.cs" Inherits="LD1SH" EnableEventValidation="false"  validateRequest="false"%>
 
 <!DOCTYPE html>
 
@@ -6,16 +6,6 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 15%;
-            height: 20px;
-        }
-        .auto-style2 {
-            width: 85%;
-            height: 20px;
-        }
-    </style>
 </head>
 <body>
    <form id="form2" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
@@ -52,7 +42,7 @@
          
 
         </div>
-          <div style="text-align:center;margin:0 auto;width:950px;height:100px auto;float:none;overflow:auto;">
+          <div style="text-align:center;margin:0 auto;width:950px;height:400px ;overflow:auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
                   <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
@@ -357,12 +347,12 @@
        <table style="width:100%">
            <tr>
                <td style="text-align:left;">
-        <asp:Label ID="Label37" runat="server" Text="意见:" ></asp:Label>
+        <asp:Label ID="Label37" runat="server" Text="反馈意见:" ></asp:Label>
                </td>
                </tr>
            <tr>
                <td colspan="3" >
-            <asp:TextBox ID="tbx_khfk_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine"></asp:TextBox>
+            <asp:TextBox ID="tbx_khfk_yj" runat="server" Height="225px" Width="100%" TextMode="MultiLine" OnTextChanged="tbx_check_Click"></asp:TextBox>
                </td>
            </tr>
       <tr>
@@ -390,9 +380,22 @@
  <asp:Label ID="Label15" runat="server" Text="点检操作是否超时:" Visible="False"></asp:Label>
             
   <asp:Label ID="DJ_ReturnTime" runat="server" Text="空" Visible="False"></asp:Label>
+             <td  style="width:15%">
+  <asp:Label ID="Label11" runat="server" Text="工段反馈状态:" Visible="False"></asp:Label>
+       
+ <asp:Label ID="Label38" runat="server" Text="空" Visible="False"></asp:Label>
+           
+           
+ <asp:Label ID="Label40" runat="server" Text="工段意见:" Visible="False"></asp:Label>
+          
+                 <asp:TextBox ID="TextBox1" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" Visible="False" ></asp:TextBox>
+        
+  <asp:Label ID="Label41" runat="server" Text="工段意见提出时间:" Visible="False"></asp:Label>
+        
+<asp:Label ID="Label42" runat="server" Text="空" Visible="False"></asp:Label>
+
             
 </div>    
-  
 
     </form>
 </body>

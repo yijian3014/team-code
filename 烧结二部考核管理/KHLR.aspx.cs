@@ -101,7 +101,7 @@ public partial class KHLR : System.Web.UI.Page
         Label35.Visible = true;
         //----------------------
     }
-    void RFrashTable()      //刷新工段反馈表。
+    void RFrashTable()      //刷新考核反馈表。
     {
         GridView1.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where Flow_State='考核人' and UserID=" + UserID + " and tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by UserName", "SJ2B_KH_KaoHe_info");
         GridView1.DataKeyNames = new string[] { "ID" };
@@ -109,20 +109,12 @@ public partial class KHLR : System.Web.UI.Page
     }
     void RFDDL2()
     {
-        //string cmdtext1 = "select ClassName,CompleteNo from JY_ClassInfo where CompleteNo<1000";
-        //this.DDListMUGL2.DataSource = bc.GetDataSet(cmdtext1, "JY_ClassInfo");
-        //this.DDListMUGL2.DataTextField = "ClassName";
-        //this.DDListMUGL2.DataValueField = "CompleteNo";
-        //this.DDListMUGL2.DataBind();
+        //刷新DropDawnList2，将组长及组长一下所有人的真实名称和UserID加入其中。
         string sql = "select UserID,UserRName from SJ2B_KH_User where UserRole<=3 ";
         this.DropDownList2.DataSource = bc.GetDataSet(sql, "SJ2B_KH_User");
         this.DropDownList2.DataTextField = "UserRName";
         this.DropDownList2.DataValueField = "UserID";
         this.DropDownList2.DataBind();
-        //sql = "select UserID,UserRName from SJ2B_KH_User where UserRole=1";
-        //this.DropDownList2.DataSource = bc.GetDataSet(sql, "SJ2B_KH_User");
-        //this.DropDownList2.DataTextField = "UserRName";
-        //this.DropDownList2.DataValueField = "UserID";
 
     }
 //--------------------------------
@@ -138,13 +130,21 @@ public partial class KHLR : System.Web.UI.Page
         VisF();             //将修改考核模块隐藏。
 
     }
-    protected void ImageButton3_Click(object sender, ImageClickEventArgs e)     //转换至View3---考核总览页面。
+    protected void ImageButton3_Click(object sender, ImageClickEventArgs e)     //转换至View3---考核用户工作查看页面。
     {
-        Response.Write("<script language='javascript'>;location.href='Login.aspx';</script>");
-        Response.End();
-        //this.MultiView1.ActiveViewIndex = 2;
+        switch (UserID / 1000)  //根据UserID判断需要跳转的页面。
+        {
+            case 1: Response.Redirect("DJSH.aspx"); break;  //点检。
+            case 2: Response.Redirect("GDFK.aspx"); break;  //工段。
+            case 3: Response.Redirect("ZZSH.aspx"); break;  //组长。
+            case 4: Response.Redirect("LD1SH.aspx"); break; //主管领导。
+            case 5: Response.Redirect("LD2SH.aspx"); break; //书记。
+            case 6: Response.Redirect("LD3SH.aspx"); break; //主任。
 
-        ////拴心考核总览表，并以考核类别，及考核提出人排序。
+        }
+        //此ImageButten原来为跳转至考核 
+        //this.MultiView1.ActiveViewIndex = 2;
+        ////刷心考核总览表，并以考核类别，及考核提出人排序。
         //GridView2.DataSource = bc.GetDataSet("Select * From SJ2B_KH_KaoHe_info where  tc_DateTime+30>='" + DateTime.Now.ToString() + "' Order by AppraiseClass desc,UserName", "SJ2B_KH_KaoHe_info");
         //GridView2.DataKeyNames = new string[] { "ID" };
         //GridView2.DataBind();
@@ -156,55 +156,91 @@ public partial class KHLR : System.Web.UI.Page
 
 
 
-        string UserRName = Session["UserRName"].ToString();
-        string KH_JinE = TBJinE.Text.ToString();
-        string AppGID = DropDownList2.SelectedValue.ToString();
-        string AppContent = TBContent.Text;
-        if  (AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
+        string UserRName = Session["UserRName"].ToString(); //提取Session值中的UserRname（用户实际姓名）。
+
+        string KH_JinE = TBJinE.Text.ToString();            //提取文本框中的考核金额。
+
+        string AppGID = DropDownList2.SelectedValue.ToString(); //提取DropDawnList
+
+        string AppContent = TBContent.Text;     //提取考核内容。
+
+        double a;   //用于判断输入字符是否为数字
+
+        //if 1+++
+        if (double.TryParse(TBJinE.Text, out a))    //判断TBJinE.Text是否可以转换为double型的a。
         {
-            //将考核类别及被考核工段转换为数字并分别给变量赋值。
-            int AppClass = Convert.ToInt32(DropDownList1.SelectedValue);
-            string AppGroup =DropDownList2.SelectedItem.ToString();
 
-            if (AppContent.Length <= 200)   //判断考核内容是否超过200字。
+            //if2+++
+            if (AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
             {
-                //为变量赋值，并调用存储过程。
-                string sqlString;
-                string sql;
-                sqlString = "server=DBCLUSERVER;uid=ssc;pwd=scadmin;database=dzsw";
-                sql = "SJ2B_KH_Add";
-                SqlConnection sqlCon = new SqlConnection(sqlString);
-                SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.Parameters.Add("@UserID", SqlDbType.VarChar, 20).Value = UserID;
-                sqlCmd.Parameters.Add("@UserName", SqlDbType.VarChar, 20).Value = UserRName;
-                sqlCmd.Parameters.Add("@DataTime", SqlDbType.VarChar, 20).Value = DateTime.Now;
-                sqlCmd.Parameters.Add("@AppClass", SqlDbType.VarChar, 20).Value = AppClass;
-                sqlCmd.Parameters.Add("@AppTime", SqlDbType.VarChar, 20).Value = Calendar1.SelectedDate;
-                sqlCmd.Parameters.Add("@AppGroup", SqlDbType.VarChar, 20).Value = AppGroup;
-                sqlCmd.Parameters.Add("@AppGID", SqlDbType.VarChar, 20).Value = AppGID;
-                sqlCmd.Parameters.Add("@AppContent", SqlDbType.VarChar, 200).Value = AppContent;
-                sqlCmd.Parameters.Add("@AppMoney", SqlDbType.VarChar, 20).Value = KH_JinE;
+                //将考核类别及被考核工段转换为数字并分别给变量赋值。
+                int AppClass = Convert.ToInt32(DropDownList1.SelectedValue);
+
+                string AppGroup = DropDownList2.SelectedItem.ToString();
+
+                //if 3———
+                if (AppContent.Length <= 200)   //判断考核内容是否超过200字。
+                {
+                    //为变量赋值，并调用存储过程。
+                    string sqlString;
+                    string sql;
+                    sqlString = "server=DBCLUSERVER;uid=ssc;pwd=scadmin;database=dzsw";
+                    sql = "SJ2B_KH_Add";
+                    SqlConnection sqlCon = new SqlConnection(sqlString);
+                    SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
+                    sqlCmd.CommandType = CommandType.StoredProcedure;
+                    sqlCmd.Parameters.Add("@UserID", SqlDbType.VarChar, 20).Value = UserID; //考核提出人ID。
+
+                    sqlCmd.Parameters.Add("@UserName", SqlDbType.VarChar, 20).Value = UserRName;    //考核提出人真实姓名
+
+                    sqlCmd.Parameters.Add("@DataTime", SqlDbType.VarChar, 20).Value = DateTime.Now; //考核提出时间。
+
+                    sqlCmd.Parameters.Add("@AppClass", SqlDbType.VarChar, 20).Value = AppClass;     //考核类别。
+
+                    sqlCmd.Parameters.Add("@AppTime", SqlDbType.VarChar, 20).Value = Calendar1.SelectedDate;    //考核事件发生时间。
+
+                    sqlCmd.Parameters.Add("@AppGroup", SqlDbType.VarChar, 20).Value = AppGroup; // 被考核人真实姓名。
+
+                    sqlCmd.Parameters.Add("@AppGID", SqlDbType.VarChar, 20).Value = AppGID; //被考核人ID。
+
+                    sqlCmd.Parameters.Add("@AppContent", SqlDbType.VarChar, 200).Value = AppContent;    //考核内容。
+
+                    sqlCmd.Parameters.Add("@AppMoney", SqlDbType.VarChar, 20).Value = KH_JinE;  //考核金额。
 
 
-                sqlCon.Open();
-                sqlCmd.ExecuteNonQuery();
-                sqlCon.Close();
-                Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('考核提交成功。');</script>");       //提交成功后提示。
-                
-                //提交成功后将考核提出人以及考核内容的文本框赋值为空。
-                TBJinE.Text = string.Empty;
-                TBContent.Text = string.Empty;
-            }
+                    sqlCon.Open();
+                    sqlCmd.ExecuteNonQuery();
+                    sqlCon.Close();
+                    Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('考核提交成功。');</script>");       //提交成功后提示。
+
+                    //提交成功后将考核提出人以及考核内容的文本框赋值为空。
+                    TBJinE.Text = string.Empty;
+                    TBContent.Text = string.Empty;
+
+
+                }
+
+                //else 3———
+                else
+                {
+                    Response.Write("<script language='javascript'>alert('字数超过限制，请控制在200字以内。');</script>");  //考核内容超过限制提示。
+
+                }//if 3及其else结束———
+            } 
+
+            //else 2===
             else
             {
-                Response.Write("<script language='javascript'>alert('字数超过限制，请控制在200字以内。');</script>");  //考核内容超过限制提示。
-            }
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('请将考核提出人及考核内容填写完整。');</script>");//内容不完整提示。
+            }//if 2及其else结束===
         }
+
+        //else 1+++
         else
-        {
-            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('请将考核提出人及考核内容填写完整。');</script>");//内容不完整提示。
-        }
+        { 
+        Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('`考核金额必须为数字，请重新输入。');</script>");
+        TBJinE.Text = null;
+        }//if 1及其else结束+++
     }
 
     protected void Button1_Click(object sender, EventArgs e)        //提交修改后的考核内容并将考核强行流转至考核提出人的上一级，当考核类别为其它时直接流转至书记或主任---View2
@@ -321,5 +357,20 @@ public partial class KHLR : System.Web.UI.Page
         {
             Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('注意：所选日期已超过今天！！！');</script>");
         }
+    }
+    protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (UserID / 1000 <= Convert.ToInt32(DropDownList2.SelectedValue) / 1000&&Convert.ToInt32(DropDownList2.SelectedValue)/1000!=2)
+        {
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('考核人级别应高于被考核人，请重新选择');</script>");
+            RFDDL2();
+        }
+
+    }
+    protected void tbx_check_Click(object sender, EventArgs e)
+    {
+        TextBox TBX = (TextBox)sender;
+        TBX.Text.Replace("<", "<'");
+        TBX.Text.Replace(">", "'>");
     }
 }
