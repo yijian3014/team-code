@@ -64,8 +64,8 @@ public partial class ZZSH : System.Web.UI.Page
             //取需要组长审核或反馈的记录
      
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-                + " where (flow_state='考核人'and KHFK_ZT is not null and AppraiseClass='" + lb+"' and userid='" + Session["UserID"].ToString() + "')"
-                   +" or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "' and AppraiseClass='" + lb + "')"
+                + " where (flow_state='考核人'and KHFK_ZT is not null  and userid='" + Session["UserID"].ToString() + "')"
+                   +" or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
                     + " or (flow_state='组长'and   ChargehandState is null  and AppraiseClass='" + lb + "')"
                + " order by AppraiseClass desc ,UserName";
 
@@ -74,8 +74,8 @@ public partial class ZZSH : System.Web.UI.Page
         if (rbl_cx.SelectedIndex == 2)
         {   //取组长审核完的记录：
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-              + " where (flow_state<>'考核人'and KHFK_ZT is not null and AppraiseClass='" + lb + "' and userid='" + Session["UserID"].ToString() + "')"
-                 + " or (flow_state<>'被考核人'and KHFK_ZT is not null and AppraiseGroupID='" + Session["UserID"].ToString() + "' and AppraiseClass='" + lb + "')"
+              + " where (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
+                 + " or (flow_state<>'被考核人'and KHFK_ZT is not null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
                   + " or (flow_state<>'组长'and   ChargehandState is not null  and AppraiseClass='" + lb + "')"
              + " order by AppraiseClass desc ,UserName";
 

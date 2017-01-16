@@ -9,6 +9,21 @@
   
 
   
+    <style type="text/css">
+        .auto-style1 {
+            height: 34px;
+        }
+        .auto-style2 {
+            width: 15%;
+        }
+        .auto-style3 {
+            height: 34px;
+            width: 15%;
+        }
+    </style>
+  
+
+  
 </head>
 <body>
     <form id="form1" runat="server" style="text-align:center;margin:0 auto;width:950px"  >
@@ -48,20 +63,21 @@
           <div style="text-align:center;margin:0 auto;width:100%;width:950px;height:100px auto;float:none;overflow:auto;">
          <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" Width="100%" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCreated="GridView1_RowCreated" Font-Size="Small">
              <Columns>
-                 <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
+   <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
                  <asp:BoundField DataField="AppraiseID" HeaderText="考核ID" />
                  <asp:BoundField DataField="Flow_State" HeaderText="流程状态" />
                  <asp:BoundField DataField="UserId" HeaderText="用户ID" Visible="False" />
-                 <asp:BoundField DataField="UserName" HeaderText="用户名" />
-                 <asp:BoundField DataField="tc_DateTime" HeaderText="提出考核时间" />
+                 <asp:BoundField DataField="UserName" HeaderText="考核人" />
+                 <asp:BoundField DataField="tc_DateTime" HeaderText="提出考核时间" Visible="False" />
                  <asp:BoundField DataField="AppraiseClass" HeaderText="考核种类" />
                  <asp:BoundField DataField="AppraiseTime" HeaderText="考核发生时间" />
-                 <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
-                 <asp:BoundField DataField="AppraiseGroupID" HeaderText="被考核工段ID" Visible="false" />
+                 <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核人" />
+                 <asp:BoundField DataField="AppraiseGroupID" HeaderText="被考核人ID" Visible="false" />
                  <asp:BoundField DataField="AppraiseContent" HeaderText="考核内容" />
                  <asp:BoundField DataField="kh_jiner" HeaderText="考核金额" />
+                 <asp:BoundField  DataField="KHFK_ZT" HeaderText="考核反馈状态" />
                  <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" Visible="False" />
-                 <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" />
+                 <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" Visible="False" />
                  <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" Visible="False" />
                  <asp:BoundField DataField="ClassObjection" HeaderText="工段意见" SortExpression="ClassObjection" Visible="False" />
                  <asp:BoundField DataField="ChargehandOpinion" HeaderText="组长审批意见" Visible="False" />
@@ -155,7 +171,7 @@
         </table>
     <table style="width:100%;text-align:left;">
         <tr>
-            <td  style="width:15%;text-align:left;column-span:all;">
+            <td  style="text-align:left;column-span:all;" class="auto-style2">
    <asp:Label ID="Label35" runat="server" Text="考核反馈意见:"></asp:Label>
             </td>
           
@@ -165,7 +181,7 @@
            </tr>
        <tr>
            
-             <td  style="width:15%;text-align:left;column-span:all;">
+             <td  style="text-align:left;column-span:all;" class="auto-style2">
    <asp:Label ID="Label39" runat="server" Text="考核反馈状态:"></asp:Label>
             </td>
            <td style="width:85%;text-align:left;column-span:all;">
@@ -173,35 +189,35 @@
             </td>
            </tr>
         <tr>
-              <td  style="width:15%">
-  <asp:Label ID="Label17" runat="server" Text="工段反馈状态:"></asp:Label>
+              <td class="auto-style2">
+  <asp:Label ID="Label17" runat="server" Text="工段反馈状态:" Visible="False"></asp:Label>
             </td>
              <td  style="width:15%">
- <asp:Label ID="ClassState" runat="server" Text="空"></asp:Label>
+ <asp:Label ID="ClassState" runat="server" Text="空" Visible="False"></asp:Label>
             </td>
             </tr>
        
         <tr>
 
-             <td style="text-align:left;column-span:all;"" >
- <asp:Label ID="Label18" runat="server" Text="工段意见:"></asp:Label>
+             <td style="text-align:left;column-span:all;"" class="auto-style3" >
+ <asp:Label ID="Label18" runat="server" Text="工段意见:" Visible="False"></asp:Label>
             </td>
         
-             <td style="text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+             <td style="text-align:left;column-span:all;" class="auto-style1">
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" Visible="False" ></asp:TextBox>
             </td>
             </tr>
            <tr>
-             <td  style="width:15%">
-  <asp:Label ID="Label20" runat="server" Text="工段意见提出时间:"></asp:Label>
+             <td class="auto-style2">
+  <asp:Label ID="Label20" runat="server" Text="工段意见提出时间:" Visible="False"></asp:Label>
             </td> 
             <td  style="width:15%">
-<asp:Label ID="COTime1" runat="server" Text="空"></asp:Label>
+<asp:Label ID="COTime1" runat="server" Text="空" Visible="False"></asp:Label>
 
             </td>
         </tr>
         <tr>
-            <td  style="width:15%;text-align:left;column-span:all;">
+            <td  style="text-align:left;column-span:all;" class="auto-style2">
    <asp:Label ID="Label21" runat="server" Text="组长审批意见:"></asp:Label>
             </td>
           
@@ -211,7 +227,7 @@
            </tr>
        <tr>
            
-             <td  style="width:15%;text-align:left;column-span:all;">
+             <td  style="text-align:left;column-span:all;" class="auto-style2">
    <asp:Label ID="Label22" runat="server" Text="组长审批状态:"></asp:Label>
             </td>
            <td style="width:85%;text-align:left;column-span:all;">
@@ -219,7 +235,7 @@
             </td>
            </tr>
         <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
 <asp:Label ID="Label23" runat="server" Text="主管领导审批意见:"></asp:Label>
             </td>
      
@@ -228,7 +244,7 @@
             </td>
            </tr>
        <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
   <asp:Label ID="Label24" runat="server" Text="主管领导审批状态:"></asp:Label>
             </td>
            
@@ -237,7 +253,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
                 <asp:Label ID="Label28" runat="server" Text="书记审批意见:"></asp:Label>
             </td>
          
@@ -246,7 +262,7 @@
             </td>
            </tr>
        <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
                  <asp:Label ID="Label30" runat="server" Text="书记审批状态:"></asp:Label>
             </td>
          
@@ -256,7 +272,7 @@
 
         </tr>
         <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
                  <asp:Label ID="Label32" runat="server" Text="主任审批意见:"></asp:Label>
             </td>
       
@@ -265,7 +281,7 @@
             </td>
            </tr>
        <tr>
-            <td style="width:15%;text-align:left;column-span:all;">
+            <td style="text-align:left;column-span:all;" class="auto-style2">
                  <asp:Label ID="Label38" runat="server" Text="主任审批状态:"></asp:Label>
             </td>
          

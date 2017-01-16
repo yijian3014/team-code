@@ -47,16 +47,17 @@
                  <asp:BoundField DataField="AppraiseID" HeaderText="考核ID" />
                  <asp:BoundField DataField="Flow_State" HeaderText="流程状态" />
                  <asp:BoundField DataField="UserId" HeaderText="用户ID" Visible="False" />
-                 <asp:BoundField DataField="UserName" HeaderText="用户名" />
-                 <asp:BoundField DataField="tc_DateTime" HeaderText="提出考核时间" />
+                 <asp:BoundField DataField="UserName" HeaderText="考核人" />
+                 <asp:BoundField DataField="tc_DateTime" HeaderText="提出考核时间" Visible="False" />
                  <asp:BoundField DataField="AppraiseClass" HeaderText="考核种类" />
                  <asp:BoundField DataField="AppraiseTime" HeaderText="考核发生时间" />
-                 <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核工段" />
-                 <asp:BoundField DataField="AppraiseGroupID" HeaderText="被考核工段ID" Visible="false" />
+                 <asp:BoundField DataField="AppraiseGroup" HeaderText="被考核人" />
+                 <asp:BoundField DataField="AppraiseGroupID" HeaderText="被考核人ID" Visible="false" />
                  <asp:BoundField DataField="AppraiseContent" HeaderText="考核内容" />
                  <asp:BoundField DataField="kh_jiner" HeaderText="考核金额" />
+                 <asp:BoundField  DataField="KHFK_ZT" HeaderText="考核反馈状态" />
                  <asp:BoundField DataField="DJ_ReturnTime" HeaderText="点检反馈时间" SortExpression="DJ_ReturnTime" Visible="False" />
-                 <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" />
+                 <asp:BoundField DataField="ClassState" HeaderText="工段反馈状态" SortExpression="ClassState" Visible="False" />
                  <asp:BoundField DataField="COTime" HeaderText="工段意见提出时间" Visible="False" />
                  <asp:BoundField DataField="ClassObjection" HeaderText="工段意见" SortExpression="ClassObjection" Visible="False" />
                  <asp:BoundField DataField="ChargehandOpinion" HeaderText="组长审批意见" Visible="False" />
@@ -165,29 +166,29 @@
            </tr>
         <tr>
               <td  style="width:15%">
-  <asp:Label ID="Label16" runat="server" Text="工段反馈状态:"></asp:Label>
+  <asp:Label ID="Label16" runat="server" Text="工段反馈状态:" Visible="False"></asp:Label>
             </td>
              <td  style="width:15%">
- <asp:Label ID="ClassState" runat="server" Text="空"></asp:Label>
+ <asp:Label ID="ClassState" runat="server" Text="空" Visible="False"></asp:Label>
             </td>
             </tr>
        
         <tr>
 
              <td style="text-align:left;column-span:all;"" >
- <asp:Label ID="Label17" runat="server" Text="工段意见:"></asp:Label>
+ <asp:Label ID="Label17" runat="server" Text="工段意见:" Visible="False"></asp:Label>
             </td>
         
              <td style="text-align:left;column-span:all;">
-                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" ></asp:TextBox>
+                 <asp:TextBox ID="tbx_ClassObjection" runat="server"  Width="100%" Hight="auto" TextMode="MultiLine" Visible="False" ></asp:TextBox>
             </td>
             </tr>
            <tr>
              <td  style="width:15%">
-  <asp:Label ID="Label18" runat="server" Text="工段意见提出时间:"></asp:Label>
+  <asp:Label ID="Label18" runat="server" Text="工段意见提出时间:" Visible="False"></asp:Label>
             </td> 
             <td  style="width:15%">
-<asp:Label ID="COTime1" runat="server" Text="空"></asp:Label>
+<asp:Label ID="COTime1" runat="server" Text="空" Visible="False"></asp:Label>
 
             </td>
         </tr>

@@ -28,10 +28,10 @@ public partial class KHLR : System.Web.UI.Page
         }
         if (!IsPostBack)
         {
- RFDDL2();
+            UserID = Convert.ToInt32(Session["UserID"]);
         }
         UserID = Convert.ToInt32(Session["UserID"]);
-       
+
 
 
     }
@@ -114,7 +114,7 @@ public partial class KHLR : System.Web.UI.Page
         //this.DDListMUGL2.DataTextField = "ClassName";
         //this.DDListMUGL2.DataValueField = "CompleteNo";
         //this.DDListMUGL2.DataBind();
-        string sql = "select UserID,UserRName from SJ2B_KH_User where UserRole<3 ";
+        string sql = "select UserID,UserRName from SJ2B_KH_User where UserRole<=3 ";
         this.DropDownList2.DataSource = bc.GetDataSet(sql, "SJ2B_KH_User");
         this.DropDownList2.DataTextField = "UserRName";
         this.DropDownList2.DataValueField = "UserID";
@@ -140,8 +140,8 @@ public partial class KHLR : System.Web.UI.Page
     }
     protected void ImageButton3_Click(object sender, ImageClickEventArgs e)     //转换至View3---考核总览页面。
     {
-        Response.Redirect(Session["parent_page"].ToString());
-      
+        Response.Write("<script language='javascript'>;location.href='Login.aspx';</script>");
+        Response.End();
         //this.MultiView1.ActiveViewIndex = 2;
 
         ////拴心考核总览表，并以考核类别，及考核提出人排序。
@@ -160,7 +160,7 @@ public partial class KHLR : System.Web.UI.Page
         string KH_JinE = TBJinE.Text.ToString();
         string AppGID = DropDownList2.SelectedValue.ToString();
         string AppContent = TBContent.Text;
-        if (AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
+        if  (AppContent != string.Empty)     //判断考核提出人及考核内容是否为空
         {
             //将考核类别及被考核工段转换为数字并分别给变量赋值。
             int AppClass = Convert.ToInt32(DropDownList1.SelectedValue);
@@ -311,6 +311,7 @@ public partial class KHLR : System.Web.UI.Page
     }
     protected void View1_Load(object sender, EventArgs e)
     {
+        RFDDL2();
         Calendar1.SelectedDate = DateTime.Today;
     }
     protected void Calendar1_SelectionChanged(object sender, EventArgs e)

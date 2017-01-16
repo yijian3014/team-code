@@ -15,7 +15,7 @@
 </head>
 <body style="height: 1550px">
     <form id="form1" runat="server">
-    <div  style="height: 1476px; width: 900px;">
+    <div  style="height: 1476px; width: 900px;" aria-readonly="True">
     
         <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Head.jpg" />
         <br />
@@ -24,7 +24,7 @@
         <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/返回.jpg" OnClick="ImageButton3_Click" />
         <br />
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
-            <asp:View ID="View1" runat="server" OnLoad="View1_Load">
+            <asp:View ID="View1" runat="server" OnInit="View1_Load">
                 <asp:Label ID="Label1" runat="server" Text="考核金额："></asp:Label>
                 <asp:TextBox ID="TBJinE" runat="server" MaxLength="10"></asp:TextBox>
                 <br />
@@ -43,7 +43,7 @@
                 <br />
                 <br />
                 <asp:Label ID="Label3" runat="server" Text="考核类别："></asp:Label>
-                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True">
+                <asp:DropDownList ID="DropDownList1" runat="server">
                     <asp:ListItem Value="1">生产</asp:ListItem>
                     <asp:ListItem Value="2">设备</asp:ListItem>
                     <asp:ListItem Value="3">其它</asp:ListItem>
@@ -51,12 +51,6 @@
                 &nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label4" runat="server" Text="被考核工段："></asp:Label>
                 <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True">
-                   <%-- <asp:ListItem Value="1">甲班</asp:ListItem>
-                    <asp:ListItem Value="2">乙班</asp:ListItem>
-                    <asp:ListItem Value="3">丙班</asp:ListItem>
-                    <asp:ListItem Value="4">丁班</asp:ListItem>
-                    <asp:ListItem Value="5">白班</asp:ListItem>
-                    <asp:ListItem Value="6">车间</asp:ListItem>--%>
                 </asp:DropDownList>
                 <br />
                 <br />
