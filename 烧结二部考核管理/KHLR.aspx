@@ -20,7 +20,7 @@
         <asp:Image ID="Image1" runat="server" ImageUrl="~/Image/Head.jpg" />
         <br />
         <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Image/考核录入.jpg" OnClick="ImageButton1_Click" />
-        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Image/工段反馈.jpg" OnClick="ImageButton2_Click" />
+        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Image/考核反馈.jpg" OnClick="ImageButton2_Click" />
         <asp:ImageButton ID="ImageButton3" runat="server" ImageUrl="~/Image/返回.jpg" OnClick="ImageButton3_Click" />
         <br />
         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">

@@ -82,7 +82,6 @@
                      <td>
                          <asp:DropDownList ID="ddl_usr_rule" runat="server" Height="16px" Width="145px">
                              <asp:ListItem Value="1">点检</asp:ListItem>
-                             <asp:ListItem>2</asp:ListItem>
                          </asp:DropDownList>
                     </td>
                      <td>

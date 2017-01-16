@@ -23,7 +23,7 @@ public partial class USER_MGR : System.Web.UI.Page
             {
                 btn_usr_add.Visible = true;
                 btn_usr_del.Visible = true; 
-                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";              
+                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 or  userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + "order by UserID";              
               }
             else
             {
@@ -179,9 +179,6 @@ public partial class USER_MGR : System.Web.UI.Page
         e.Row.Attributes.Add("onclick", evt);
 
     }
-
-  
-
     protected void Button2_Click(object sender, EventArgs e)
     {
         GDFK_BanLi.Visible = false;
@@ -204,7 +201,7 @@ public partial class USER_MGR : System.Web.UI.Page
         {
             tbx_usr_acc.Enabled = true;
             tbx_usr_name.Enabled = true; ;
-            ddl_usr_rule.Enabled = true;
+            ddl_usr_rule.Enabled = false;
             tbx_usr_pas.Enabled = true;
         }
         tbx_usr_acc.Text = "";
@@ -221,10 +218,10 @@ public partial class USER_MGR : System.Web.UI.Page
         mtd = "Change";
         if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
         {
-            tbx_usr_acc.Enabled = true;
-            tbx_usr_name.Enabled = true;
-            ddl_usr_rule.Enabled = true;
-          
+            tbx_usr_acc.Enabled = false;
+            tbx_usr_name.Enabled = false;
+            ddl_usr_rule.Enabled = false;
+
         }
         else
         {

@@ -283,7 +283,7 @@ public partial class DJSH : System.Web.UI.Page
         {
             tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");       
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] = '" + tbx_khfk_yj.Text
+            sqlstr_update = "update [dzsw].[dbo].[SJ2B_KH_KaoHe_info] set [KHFK_YJ] = '" + tbx_khfk_yj.Text
             + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "'  ,flow_state ='" + next_step
             + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -292,7 +292,7 @@ public partial class DJSH : System.Web.UI.Page
         {
             tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] ='" + tbx_khfk_yj.Text
+            sqlstr_update = "update [dzsw].[dbo].[SJ2B_KH_KaoHe_info] set [KHFK_YJ] ='" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
                 + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -400,6 +400,7 @@ public partial class DJSH : System.Web.UI.Page
             }
             if ((Convert.ToInt16(lb_tcr_usrid.Text) == Convert.ToInt16(login_usrid)) && Flow_State.Text == "考核人" )
             {
+                               
                 Response.Redirect("KHLR.aspx");                        
             }
 

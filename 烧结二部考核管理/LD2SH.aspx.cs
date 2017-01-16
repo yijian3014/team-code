@@ -240,7 +240,7 @@ public partial class LD2SH : System.Web.UI.Page
 
         tb1_ld2sp_yj.Text = tb1_ld2sp_yj.Text.Replace("'", "''");
         tb1_ld2sp_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-        sqlstr_update = "update SJ2B_KH_KaoHe_info set [Leader_2_Opinion] = '" + tb1_ld2sp_yj.Text
+        sqlstr_update = "update [dzsw].[dbo].[SJ2B_KH_KaoHe_info] set [Leader_2_Opinion] = '" + tb1_ld2sp_yj.Text
            + "',[Leader_2_State]='" + ddl1_ld2sp_zt.Text + "',flow_state ='" + next_step
             + "' where  AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
 
@@ -410,7 +410,7 @@ public partial class LD2SH : System.Web.UI.Page
         {
             tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] ='" + tbx_khfk_yj.Text
+            sqlstr_update = "update [dzsw].[dbo].[SJ2B_KH_KaoHe_info] set [KHFK_YJ] ='" + tbx_khfk_yj.Text
             + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "'  ,flow_state ='" + next_step
             + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
             + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();
@@ -419,7 +419,7 @@ public partial class LD2SH : System.Web.UI.Page
         {
             tbx_khfk_yj.Text = tbx_khfk_yj.Text.Replace("'", "''");
             tbx_khfk_yj.Text += "'+ Char(13)+Char(10)+'该信息由:" + Session["UserRname"].ToString() + " 编辑于 " + DateTime.Now.ToString() + "'+Char(13)+Char(10)+'";
-            sqlstr_update = "update SJ2B_KH_KaoHe_info set [KHFK_YJ] ='" + tbx_khfk_yj.Text
+            sqlstr_update = "update [dzsw].[dbo].[SJ2B_KH_KaoHe_info] set [KHFK_YJ] ='" + tbx_khfk_yj.Text
                 + "',[KHFK_SJ]=getdate(),KHFK_ZT='" + ddl_khfk_zt.Text + "',flow_state ='" + next_step
                 + "' where AppraiseGroupID='" + Session["UserID"].ToString() + "'"
                 + " and AppraiseID=" + GridView1.Rows[GridView1.SelectedIndex].Cells[1].Text.Trim();

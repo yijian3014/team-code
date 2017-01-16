@@ -317,6 +317,8 @@ public partial class KHLR : System.Web.UI.Page
         TextBox3.Text = FK;
         TextBox4.Text = AC;
         TextBox5.Text = JE;
+
+
     }
 
 
@@ -327,6 +329,10 @@ public partial class KHLR : System.Web.UI.Page
         if (bc.ExecSQL(SQLstr))
         {
             Response.Write("<script language='javascript'>alert('该考核已删除。');</script>");
+           
+
+            this.MultiView1.ActiveViewIndex = 1;
+            RFrashTable();      //刷新工段反馈表。
             VisF();
 
         }
