@@ -19,21 +19,23 @@ public partial class USER_MGR : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
-            {
-                btn_usr_add.Visible = true;
-                btn_usr_del.Visible = true; 
-                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 or  userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + "order by UserID";              
-              }
-            else
-            {
-                btn_usr_add.Visible = false;
-                btn_usr_del.Visible = false;
-               sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) +" order by UserID";
-                
-             }
+           
            login_user.Text = Session["UserRName"].ToString();
         }
+        if (Convert.ToInt16(Session["userid"].ToString().Trim()) / 1000 == 6)
+        {
+            btn_usr_add.Visible = true;
+            btn_usr_del.Visible = true;
+            sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 or  userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + "order by UserID";
+        }
+        else
+        {
+            btn_usr_add.Visible = false;
+            btn_usr_del.Visible = false;
+            sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + " order by UserID";
+
+        }
+
         GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
         GridView1.DataBind();
         btn_usr_edt.Visible = true;
@@ -147,7 +149,7 @@ public partial class USER_MGR : System.Web.UI.Page
             {
                 btn_usr_add.Visible = true;
                 btn_usr_del.Visible = true;
-                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000 order by UserID";
+                sel_string = "select * from [dzsw].[dbo].[SJ2B_KH_User] where userid<2000  or  userid= " + Convert.ToInt16(Session["userid"].ToString().Trim()) + " order by UserID";
                 GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
                 GridView1.DataBind();
             }
@@ -159,6 +161,8 @@ public partial class USER_MGR : System.Web.UI.Page
                 GridView1.DataSource = ds.GetDataSet(sel_string, "SJ2B_KH_User");
                 GridView1.DataBind();
             }
+
+
         }
         catch (Exception er)
         {

@@ -248,7 +248,7 @@ public partial class LD1SH : System.Web.UI.Page
             if(AppraiseClass.Text =="其它")
                 next_step = "书记";
         else 
-        next_step = "主任";
+        next_step = "书记";
 
         else next_step = "废除";
 
@@ -405,7 +405,7 @@ public partial class LD1SH : System.Web.UI.Page
                     next_step = "主管领导";
                     break;
                 case 4:
-                    next_step = "主任";
+                    next_step = "书记";
                     break;
                 case 5:
                     next_step = "主任";

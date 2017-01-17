@@ -258,7 +258,7 @@ public partial class DJSH : System.Web.UI.Page
                      next_step = "主管领导";
                     break;
                 case 4:
-                    next_step = "主任";
+                    next_step = "书记";
                     break;
                 case 5:
                     next_step = "主任";
@@ -360,7 +360,6 @@ public partial class DJSH : System.Web.UI.Page
         myPostBackOptions.AutoPostBack = false;
         myPostBackOptions.RequiresJavaScriptProtocol = true;
         myPostBackOptions.PerformValidation = false;
-
         String evt = Page.ClientScript.GetPostBackClientHyperlink(sender as GridView, "Select$" + e.Row.RowIndex.ToString());
         e.Row.Attributes.Add("onclick", evt);
 
