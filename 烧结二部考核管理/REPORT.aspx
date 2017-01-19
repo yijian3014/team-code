@@ -101,9 +101,9 @@
   </div>
          
 
-    <div style="text-align:center;margin:0 auto;width:90%;float:none; height:auto 50%;overflow:auto;">
+    <div style="text-align:center;margin:0 auto;width:90%;float:none; height:760px;overflow:auto;">
     
-        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="600px" ShowBackButton="False" ShowFindControls="False" >
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="12pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="750px" ShowBackButton="False" ShowFindControls="False" >
            
         </rsweb:ReportViewer>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="dzswDataSetTableAdapters.SJ2B_KH_KaoHe_infoTableAdapter"></asp:ObjectDataSource>
