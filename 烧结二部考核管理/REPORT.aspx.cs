@@ -65,19 +65,25 @@ public partial class REPORT : System.Web.UI.Page
 
     protected void btn_cx_Click(object sender, EventArgs e)
     {
-        string lclb = "";
-        string lczt = "";
+        string lclb = "";//类别
+        string lczt = "";//状态
+        string lc_banbie = "";//班别 
         if (ddl_lclb.Text != "全部")
             lclb = " and AppraiseClass='" + ddl_lclb.Text + "'";
         if (ddl_lczt.Text != "全部")
             lczt = "  and Flow_State='" + ddl_lczt.Text + "'";
         if (ddl_lczt.Text == "其它")
             lczt = "  and Flow_State<>'完成' and Flow_State<>'废除'  ";
+        if (ddl_banbie.Text != "全部")
+            lc_banbie = " and AppraiseGroup='" + ddl_banbie.Text + "'";
+        if (ddl_banbie.Text == "其它")
+            lc_banbie = " and AppraiseGroup not in ( '甲班','乙班','丙班','丁班','白班') ";
+        
 
-        sel_string = "SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent, DJ_ReturnTime,KHFK_ZT, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM [dzsw].[dbo].SJ2B_KH_KaoHe_info WHERE AppraiseTime BETWEEN '"
+        sel_string = "SELECT AppraiseID, Flow_State, UserID, UserName, tc_DateTime, AppraiseClass, AppraiseTime, AppraiseGroup, AppraiseContent,kh_jiner, DJ_ReturnTime,KHFK_ZT, ClassState, ClassObjection, COTime, ChargehandOpinion, ChargehandState, Leader_1_Opinion, Leader_1_State, Leader_2_Opinion, Leader_2_State, Leader_3_Opinion, Leader_3_State FROM [dzsw].[dbo].SJ2B_KH_KaoHe_info WHERE AppraiseTime BETWEEN '"
             + tbx_bg_date.Text.Trim() + "' AND '" + tbx_ed_date.Text.Trim() + "'"
-            + lczt + lclb
-            + " order by AppraiseTime ,UserName";
+            + lczt + lclb+lc_banbie 
+            + " order by AppraiseTime ,AppraiseGroup ,AppraiseClass";
   //ds1 = ds.GetDataSet(sel_string, "SJ2B_KH_KaoHe_info");
         SqlDataSource1.SelectCommand = sel_string;
       

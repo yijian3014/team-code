@@ -33,7 +33,7 @@
   <asp:Label ID="Label1" runat="server" Text="流程类别：" ></asp:Label>
                    </td>
                     <td>
-   <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="74px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lclb_SelectedIndexChanged">
+   <asp:DropDownList ID="ddl_lclb" runat="server" Height="16px" Width="50px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lclb_SelectedIndexChanged">
        <asp:ListItem>全部</asp:ListItem>
                 <asp:ListItem>生产</asp:ListItem>
                 <asp:ListItem>设备</asp:ListItem>
@@ -45,7 +45,7 @@
                    </td>
                     <td>
  
-            <asp:DropDownList ID="ddl_lczt" runat="server" Height="16px" Width="84px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lczt_SelectedIndexChanged">
+            <asp:DropDownList ID="ddl_lczt" runat="server" Height="16px" Width="50px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lczt_SelectedIndexChanged">
                 <asp:ListItem>全部</asp:ListItem>
                 <asp:ListItem>完成</asp:ListItem>
                 <asp:ListItem>废除</asp:ListItem>
@@ -53,7 +53,22 @@
             </asp:DropDownList>
                    </td>
                     <td>
-   <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="90px" />
+                        <asp:Label ID="Label3" runat="server" Text="班别："></asp:Label>
+                   </td>
+                    <td>
+ 
+            <asp:DropDownList ID="ddl_banbie" runat="server" Height="16px" Width="50px" AutoPostBack="True" OnSelectedIndexChanged="ddl_lczt_SelectedIndexChanged">
+                <asp:ListItem>全部</asp:ListItem>
+                <asp:ListItem>甲班</asp:ListItem>
+                <asp:ListItem>乙班</asp:ListItem>
+                <asp:ListItem>丙班</asp:ListItem>
+                <asp:ListItem>丁班</asp:ListItem>
+                <asp:ListItem>白班</asp:ListItem>
+                <asp:ListItem>其它</asp:ListItem>
+            </asp:DropDownList>
+                   </td>
+                         <td>
+   <asp:Button ID="btn_cx" runat="server" OnClick="btn_cx_Click" Text="查询" Width="50px" />
                    </td>
                    <td>
                          <asp:Button ID="btn_exit" runat="server" Text="退出" OnClick="btn_exit_Click" />

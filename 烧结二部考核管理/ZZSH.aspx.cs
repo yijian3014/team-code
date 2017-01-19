@@ -10,7 +10,7 @@ using System.Data;
 using System.IO;
 public partial class ZZSH : System.Web.UI.Page
 {
-    public static string sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
+    public static string sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -56,7 +56,7 @@ public partial class ZZSH : System.Web.UI.Page
     {
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName ";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info   where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
@@ -67,17 +67,17 @@ public partial class ZZSH : System.Web.UI.Page
                 + " where (flow_state='考核人'and KHFK_ZT is not null  and userid='" + Session["UserID"].ToString() + "')"
                    +" or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
                     + " or (flow_state='组长'and   ChargehandState is null  and AppraiseClass='" + lb + "')"
-               + " order by AppraiseClass desc ,UserName";
+               + "  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
 
             BTN_BLLC.Visible = true;
         }
         if (rbl_cx.SelectedIndex == 2)
         {   //取组长审核完的记录：
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-              + " where (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
+              + " where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate() and(  (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
                  + " or (flow_state<>'被考核人'and KHFK_ZT is not null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
-                  + " or (flow_state<>'组长'and   ChargehandState is not null  and AppraiseClass='" + lb + "')"
-             + " order by AppraiseClass desc ,UserName";
+                  + " or (flow_state<>'组长'and   ChargehandState is not null  and AppraiseClass='" + lb + "'))"
+             + "  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
 
             BTN_BLLC.Visible = false;
         }

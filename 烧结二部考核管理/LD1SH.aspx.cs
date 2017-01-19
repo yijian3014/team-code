@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 public partial class LD1SH : System.Web.UI.Page
 {
-    public static string sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
+    public static string sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
     BaseClass ds = new BaseClass();
     public DataSet ds1 = new DataSet();
     DataTable dt1 = new DataTable();
@@ -60,17 +60,17 @@ public partial class LD1SH : System.Web.UI.Page
         div_khxd.Visible = false;
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from SJ2B_KH_KaoHe_info  order by AppraiseClass desc ,UserName";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info   where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
            
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-              + " where (flow_state='考核人'and KHFK_ZT is not null and  userid='" + Session["UserID"].ToString() + "')"
+              + " where   AppraiseTime between  dateadd(month,-2,getdate()) and getdate() and(  (flow_state='考核人'and KHFK_ZT is not null and  userid='" + Session["UserID"].ToString() + "')"
            //      + " or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
-                  + " or (flow_state='主管领导'and   Leader_1_State is null  and AppraiseClass='" + lb + "')"
-             + " order by AppraiseClass desc ,UserName";
+                  + " or (flow_state='主管领导'and   Leader_1_State is null  and AppraiseClass='" + lb + "'))"
+             + " order by AppraiseClass desc AppraiseGroup,AppraiseTime";
 
 
 
@@ -79,10 +79,10 @@ public partial class LD1SH : System.Web.UI.Page
         if (rbl_cx.SelectedIndex == 2)
         {
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-            + " where (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
+            + " where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate() and(  (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
            //    + " or (flow_state<>'被考核人'and KHFK_ZT is not null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
-                + " or (flow_state<>'主管领导'and   Leader_1_State is not null  and AppraiseClass='" + lb + "')"
-           + " order by AppraiseClass desc ,UserName";
+                + " or (flow_state<>'主管领导'and   Leader_1_State is not null  and AppraiseClass='" + lb + "'))"
+           + "  order by AppraiseClass desc AppraiseGroup,AppraiseTime";
 
 
             BTN_BLLC.Visible = false;
