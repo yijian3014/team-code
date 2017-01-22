@@ -536,14 +536,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="UserID">
+                    <Textbox Name="UserName">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!UserID.Value</Value>
+                              <Value>=Fields!UserName.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -552,7 +552,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>UserID</rd:DefaultName>
+                      <rd:DefaultName>UserName</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
