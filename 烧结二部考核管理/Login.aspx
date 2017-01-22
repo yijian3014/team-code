@@ -30,7 +30,7 @@
         <br />
 &nbsp;<asp:Label ID="Label3" runat="server" Font-Size="Medium" Text="密　码："></asp:Label>
 &nbsp;
-        <asp:TextBox ID="TextBoxPassWord" runat="server" Height="16px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxPassWord" runat="server" Height="16px" TextMode="Password"></asp:TextBox>
         <br />
         <br />
 

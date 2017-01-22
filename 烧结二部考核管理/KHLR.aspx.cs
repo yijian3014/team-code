@@ -358,7 +358,15 @@ public partial class KHLR : System.Web.UI.Page
     }
     protected void Calendar1_SelectionChanged(object sender, EventArgs e)
     {
-        if (Calendar1.SelectedDate > DateTime.Today)
+        int TS = 0;
+        TimeSpan ts = DateTime.Now.Subtract(Calendar1.SelectedDate);
+        TS = Convert.ToInt32(ts.Days);
+        if (TS > 8)
+        {
+            Calendar1.SelectedDate = DateTime.Today;
+            Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('选择日期与当前日期相差超过8天，请重新选择。');</script>");
+        }
+        else if (Calendar1.SelectedDate > DateTime.Today)
 
         {
             Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script language='javascript' defer>alert('注意：所选日期已超过今天！！！');</script>");
