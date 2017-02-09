@@ -30,6 +30,13 @@ public partial class Login : System.Web.UI.Page
             Session["UserName"] = TextBoxName.Text.Trim();
             Session["UserRName"] =bc.SelectSQLReturnObject("select [UserRName] from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User");
             Session["UserRule"] = bc.SelectSQLReturnObject("select [UserRole] from SJ2b_KH_User where UserName='" + TextBoxName.Text.Trim() + "' and UserPassWord='" + TextBoxPassWord.Text.Trim() + "'", "SJ2b_KH_User");
+            string sqlString;
+
+            sqlString = "server=DBCLUSERVER;uid=ssc;pwd=scadmin;database=dzsw";
+            sql = "SJ2B_KH_CSZJ";
+            SqlConnection sqlCon = new SqlConnection(sqlString);
+            SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
 
             switch (UserID/1000)
             {
@@ -39,6 +46,7 @@ public partial class Login : System.Web.UI.Page
                 case 4: Response.Redirect("LD1SH.aspx"); break;
                 case 5: Response.Redirect("LD2SH.aspx"); break;
                 case 6: Response.Redirect("LD3SH.aspx"); break;
+
 
             }
 
