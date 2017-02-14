@@ -294,7 +294,7 @@ public partial class LD2SH : System.Web.UI.Page
                 Response.Redirect("KHLR.aspx");
             }
 
-            if (Flow_State.Text == "书记" && "其它" == AppraiseClass.Text)
+            if (Flow_State.Text == "书记")
             {
                 if (GridView1.Rows.Count > 0)
                 {
