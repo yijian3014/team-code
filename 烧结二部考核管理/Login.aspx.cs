@@ -37,7 +37,9 @@ public partial class Login : System.Web.UI.Page
             SqlConnection sqlCon = new SqlConnection(sqlString);
             SqlCommand sqlCmd = new SqlCommand(sql, sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
-
+            sqlCon.Open();
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
             switch (UserID/1000)
             {
                 case 1: Response.Redirect("DJSH.aspx"); break;
