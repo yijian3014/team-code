@@ -60,14 +60,17 @@ public partial class LD1SH : System.Web.UI.Page
         div_khxd.Visible = false;
         if (rbl_cx.SelectedIndex == 0)
         {
-            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info   where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc, AppraiseGroup,AppraiseTime";
+            //sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info   where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate()  order by AppraiseClass desc, AppraiseGroup,AppraiseTime";
+            sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info   where  AppraiseTime between  '" 
+                + tbx_bg_time.Text + "' and  '" + tbx_ed_time.Text + "'  order by AppraiseClass desc, AppraiseGroup,AppraiseTime";
+
             BTN_BLLC.Visible = false;
         }
         if (rbl_cx.SelectedIndex == 1)
         {
            
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-              + " where   AppraiseTime between  dateadd(month,-2,getdate()) and getdate() and(  (flow_state='考核人'and KHFK_ZT is not null and  userid='" + Session["UserID"].ToString() + "')"
+              + " where   AppraiseTime between  '" + tbx_bg_time.Text + "' and  '" + tbx_ed_time.Text + "' and(  (flow_state='考核人'and KHFK_ZT is not null and  userid='" + Session["UserID"].ToString() + "')"
            //      + " or (flow_state='被考核人'and KHFK_ZT is null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
                   + " or (flow_state='主管领导'and   Leader_1_State is null  and AppraiseClass='" + lb + "'))"
              + " order by AppraiseClass desc, AppraiseGroup,AppraiseTime";
@@ -79,7 +82,7 @@ public partial class LD1SH : System.Web.UI.Page
         if (rbl_cx.SelectedIndex == 2)
         {
             sel_string = "select * from [dzsw].[dbo].SJ2B_KH_KaoHe_info "
-            + " where  AppraiseTime between  dateadd(month,-2,getdate()) and getdate() and(  (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
+            + " where  AppraiseTime between  '" + tbx_bg_time.Text + "' and  '" + tbx_ed_time.Text + "' and(  (flow_state<>'考核人'and KHFK_ZT is not null and userid='" + Session["UserID"].ToString() + "')"
            //    + " or (flow_state<>'被考核人'and KHFK_ZT is not null and AppraiseGroupID='" + Session["UserID"].ToString() + "')"
                 + " or (flow_state<>'主管领导'and   Leader_1_State is not null  and AppraiseClass='" + lb + "'))"
            + "  order by AppraiseClass desc, AppraiseGroup,AppraiseTime";
@@ -459,5 +462,20 @@ public partial class LD1SH : System.Web.UI.Page
         TextBox TBX = (TextBox)sender;
         TBX.Text.Replace("<", "<'");
         TBX.Text.Replace(">", "'>");
+    }
+
+    protected void tbx_time_TextChanged(object sender, EventArgs e)
+    {
+        string text = ((TextBox)sender).Text;
+        DateTime tem;
+        bool isDateTime = DateTime.TryParse(text, out tem);
+        if (isDateTime)
+        {
+            ((TextBox)sender).Text = Convert.ToDateTime(text).ToString().Substring(0,10);
+         
+            //其他代码
+        }
+        else
+            ((TextBox)sender).Text = "正确格式:2013-04-02";
     }
 }

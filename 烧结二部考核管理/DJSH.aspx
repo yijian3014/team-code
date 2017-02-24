@@ -28,16 +28,25 @@
         <div style="text-align:right;margin:0 auto;" >
             <table style="width:100%">
                 <tr>
-                    <td style="width:50%;text-align:left;">
+                    <td style="width:25%;text-align:left;">
    <asp:RadioButtonList ID="rbl_cx" runat="server" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList1_SelectedIndexChanged" >
                 <asp:ListItem Selected="True" Value="0">总览</asp:ListItem>
                 <asp:ListItem Value="1">待办理</asp:ListItem>
                 <asp:ListItem Value="2">已办结</asp:ListItem>
                 </asp:RadioButtonList>
                     </td>
-                    <td style="width:50%;text-align:right;">
+                      <td style="width:25%;text-align:left;">
+                         <asp:Label ID="Label43" runat="server" Text="开始时间："></asp:Label>
+                         <asp:TextBox ID="tbx_bg_time" runat="server" OnTextChanged="tbx_time_TextChanged" Width="120px"></asp:TextBox>
+                           </td> 
+                    <td style="width:30%;text-align:left;">
+                         <asp:Label ID="Label44" runat="server" Text="结束时间："></asp:Label>
+                         <asp:TextBox ID="tbx_ed_time" runat="server" OnTextChanged="tbx_time_TextChanged" Width="120px"></asp:TextBox>
+                         <asp:Button ID="btn_reflash" runat="server" Text="刷新" OnClick="RadioButtonList1_SelectedIndexChanged" />
+                         </td> 
+                    <td style="width:20%;text-align:right;">
                         <asp:Button ID="BTN_BLLC" runat="server" Text="办理流程" OnClick="BTN_BLLC_Click" />
-                    </td>
+                    </td>                   
                 </tr>
             </table>
          
