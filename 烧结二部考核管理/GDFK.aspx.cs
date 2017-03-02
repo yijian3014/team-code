@@ -33,6 +33,8 @@ public partial class GDFK : System.Web.UI.Page
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
             login_usrid = Session["UserID"].ToString();
+            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString().Substring(0, 7) + "-01";
+            tbx_ed_time.Text = DateTime.Now.Date.ToShortDateString();
 
         }
         div_khxd.Visible = false;

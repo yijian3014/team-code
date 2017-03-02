@@ -31,6 +31,9 @@ public partial class LD2SH : System.Web.UI.Page
             login_user.Text = Session["UserRName"].ToString();
             login_usrid = Session["UserID"].ToString();
 
+            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString().Substring(0, 7) + "-01";
+            tbx_ed_time.Text = DateTime.Now.Date.ToShortDateString();
+
         }
         GDFK_BanLi.Visible = false;
         dv_khfk_banli.Visible = false;

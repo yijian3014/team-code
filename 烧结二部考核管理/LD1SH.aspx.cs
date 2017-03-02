@@ -41,6 +41,8 @@ public partial class LD1SH : System.Web.UI.Page
                     break;
             }
             login_usrid = Session["UserID"].ToString();
+            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString().Substring(0, 7) + "-01";
+            tbx_ed_time.Text = DateTime.Now.Date.ToShortDateString();
         }
        
         GDFK_BanLi.Visible = false;

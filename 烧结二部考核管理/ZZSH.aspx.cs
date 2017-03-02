@@ -41,6 +41,8 @@ public partial class ZZSH : System.Web.UI.Page
                     lb="设备";
                     break;
             }
+            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString().Substring(0, 7) + "-01";
+            tbx_ed_time.Text = DateTime.Now.Date.ToShortDateString();
         }
         GDFK_BanLi.Visible = false;
         dv_khfk_banli.Visible = false;
