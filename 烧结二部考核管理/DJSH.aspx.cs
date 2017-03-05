@@ -39,7 +39,7 @@ public partial class DJSH : System.Web.UI.Page
             GridView1.DataBind();
             login_user.Text = Session["UserRName"].ToString();
             login_usrid = Session["UserID"].ToString();
-            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString().Substring(0, 7) + "-01";
+            tbx_bg_time.Text = DateTime.Now.Date.AddMonths(-1).ToShortDateString();
             tbx_ed_time.Text = DateTime.Now.Date.ToShortDateString();
         }
         GDFK_BanLi.Visible = false;
@@ -495,11 +495,31 @@ public partial class DJSH : System.Web.UI.Page
         bool isDateTime = DateTime.TryParse(text, out tem);
         if (isDateTime)
         {
-            ((TextBox)sender).Text = Convert.ToDateTime(text).ToString().Substring(0, 10);
+           // ((TextBox)sender).Text = Convert.ToDateTime(text).ToString().Substring(0, 10);
 
             //其他代码
         }
         else
-            ((TextBox)sender).Text = "正确格式:2013-04-02";
+            ((TextBox)sender).Text = "正确格式:2013-04-02或2013/4/2";
+    }
+    protected void btn_reflash_Click(object sender, EventArgs e)
+    {
+
+        DateTime bg_t,ed_t;
+        bool bg = DateTime.TryParse(tbx_bg_time.Text, out bg_t);
+        bool ed = DateTime.TryParse(tbx_ed_time.Text, out ed_t);
+        if (bg && ed)
+        {
+            TimeSpan midTime = DateTime.Parse(tbx_ed_time.Text) - DateTime.Parse(tbx_bg_time.Text);
+
+            if (midTime.Days > 0)
+                RadioButtonList1_SelectedIndexChanged(sender, e);
+        }
+        else
+        {
+            if (!bg) tbx_bg_time.Text = "正确格式:2013-04-02或2013/4/2";
+            if (!ed) tbx_ed_time.Text = "正确格式:2013-04-02或2013/4/2";
+        }
+
     }
 }

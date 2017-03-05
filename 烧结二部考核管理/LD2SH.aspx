@@ -39,7 +39,7 @@
                     <td style="width:30%;text-align:left;">
                          <asp:Label ID="Label44" runat="server" Text="结束时间："></asp:Label>
                          <asp:TextBox ID="tbx_ed_time" runat="server" OnTextChanged="tbx_time_TextChanged" Width="120px"></asp:TextBox>
-                         <asp:Button ID="btn_reflash" runat="server" Text="刷新" OnClick="RadioButtonList1_SelectedIndexChanged" />
+                         <asp:Button ID="btn_reflash" runat="server" OnClick="btn_reflash_Click" Text="刷新" />
                          </td> 
                     <td style="width:20%;text-align:right;">
                         <asp:Button ID="BTN_BLLC" runat="server" Text="办理流程" OnClick="BTN_BLLC_Click" />
