@@ -21,7 +21,7 @@ public partial class ZZSH : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        if (Session["UserID"] == "" || Session["UserID"] == null)        //判断是否已经登录,若未登录则弹出提示框并返回登录界面.
+        if (Session["UserID"].ToString() == "" || Session["UserID"] == null || Convert.ToInt16(Session["UserID"]) / 1000 != 3)        //判断是否已经登录,若未登录则弹出提示框并返回登录界面.
         {
             Response.Write("<script language='javascript'>alert('您尚未登陆或登陆超时');location.href='Login.aspx';</script>");
             Response.End();
