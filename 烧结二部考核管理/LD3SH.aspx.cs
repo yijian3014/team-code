@@ -488,4 +488,9 @@ public partial class LD3SH : System.Web.UI.Page
         }
 
     }
+
+    protected void btn_kh_qztq_Click(object sender, EventArgs e)
+    {
+        ds.exec_produce("SJ2B_KH_ZhuanJiaoZhuRen");
+    }
 }

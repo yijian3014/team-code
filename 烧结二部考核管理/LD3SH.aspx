@@ -42,6 +42,7 @@
                          <asp:Button ID="btn_reflash" runat="server" Text="刷新" OnClick="btn_reflash_Click" />
                          </td> 
                     <td style="width:20%;text-align:right;">
+                        <asp:Button ID="btn_kh_qztq" runat="server" OnClick="btn_kh_qztq_Click" Text="强制提取" />
                         <asp:Button ID="BTN_BLLC" runat="server" Text="办理流程" OnClick="BTN_BLLC_Click" />
                     </td>
                 </tr>
@@ -350,7 +351,7 @@
  </table>  
         </div>
          <div>
-          <%--下面的字段全部为隐藏，主要用于前后台数据缓存--%>
+             <%--下面的字段全部为隐藏，主要用于前后台数据缓存--%>
           
  <asp:Label ID="Label29" runat="server" Text="被考核工段ID:" Visible="False"></asp:Label>
             

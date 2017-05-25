@@ -72,4 +72,13 @@ public class BaseClass
         return obj;
     }
     #endregion
+    public void exec_produce(string producename)
+    {
+        SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]);
+        SqlCommand sqlCmd = new SqlCommand(producename, con);
+    sqlCmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            sqlCmd.ExecuteNonQuery();
+            con.Close();
+    }
 }
